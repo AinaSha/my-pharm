@@ -1,0 +1,17 @@
+{
+   " links": [
+        {
+            "label": "Главная",
+            "href": "/home"
+        },
+        {
+            "label": "Акции",
+            "href": "/promotion"
+        },
+        {
+            "label": "Контакты",
+            "href": "/contacts"
+        }
+   ] 
+
+}
