@@ -1,0 +1,23 @@
+%style-text {
+    font-style: normal;
+    line-height: 139.52%;
+    letter-spacing: 0.01em;
+  }
+
+%title-text {
+    @extend %style-text;
+    font-weight: 400;
+    font-size: 1.2rem
+  }
+
+%sub-title-text {
+    @extend %style-text;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+%text {
+    @extend %style-text;
+    font-weight: 400;
+    font-size: .8rem;
+  }

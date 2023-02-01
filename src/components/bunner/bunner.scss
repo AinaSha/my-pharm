@@ -1,0 +1,65 @@
+@import '../../variables.scss';
+
+.bunner {
+    position: relative;
+    &__slide {
+        height: 635px;
+        overflow: hidden;
+        img {
+            width: 0%;
+            opacity: 0;
+        }
+    }
+
+    .show_slide {
+        width: 100%;
+        opacity: 1;
+        transition: 3s;
+    }
+
+    &__text {
+        width: 723px;
+        text-align: center;
+        color: #003838;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        h1 {
+            @extend %style-text;
+            font-weight: 700;
+            font-size: 55px;
+        }
+        p {
+            margin-bottom: 2.5rem;
+            @extend %style-text;
+            font-weight: 400;
+            font-size: 35px;
+            text-align: center;
+        }
+        button {
+            width: 255px;
+            height: 56px;
+            margin: 0 auto;
+            background: #27AE60;
+            border-radius: 6px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            p {
+                margin: 0;
+                @extend %sub-title-text;
+                color: #ffffff;
+                cursor: pointer;
+            }
+        }
+        button:hover p {
+            font-size: 1.7rem;
+            transition: 1s;
+        }
+    }
+
+}
