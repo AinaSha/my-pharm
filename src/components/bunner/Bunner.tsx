@@ -1,7 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import image1 from '../../assets/imeges/image1.jpg';
-import image2 from '../../assets/imeges/image2.jpg';
-import image3 from '../../assets/imeges/image3.jpg';
 import './bunner.scss';
 
 export const Bunner: FC = () => {
@@ -18,9 +15,9 @@ export const Bunner: FC = () => {
   return (
     <section className="bunner">
       <div className="bunner__slide">
-        <img className={slide === 1 ? 'show_slide' : ''} src={image1} alt="image for banner" />
-        <img className={slide === 2 ? 'show_slide' : ''} src={image2} alt="image for banner" />
-        <img className={slide === 3 ? 'show_slide' : ''} src={image3} alt="image for banner" />
+        <div className={slide === 1 ? 'show_slide bunner__slide-1' : 'bunner__slide-1'}></div>
+        <div className={slide === 2 ? 'show_slide bunner__slide-2' : ' bunner__slide-2'}></div>
+        <div className={slide === 3 ? 'show_slide bunner__slide-3' : 'bunner__slide-3'}></div>
       </div>
       <div className="bunner__text">
         <h1>MyPharm - онлайн аптека</h1>
