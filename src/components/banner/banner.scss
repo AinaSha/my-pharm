@@ -1,0 +1,150 @@
+@import '../../variables.scss';
+
+%banner-slide {
+    width: 100%;
+    height: 100%;
+    // opacity: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // transition: 1s;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bunner {
+    margin-top: 10%;
+    position: relative;
+    &__slide {
+        height: 635px;
+        overflow: hidden;
+        position: relative;
+    }
+    &__slide-1 {
+        @extend %banner-slide;
+        background-image: url("../../assets/imeges/image1.jpg");
+       }
+    &__slide-3 {
+        @extend %banner-slide;
+        background-image: url("../../assets/imeges/image3.jpg");
+    }
+
+    .show_slide {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        transition: 2s;
+    }
+
+    .none_slide {
+        opacity: 0;
+        transition: 3s;
+    }
+
+    &__text {
+        width: 723px;
+        text-align: center;
+        color: #003838;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        h1 {
+            @extend %style-text;
+            font-weight: 700;
+            font-size: 55px;
+        }
+        p {
+            margin-bottom: 2.5rem;
+            @extend %style-text;
+            font-weight: 400;
+            font-size: 35px;
+            text-align: center;
+        }
+        button {
+            width: 255px;
+            height: 56px;
+            margin: 0 auto;
+            background: #27AE60;
+            border-radius: 6px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            p {
+                margin: 0;
+                @extend %sub-title-text;
+                color: #ffffff;
+                cursor: pointer;
+            }
+        }
+        button:hover p {
+            font-size: 1.7rem;
+            transition: 1s;
+        }
+    }
+
+}
+
+@media (max-width: 1000px) {
+    .bunner {
+        &__slide {
+            height: 435px;
+        }
+        &__text {
+            width: 70%;
+            top: 15%;
+    
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                margin-bottom: 2rem;
+                font-size: 1.5rem;
+            }
+            button {
+                width: 230px;
+                height: 50px;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 425px) {
+    .bunner {
+        &__slide {
+            height: 300px;
+            img {
+                width: 0%;
+                height: 230px;
+                opacity: 0;
+            }
+        }
+        &__text {
+            h1 {
+                font-size: 1.5rem;
+            }
+            p {
+                margin-bottom: 1rem;
+                font-size: 1rem;
+            }
+            button {
+                width: 200px;
+                height: 35px;
+
+                p {
+                    font-size: .8rem;
+                }
+            }
+            button:hover p {
+                font-size: 1.2rem;
+                transition: 1s;
+            }
+        }
+    }
+}
+
