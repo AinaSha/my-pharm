@@ -109,3 +109,10 @@
         }
     }
 }
+
+@media (max-width: 1000px) {
+    .card {
+        width: 290px;
+        min-height: 500px;
+    }    
+}
