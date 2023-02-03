@@ -86,22 +86,34 @@ export const SellSlide: FC = () => {
             <div style={{ width: `${widthSlideList}px` }} className="sell__slide">
               <div style={{ left: `${moveSlideItem}px` }} className="sell__slide-list">
                 <div ref={cardWidth} className="sell__slide-item">
-                  <img src={sell5} alt="discount items" />
+                  <a href="#">
+                    <img src={sell5} alt="discount items" />
+                  </a>
                 </div>
-                <div className="sell__slide-item">
-                  <img src={sell5} alt="discount items" />
+                <div ref={cardWidth} className="sell__slide-item">
+                  <a href="#">
+                    <img src={sell5} alt="discount items" />
+                  </a>
                 </div>
-                <div className="sell__slide-item">
-                  <img src={sell5} alt="discount items" />
+                <div ref={cardWidth} className="sell__slide-item">
+                  <a href="#">
+                    <img src={sell5} alt="discount items" />
+                  </a>
                 </div>
-                <div className="sell__slide-item">
-                  <img src={sell5} alt="discount items" />
+                <div ref={cardWidth} className="sell__slide-item">
+                  <a href="#">
+                    <img src={sell5} alt="discount items" />
+                  </a>
                 </div>
-                <div className="sell__slide-item">
-                  <img src={sell5} alt="discount items" />
+                <div ref={cardWidth} className="sell__slide-item">
+                  <a href="#">
+                    <img src={sell5} alt="discount items" />
+                  </a>
                 </div>
-                <div className="sell__slide-item">
-                  <img src={sell5} alt="discount items" />
+                <div ref={cardWidth} className="sell__slide-item">
+                  <a href="#">
+                    <img src={sell5} alt="discount items" />
+                  </a>
                 </div>
               </div>
             </div>
