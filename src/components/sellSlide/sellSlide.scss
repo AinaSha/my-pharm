@@ -1,10 +1,10 @@
 @import '../../variables.scss';
 
 .sell {
-    margin-top: 110px;
+    margin-top: 90px;
     
     &__title {
-        margin-bottom: 56px;
+        margin-bottom: 2rem;
         @extend %display;
         h5 {
            font-size: 2.2rem;
@@ -88,4 +88,69 @@
     }
 }
 
+@media (max-width: 1000px) {
+    .sell {
+        
+        &__title {
+            h5 {
+               font-size: 1rem;
+               color: #003838;
+            }
+        }
+    
+        &__slide-item {
+            width: 230px;
+            height: 300px;
+    
+            img {
+                width: 230px;
+                height: 300px;
+            }
+        }
+    
+        &__slide {
+            height: 300px;
+        }
+    }
+};
 
+@media (max-width: 425px) {
+    .sell {
+        
+        &__title {
+            margin-bottom: 1.2rem;
+            h5 {
+               font-size: 1rem;
+               color: #003838;
+            }
+        }
+
+        
+    &__title-btns {
+        @extend %display;
+
+        button {
+            width: 25px;
+            height: 25px;
+        }
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+    
+        &__slide-item {
+            width: 130px;
+            height: 180px;
+    
+            img {
+                width: 130px;
+                height: 170px;
+            }
+        }
+    
+        &__slide {
+            height: 170px;
+        }
+    }
+}
