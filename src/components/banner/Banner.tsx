@@ -6,7 +6,7 @@ export const Banner: FC = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setSlide(slide === 3 ? 1 : slide + 1);
+      setSlide(slide === 2 ? 1 : 2);
     }, 15000);
 
     return () => clearInterval(timer);
@@ -15,9 +15,12 @@ export const Banner: FC = () => {
   return (
     <section className="bunner">
       <div className="bunner__slide">
-        <div className={slide === 1 ? 'show_slide bunner__slide-1' : 'bunner__slide-1'}></div>
-        <div className={slide === 2 ? 'show_slide bunner__slide-2' : ' bunner__slide-2'}></div>
-        <div className={slide === 3 ? 'show_slide bunner__slide-3' : 'bunner__slide-3'}></div>
+        <div
+          className={slide === 1 ? 'show_slide bunner__slide-1' : 'bunner__slide-1 none_slide'}
+        ></div>
+        <div
+          className={slide === 2 ? 'show_slide bunner__slide-3' : 'bunner__slide-3 none_slide'}
+        ></div>
       </div>
       <div className="bunner__text">
         <h1>MyPharm - онлайн аптека</h1>
