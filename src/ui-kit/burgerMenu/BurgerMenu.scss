@@ -6,14 +6,13 @@
 }
 
 @media (max-width: 1000px) {
-    .burger {
-        display: block;
-        position: relative;
-        width: 30px;
-        height: 25px;
-    }
+   .burger {
+      display: block;
+      position: relative;
+      width: 30px;
+      height: 25px;
+   }
 
-    
    .burger span{
         position: absolute;
         left: 0;
@@ -22,44 +21,142 @@
         height: 2px;
         background-color: $dark-green;
         transition: all 0.3s ease 0s;
-    }
+   }
 
-    .burger::before,
-    .burger::after {
-        content: '';
-        position: absolute;
-        
-        width: 100%;
-        height: 2px;
-        background-color: $dark-green;
-    }
+   .burger::before,
+   .burger::after {
+      content: '';
+      position: absolute;
+      
+      width: 100%;
+      height: 2px;
+      background-color: $dark-green;
+   }
 
-    .burger::before {
-        top: 0;
-     }
-  
-     .burger::after {
-        bottom: 0;
+   .burger::before {
+      top: 0;
+   }
+
+   .burger::after {
+      bottom: 0;
+   }
+
+   .burger.active span {
+      transform: scale(0);
+   }
+
+   .burger.active::before {
+      transform: rotate(45deg);
+      top: 12px;
+   }
+
+   .burger.active::after {
+      transform: rotate(-45deg);
+      bottom: 11px;
+   }
+
+   .burger-menu {
+      display: block;
+      position: absolute;
+      top: 111px;
+      left: 0;
+      width: 500px;
+      background-color: $light-green;
+      padding: 20px 30px;
+      transform: translateX(-100%);
+      transition: all .3s ease;
+
+   }
+
+   .burger-menu.active {
+      transform: translateX(0%);
+   }
+
+   .location,
+   .phone-number,
+   .sign-btn {
+      margin-bottom: 15px;
+   }
+   
+   .language-container {
+      margin-bottom: 30px;
+
+      ul {
+         position: relative;
+      }
+   }
+
+   .catalog-block {
+      border: 1px solid #DADADA;
+      border-width: 1px 0px 1px 0px;
+   }
+
+   .catalog-btn {
+      color: $dark-green;
+      padding: 12px 24px;
+      background-color: transparent;
+      text-align: left;
+      padding: 12px 0px;
+      font-size: 1.125rem;
+
+      svg {
+         display: none;
+      }
+   }
+
+   .catalog-btn::after {
+      content: url('../../assets/icones/chevron-down.svg');
+      position: relative;
+      top: 3px;
+      left: 343px;
+   }
+
+   .catalog-menu {
+      position: relative;
+      top: -15px;
+      width: 80%;
+      background-color: transparent;
+   }
+
+   .menu-list {
+      display: block;
+      margin: 0px 0px;
+
+      li + li {
+         margin-left: 0px;
      }
 
-     .burger.active span {
-        transform: scale(0);
+     li {
+      padding: 24px 0px;
+      border: 1px solid #DADADA;
+      border-width: 0px 0px 1px 0px;
      }
-  
-  
-     .burger.active::before {
-        transform: rotate(45deg);
-        top: 14px;
-     }
-  
-     .burger.active::after {
-        transform: rotate(-45deg);
-        bottom: 10px;
-     }
+   }
 
-     .burger-menu {
-        display: block;
-        position: absolute;
-        top: 200px;
-     }
+}
+
+
+@media (max-width: 744px) {
+   .burger-menu {
+      top: 92px;
+   }
+}
+
+@media (max-width: 575px) {
+   .burger-menu {
+      width: 300px;
+      // top: 160px;
+   }
+
+   .catalog-menu {
+      width: 100%;
+   }
+
+   .catalog-btn::after {
+      content: url('../../assets/icones/chevron-down.svg');
+      position: relative;
+      top: 3px;
+      left: 174px;
+   }
+
 }

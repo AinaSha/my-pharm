@@ -44,7 +44,9 @@ export const Header: FC = () => {
               <img src={logo} alt="logotype" />
             </a>
           </div>
-          <Catalog />
+          <div className="catalog-parent">
+            <Catalog />
+          </div>
           <SearchForm />
           <div className="user-btns">
             <a href="" className="bookmark-btn">

@@ -24,31 +24,10 @@
     gap: 25px;
 }
 
-.menu-list {
-    display: flex;
-    align-items: center;
-
-    li + li {
-        margin-left: 25px;
-    }
-
-    li a {
-        @extend %sub-title-text;
-        font-weight: 400;
-        color: $dark-green;
-        cursor: pointer;
-    }
-}
-
 .right {
     display: flex;
     align-items: center;
-    gap: 5px;
-
-    a {
-        @extend %text;
-        color: $grey;
-    }
+    gap: 25px;
 }
 
 .bottom-header {
@@ -64,10 +43,15 @@
 }
 
 @media (max-width: 1000px) {
+    .header {
+        .header-inner {
+            padding: 20px 0px;
+        }
+    }
 
     .top-header,
     .user-btns .sign-btn,
-    .catalog-btn {
+    .catalog-parent{
         display: none;
     }
 

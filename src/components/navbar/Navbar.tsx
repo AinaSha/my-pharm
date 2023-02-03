@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { links } from '../link/link';
+import './Navbar.scss';
 
 type Link = {
   label: string;
