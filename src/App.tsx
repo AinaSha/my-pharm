@@ -1,12 +1,12 @@
 import React from 'react';
-import { Bunner } from './components/bunner/Bunner';
+import { Banner } from './components/banner/Banner';
 import { SellSlide } from './components/sellSlide/SellSlide';
 import './index.scss';
 
 function App() {
   return (
     <div className="App">
-      <Bunner />
+      <Banner />
       <SellSlide />
     </div>
   );
