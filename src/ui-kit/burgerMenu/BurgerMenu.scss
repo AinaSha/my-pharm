@@ -58,14 +58,14 @@
    .burger-menu {
       display: block;
       position: absolute;
-      top: 111px;
+      top: 108px;
       left: 0;
       width: 500px;
-      background-color: $light-green;
+      background-color: $white;
       padding: 20px 30px;
       transform: translateX(-100%);
       transition: all .3s ease;
-
+      z-index: 5;
    }
 
    .burger-menu.active {
@@ -138,14 +138,14 @@
 
 @media (max-width: 744px) {
    .burger-menu {
-      top: 92px;
+      top: 90px;
    }
 }
 
 @media (max-width: 575px) {
    .burger-menu {
       width: 300px;
-      // top: 160px;
+      top: 163px;
    }
 
    .catalog-menu {
