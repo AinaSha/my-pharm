@@ -1,11 +1,11 @@
 import React from 'react';
-import { Bunner } from './components/bunner/Bunner';
+import { Banner } from './components/banner/Banner';
 import './index.scss';
 
 function App() {
   return (
     <div className="App">
-      <Bunner />
+      <Banner />
     </div>
   );
 }

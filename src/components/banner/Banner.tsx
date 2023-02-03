@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import './bunner.scss';
+import './banner.scss';
 
-export const Bunner: FC = () => {
+export const Banner: FC = () => {
   const [slide, setSlide] = useState(1);
 
   useEffect(() => {
