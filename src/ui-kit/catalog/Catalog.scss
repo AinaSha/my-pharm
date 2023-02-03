@@ -1,0 +1,14 @@
+@import '../../variables.scss';
+
+.catalog-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    @extend %sub-title-text;
+    color: $white;
+    padding: 12px 24px;
+    background-color: $green;
+    border-style: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

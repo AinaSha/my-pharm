@@ -1,0 +1,13 @@
+@import '../../variables.scss';
+
+.language {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+
+    span {
+        @extend %sub-title-text;
+        font-weight: 400;
+    }
+}

@@ -1,0 +1,10 @@
+@import '../../variables.scss';
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    @extend %text;
+    color: $grey;
+    cursor: pointer;
+}
