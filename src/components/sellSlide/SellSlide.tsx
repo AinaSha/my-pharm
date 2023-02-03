@@ -46,7 +46,7 @@ export const SellSlide: FC = () => {
           <div className="sell__title">
             <h5>Акции и предложения</h5>
             <div className="sell__title-btns">
-              <button onClick={handleClickLeft}>
+              <button onClick={handleClickLeft} disabled={clickLeft ? false : true}>
                 <svg
                   width="13"
                   height="23"
@@ -63,7 +63,7 @@ export const SellSlide: FC = () => {
                   />
                 </svg>
               </button>
-              <button onClick={handleClickRight}>
+              <button onClick={handleClickRight} disabled={clickRight ? false : true}>
                 <svg
                   width="13"
                   height="21"
