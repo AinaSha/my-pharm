@@ -1,17 +1,16 @@
 import { FC } from 'react';
-// import { catalogLinks } from '../../components/link/link';
 
-// interface CatalogLink = {
-//     catalogLink : {
-//         value: string;
-//         href: string;
-//     };
-// };
+interface catalogItem {
+  catalogItem: {
+    item: string;
+    link: string;
+  };
+}
 
-// export const CatalogItem: FC<CatalogLink> = (prop: CatalogLink) => {
-//   return (
-//     <li className="catalog-menu__item">
-//       <a href={prop.CatalogLink.href}>{item.value}</a>
-//     </li>
-//   );
-// };
+export const RenderCatalog: FC<catalogItem> = (prop: catalogItem) => {
+  return (
+    <li className="catalog-menu__item">
+      <a href={prop.catalogItem.link}>{prop.catalogItem.item}</a>
+    </li>
+  );
+};

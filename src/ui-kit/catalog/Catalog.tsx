@@ -1,4 +1,6 @@
 import { FC, useState, useRef, useEffect } from 'react';
+// import { CatalogListItem } from './CatalogListItem';
+import { catalogLinks } from '../../components/link/link';
 
 import './Catalog.scss';
 
@@ -7,12 +9,14 @@ import './Catalog.scss';
 
 // }
 
+type CatalogLink = {
+  value: string;
+  href: string;
+};
+
 export const Catalog: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
-  // const handleDropDownFocus = (state: boolean) => {
-  //   setOpen(!state);
-  // };
   const handleClickOutsideDropDown = (e: MouseEvent) => {
     if (open && !dropDownRef.current?.contains(e.target as Node)) {
       setOpen(false);
@@ -24,6 +28,7 @@ export const Catalog: FC = () => {
       window.removeEventListener('click', handleClickOutsideDropDown);
     };
   });
+
   return (
     <>
       <div className="catalog-block" ref={dropDownRef}>
@@ -44,13 +49,13 @@ export const Catalog: FC = () => {
         </button>
         {open && (
           <ul className="catalog-menu">
-            {/* {catalogLinks.map((item: CatalogLink) => {
+            {catalogLinks.map((item: CatalogLink) => {
               return (
                 <li key={item.href} className="catalog-menu__item">
                   <a href={item.href}>{item.value}</a>
                 </li>
               );
-            })} */}
+            })}
           </ul>
         )}
       </div>
