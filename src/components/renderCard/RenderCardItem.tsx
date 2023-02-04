@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import lec22 from '../../assets/imeges/lec22.png';
 import './renderCardItem.scss';
 
@@ -21,6 +21,11 @@ export const RenderCardItem: FC<Card> = ({
   vendorСode,
   recipe,
 }: Card) => {
+  const [chooseCard, setChooseCard] = useState(false);
+
+  const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.currentTarget.classList.contains('card-like')) setChooseCard(!chooseCard);
+  };
   return (
     <div id={id} className="card">
       <div className="card__header">
@@ -42,7 +47,7 @@ export const RenderCardItem: FC<Card> = ({
           </svg>
           <p>по рецепту</p>
         </div>
-        <div className="choose card-like">
+        <div onClick={handleChooseCard} className={chooseCard ? 'choose card-like' : 'card-like'}>
           <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M2.4477 1.78105C1.94761 2.28115 1.66666 2.95942 1.66666 3.66667V25L11 20.3333L20.3333 25V3.66667C20.3333 2.95942 20.0524 2.28115 19.5523 1.78105C19.0522 1.28095 18.3739 1 17.6667 1H4.33332C3.62608 1 2.9478 1.28095 2.4477 1.78105Z"
