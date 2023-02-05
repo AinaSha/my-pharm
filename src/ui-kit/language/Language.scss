@@ -1,0 +1,40 @@
+@import '../../variables.scss';
+
+.language-container {
+    position: relative;
+
+    ul {
+        position: absolute;
+        top: 21px;
+        z-index: 3;
+    }
+
+    ul li {
+        background-color: #fcfcfc;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color ease .2s;
+    }
+
+    ul li:hover{
+        background-color: $green;
+        color: $white;
+      }
+}
+
+.language {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    border-style: none;
+
+    span {
+        @extend %sub-title-text;
+        font-weight: 400;
+    }
+}
+
+
+

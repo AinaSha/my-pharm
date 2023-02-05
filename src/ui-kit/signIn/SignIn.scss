@@ -1,0 +1,9 @@
+@import '../../variables.scss';
+
+.sign-btn {
+    display: flex;
+    align-items: center;
+    @extend %sub-title-text;
+    font-weight: 400;
+    color: $dark-green;
+}
