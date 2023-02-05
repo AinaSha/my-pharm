@@ -1,0 +1,161 @@
+@import '../../variables.scss';
+
+%position {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+}
+
+.sell {
+    margin-top: 90px;
+    
+    &__title {
+        margin-bottom: 2rem;
+        @extend %display;
+        h5 {
+           font-size: 2.2rem;
+           color: #003838;
+        }
+    }
+
+    &__title-btns {
+        @extend %display;
+
+        button{
+            width: 35px;
+            height: 35px;
+            margin-left: 1rem;
+            background-color: #FFFFFF;
+            border: 1px solid #003838;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+
+        }
+        svg {
+            color: #003838;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+        button::before {
+            content: "";
+            width: 0%;
+            height: 0%;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: #003838;
+            transition: .6s;
+            z-index: 1;
+        }
+        button:hover:before {
+            @extend %position;
+        }
+
+        button:hover svg{
+            fill: #FFFFFF;
+        }
+    }
+
+    &__slide-list {
+        @extend %display;
+        position: absolute;
+        top: 0;
+    }
+
+    &__slide-item {
+        width: 300px;
+        height: 400px;
+        margin: 0 8px;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+            width: 300px;
+            height: 400px;
+        }
+    }
+
+    &__slider-block {
+        display: flex;
+        position: relative;
+    }
+
+    &__slide {
+        position: absolute;
+        overflow: hidden;
+        height: 400px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .sell {
+        
+        &__title {
+            h5 {
+               font-size: 1rem;
+               color: #003838;
+            }
+        }
+    
+        &__slide-item {
+            width: 230px;
+            height: 300px;
+    
+            img {
+                width: 230px;
+                height: 300px;
+            }
+        }
+    
+        &__slide {
+            height: 300px;
+        }
+    }
+};
+
+@media (max-width: 425px) {
+    .sell {
+        
+        &__title {
+            margin-bottom: 1.2rem;
+            h5 {
+               font-size: 1rem;
+               color: #003838;
+            }
+        }
+
+        
+    &__title-btns {
+        @extend %display;
+
+        button {
+            width: 25px;
+            height: 25px;
+        }
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+    
+        &__slide-item {
+            width: 130px;
+            height: 180px;
+    
+            img {
+                width: 130px;
+                height: 170px;
+            }
+        }
+    
+        &__slide {
+            height: 170px;
+        }
+    }
+}
