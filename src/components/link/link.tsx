@@ -1,4 +1,4 @@
-export const catalogLinks = [
+export const lists = [
   { value: 'Лекарства', href: '/medicine' },
   { value: 'Витамины и БАДы', href: '/vitamins' },
   { value: 'Косметика', href: '/cosmetics' },

@@ -2,13 +2,12 @@
 
 .header {
     .header-inner {
-        padding: 45px 0px;
+        padding: 0px 0px;
     }
 }
 
 .top-header {
     background-color: $light-green;
-    margin-bottom: 19px;
     
     &__wrapper {
         display: flex;
@@ -34,6 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 20px 0px;
 }
 
 .user-btns {

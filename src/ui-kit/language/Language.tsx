@@ -45,7 +45,7 @@ export const Language: FC = () => {
           <ul>
             <li>KG</li>
             <li>RU</li>
-            <li>ENG</li>
+            <li>EN</li>
           </ul>
         )}
       </div>

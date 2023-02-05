@@ -1,18 +1,9 @@
 import { FC, useState, useRef, useEffect } from 'react';
-// import { CatalogListItem } from './CatalogListItem';
-import { catalogLinks } from '../../components/link/link';
+import { lists } from '../../components/link/link';
+import { CatalogList } from './CatalogList';
 
 import './Catalog.scss';
-
-// export interface CatalogProps {
-//     children: React.ReactNode,
-
-// }
-
-type CatalogLink = {
-  value: string;
-  href: string;
-};
+// import { CatalogListItem } from './CatalogListItem';
 
 export const Catalog: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -48,15 +39,12 @@ export const Catalog: FC = () => {
           Каталог
         </button>
         {open && (
-          <ul className="catalog-menu">
-            {catalogLinks.map((item: CatalogLink) => {
-              return (
-                <li key={item.href} className="catalog-menu__item">
-                  <a href={item.href}>{item.value}</a>
-                </li>
-              );
-            })}
-          </ul>
+          <CatalogList list={lists} />
+          // <ul className="catalog-menu">
+          //   {/* {lists.map((item: CatalogLink) => {
+          //     return <CatalogListItem key={href}/>;
+          //   })} */}
+          // </ul>
         )}
       </div>
     </>
