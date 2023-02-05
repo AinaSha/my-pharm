@@ -19,10 +19,6 @@ const list = [
     link: '#',
   },
   {
-    item: 'Гигиена',
-    link: '#',
-  },
-  {
     item: 'Витаминыи БАДы',
     link: '#',
   },
@@ -158,7 +154,7 @@ export const MainPageCatalog: FC = () => {
   return (
     <section className="catalog-block">
       <div className="container">
-        <h2>Заголовок</h2>
+        <h2>Каталог</h2>
         <div className="catalog-list">
           <ul>{renderCatItems()}</ul>
         </div>
