@@ -1,0 +1,75 @@
+@import '../../variables.scss';
+
+footer {
+    margin-top: 90px;
+}
+
+.footer {
+    @extend %display;
+    align-items: flex-start;
+    a {
+        color: #000000;
+    }
+
+    &__title {
+        width: 172px;
+        
+        .logo {
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        p {
+            @extend %text;
+            color: #8B8989;
+        }
+    }
+
+    .title-list {
+        margin-bottom: 1rem;
+        @extend %sub-title-text;
+        color: #003838;
+    }
+
+    li { 
+        margin-bottom: .4rem;
+        p {
+            @extend %text;
+            cursor: pointer;
+        }
+    }
+
+    &__contact {
+        a {
+            display: flex;
+
+            svg {
+                margin-right: 5px
+            }
+        }
+    }
+
+    li:hover a {
+        text-decoration: underline;
+    }
+}
+
+.sub-footer {
+    margin-top: 3rem;
+    padding: 3rem 0;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #8B8989;
+
+    &__text {
+        @extend %text;
+        color: #8B8989;
+    }
+
+    &__links {
+        @extend %display;
+        svg {
+            margin-right: 1.5rem;
+            cursor: pointer;
+        }
+    }
+}
