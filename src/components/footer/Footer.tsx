@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Logo from '../../assets/imeges/Logo.png';
 import './footer.scss';
 
 export const Footer: FC = () => {
+  const [dounArrow, setDounArrow] = useState(false);
   return (
     <footer>
       <div className="container">
@@ -17,102 +18,182 @@ export const Footer: FC = () => {
             </p>
           </div>
           <ul>
-            <li className="title-list">О компании</li>
-            <li>
-              <a href="№">О нас</a>
+            <li className="title-list">
+              <span>О компании</span>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={dounArrow ? 'footer-title-list-douwn up' : 'footer-title-list-douwn'}
+              >
+                <path
+                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                  stroke="#003838"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </li>
-            <li>
-              <a href="">Лицензия и реквизиты</a>
-            </li>
-            <li>
-              <a href="">Поставщики</a>
-            </li>
-            <li>
-              <a href="">Новости</a>
-            </li>
+            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+              <li>
+                <a href="№">О нас</a>
+              </li>
+              <li>
+                <a href="">Лицензия и реквизиты</a>
+              </li>
+              <li>
+                <a href="">Поставщики</a>
+              </li>
+              <li>
+                <a href="">Новости</a>
+              </li>
+            </ul>
           </ul>
           <ul>
-            <li className="title-list">Сервис</li>
-            <li>
-              <a href="№">Каталог</a>
+            <li className="title-list">
+              <span>Сервис</span>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={dounArrow ? 'footer-title-list-douwn' : 'footer-title-list-douwn'}
+              >
+                <path
+                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                  stroke="#003838"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </li>
-            <li>
-              <a href="">Пользовательское соглашение</a>
-            </li>
-            <li>
-              <a href="">Политика конфиденциальности</a>
-            </li>
-            <li>
-              <a href="">Акции и предложения</a>
-            </li>
-            <li>
-              <a href="">Отзывы</a>
-            </li>
+            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+              <li>
+                <a href="№">Каталог</a>
+              </li>
+              <li>
+                <a href="">Пользовательское соглашение</a>
+              </li>
+              <li>
+                <a href="">Политика конфиденциальности</a>
+              </li>
+              <li>
+                <a href="">Акции и предложения</a>
+              </li>
+              <li>
+                <a href="">Отзывы</a>
+              </li>
+            </ul>
           </ul>
           <ul>
-            <li className="title-list">Помощь</li>
-            <li>
-              <a href="№">Часто задаваемые вопросы</a>
+            <li className="title-list">
+              <span>Помощь</span>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={dounArrow ? 'footer-title-list-douwn' : 'footer-title-list-douwn'}
+              >
+                <path
+                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                  stroke="#003838"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </li>
-            <li>
-              <a href="">Как сделать заказ</a>
-            </li>
-            <li>
-              <a href="">Обратная связь</a>
-            </li>
-            <li>
-              <a href="">Доставка</a>
-            </li>
-            <li>
-              <a href="">Оплата</a>
-            </li>
-            <li>
-              <a href="">Обмен и возврат</a>
-            </li>
+            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+              <li>
+                <a href="№">Часто задаваемые вопросы</a>
+              </li>
+              <li>
+                <a href="">Как сделать заказ</a>
+              </li>
+              <li>
+                <a href="">Обратная связь</a>
+              </li>
+              <li>
+                <a href="">Доставка</a>
+              </li>
+              <li>
+                <a href="">Оплата</a>
+              </li>
+              <li>
+                <a href="">Обмен и возврат</a>
+              </li>
+            </ul>
           </ul>
           <ul className="footer__contact">
-            <li className="title-list">Конакты</li>
-            <li>
-              <a href="">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14 1H19M19 1V6M19 1L13 7M3 1C2.46957 1 1.96086 1.21071 1.58579 1.58579C1.21071 1.96086 1 2.46957 1 3V4C1 12.284 7.716 19 16 19H17C17.5304 19 18.0391 18.7893 18.4142 18.4142C18.7893 18.0391 19 17.5304 19 17V13.72C18.9998 13.5102 18.9337 13.3058 18.8109 13.1356C18.6882 12.9655 18.515 12.8383 18.316 12.772L13.823 11.274C13.5947 11.1981 13.3466 11.2071 13.1244 11.2993C12.9021 11.3915 12.7205 11.5607 12.613 11.776L11.483 14.033C9.03429 12.9264 7.07312 10.9649 5.967 8.516L8.224 7.388C8.43925 7.28045 8.60851 7.0989 8.70072 6.87665C8.79293 6.65439 8.8019 6.40634 8.726 6.178L7.228 1.683C7.16148 1.48398 7.03404 1.31093 6.86372 1.18835C6.6934 1.06577 6.48884 0.99988 6.279 1H3Z"
-                    stroke="#003838"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+            <li className="title-list">
+              <span>Конакты</span>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={dounArrow ? 'footer-title-list-douwn' : 'footer-title-list-douwn'}
+              >
+                <path
+                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                  stroke="#003838"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </li>
+            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+              <li>
+                <a href="">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 1H19M19 1V6M19 1L13 7M3 1C2.46957 1 1.96086 1.21071 1.58579 1.58579C1.21071 1.96086 1 2.46957 1 3V4C1 12.284 7.716 19 16 19H17C17.5304 19 18.0391 18.7893 18.4142 18.4142C18.7893 18.0391 19 17.5304 19 17V13.72C18.9998 13.5102 18.9337 13.3058 18.8109 13.1356C18.6882 12.9655 18.515 12.8383 18.316 12.772L13.823 11.274C13.5947 11.1981 13.3466 11.2071 13.1244 11.2993C12.9021 11.3915 12.7205 11.5607 12.613 11.776L11.483 14.033C9.03429 12.9264 7.07312 10.9649 5.967 8.516L8.224 7.388C8.43925 7.28045 8.60851 7.0989 8.70072 6.87665C8.79293 6.65439 8.8019 6.40634 8.726 6.178L7.228 1.683C7.16148 1.48398 7.03404 1.31093 6.86372 1.18835C6.6934 1.06577 6.48884 0.99988 6.279 1H3Z"
+                      stroke="#003838"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
 
-                <p>+996 777 22 22 22</p>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <svg
-                  width="20"
-                  height="16"
-                  viewBox="0 0 20 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 4L8.89 9.26C9.21866 9.47928 9.6049 9.5963 10 9.5963C10.3951 9.5963 10.7813 9.47928 11.11 9.26L19 4M3 15H17C17.5304 15 18.0391 14.7893 18.4142 14.4142C18.7893 14.0391 19 13.5304 19 13V3C19 2.46957 18.7893 1.96086 18.4142 1.58579C18.0391 1.21071 17.5304 1 17 1H3C2.46957 1 1.96086 1.21071 1.58579 1.58579C1.21071 1.96086 1 2.46957 1 3V13C1 13.5304 1.21071 14.0391 1.58579 14.4142C1.96086 14.7893 2.46957 15 3 15Z"
-                    stroke="#003838"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <p>info.mypharm@gmail.com</p>
-              </a>
-            </li>
+                  <p>+996 777 22 22 22</p>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <svg
+                    width="20"
+                    height="16"
+                    viewBox="0 0 20 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 4L8.89 9.26C9.21866 9.47928 9.6049 9.5963 10 9.5963C10.3951 9.5963 10.7813 9.47928 11.11 9.26L19 4M3 15H17C17.5304 15 18.0391 14.7893 18.4142 14.4142C18.7893 14.0391 19 13.5304 19 13V3C19 2.46957 18.7893 1.96086 18.4142 1.58579C18.0391 1.21071 17.5304 1 17 1H3C2.46957 1 1.96086 1.21071 1.58579 1.58579C1.21071 1.96086 1 2.46957 1 3V13C1 13.5304 1.21071 14.0391 1.58579 14.4142C1.96086 14.7893 2.46957 15 3 15Z"
+                      stroke="#003838"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <p>info.mypharm@gmail.com</p>
+                </a>
+              </li>
+            </ul>
           </ul>
         </div>
         <div className="sub-footer">

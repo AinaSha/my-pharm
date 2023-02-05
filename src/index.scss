@@ -22,6 +22,10 @@ a {
     text-decoration: none;
 }
 
+.hiden {
+    display: none;
+}
+
 @media (max-width: 1000px) {
     .container {
         width: 90%;
