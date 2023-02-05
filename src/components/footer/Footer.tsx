@@ -3,7 +3,12 @@ import Logo from '../../assets/imeges/Logo.png';
 import './footer.scss';
 
 export const Footer: FC = () => {
-  const [dounArrow, setDounArrow] = useState(false);
+  const [dounArrow, setDounArrow] = useState(true);
+  const [showCompani, setShowCompani] = useState(false);
+  const [showService, setShowService] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+
   return (
     <footer>
       <div className="container">
@@ -20,24 +25,27 @@ export const Footer: FC = () => {
           <ul>
             <li className="title-list">
               <span>О компании</span>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={dounArrow ? 'footer-title-list-douwn up' : 'footer-title-list-douwn'}
-              >
-                <path
-                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
-                  stroke="#003838"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {dounArrow && (
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={showCompani ? 'footer-title-list-douwn up' : 'footer-title-list-douwn'}
+                  onClick={() => setShowCompani(!showCompani)}
+                >
+                  <path
+                    d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                    stroke="#003838"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </li>
-            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+            <ul className={dounArrow ? (showCompani ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
                 <a href="№">О нас</a>
               </li>
@@ -47,32 +55,32 @@ export const Footer: FC = () => {
               <li>
                 <a href="">Поставщики</a>
               </li>
-              <li>
-                <a href="">Новости</a>
-              </li>
             </ul>
           </ul>
           <ul>
             <li className="title-list">
               <span>Сервис</span>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={dounArrow ? 'footer-title-list-douwn' : 'footer-title-list-douwn'}
-              >
-                <path
-                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
-                  stroke="#003838"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {dounArrow && (
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={showService ? 'footer-title-list-douwn up' : 'footer-title-list-douwn'}
+                  onClick={() => setShowService(!showService)}
+                >
+                  <path
+                    d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                    stroke="#003838"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </li>
-            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+            <ul className={dounArrow ? (showService ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
                 <a href="№">Каталог</a>
               </li>
@@ -93,24 +101,27 @@ export const Footer: FC = () => {
           <ul>
             <li className="title-list">
               <span>Помощь</span>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={dounArrow ? 'footer-title-list-douwn' : 'footer-title-list-douwn'}
-              >
-                <path
-                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
-                  stroke="#003838"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {dounArrow && (
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={showHelp ? 'footer-title-list-douwn up' : 'footer-title-list-douwn'}
+                  onClick={() => setShowHelp(!showHelp)}
+                >
+                  <path
+                    d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                    stroke="#003838"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </li>
-            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+            <ul className={dounArrow ? (showHelp ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
                 <a href="№">Часто задаваемые вопросы</a>
               </li>
@@ -134,24 +145,27 @@ export const Footer: FC = () => {
           <ul className="footer__contact">
             <li className="title-list">
               <span>Конакты</span>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={dounArrow ? 'footer-title-list-douwn' : 'footer-title-list-douwn'}
-              >
-                <path
-                  d="M25.3334 12L16.0001 21.3333L6.66675 12"
-                  stroke="#003838"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {dounArrow && (
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={showContact ? 'footer-title-list-douwn up' : 'footer-title-list-douwn'}
+                  onClick={() => setShowContact(!showContact)}
+                >
+                  <path
+                    d="M25.3334 12L16.0001 21.3333L6.66675 12"
+                    stroke="#003838"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </li>
-            <ul className={dounArrow ? 'footer__sub-list' : 'hiden'}>
+            <ul className={dounArrow ? (showContact ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
                 <a href="">
                   <svg
