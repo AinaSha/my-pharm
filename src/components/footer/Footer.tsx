@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Logo from '../../assets/imeges/Logo.png';
 import './footer.scss';
 
@@ -8,6 +8,18 @@ export const Footer: FC = () => {
   const [showService, setShowService] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showContact, setShowContact] = useState(false);
+
+  const listenWindowWidth = () => {
+    console.log(window.innerWidth);
+    window.innerWidth <= 768 ? setDounArrow(true) : setDounArrow(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', listenWindowWidth);
+    return () => {
+      window.removeEventListener('resize', listenWindowWidth);
+    };
+  });
 
   return (
     <footer>
