@@ -29,3 +29,9 @@ $light-green: #F5FFFB;
 $black: #000000;
 $grey: #8B8989;
 $white: #FFFFFF;
+
+%display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
