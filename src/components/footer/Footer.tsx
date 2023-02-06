@@ -10,15 +10,14 @@ export const Footer: FC = () => {
   const [showContact, setShowContact] = useState(false);
 
   const listenWindowWidth = () => {
-    console.log(window.innerWidth);
     window.innerWidth <= 768 ? setDounArrow(true) : setDounArrow(false);
   };
-  // window.innerWidth <= 768 ? setDounArrow(true) : setDounArrow(false);
 
   useEffect(() => {
     window.addEventListener('load', listenWindowWidth);
     window.addEventListener('resize', listenWindowWidth);
     return () => {
+      window.removeEventListener('load', listenWindowWidth);
       window.removeEventListener('resize', listenWindowWidth);
     };
   });
