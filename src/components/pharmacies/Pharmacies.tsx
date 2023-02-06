@@ -7,7 +7,7 @@ import pharmService from '../../assets/imeges/farm-service.png';
 
 import './Pharmacies.scss';
 
-export const Phramacies: FC = () => {
+export const Pharmacies: FC = () => {
   return (
     <section className="pharmacies">
       <div className="container">

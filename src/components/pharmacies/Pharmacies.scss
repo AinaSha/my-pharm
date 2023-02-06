@@ -1,10 +1,10 @@
 @import '../../variables.scss';
 
 .pharmacies {
-    margin-top: 500px;
-    
+    margin-top: 90px;
     &__gallery {
         width: 100%;
+        padding: 15px 0;
     }
     &__gallery-inner {
         width: 80%;
