@@ -1,0 +1,121 @@
+@import '../../variables.scss';
+
+.card {
+    width: 295px;
+    min-height: 500px;
+    margin: .3rem;
+    background-color: #F9F9F9;
+    padding: 1rem;
+    position: relative;
+    cursor: pointer;
+
+    &__header {
+        width: 100%;
+        @extend %display;
+        justify-content: space-between;
+
+        .recipe {
+            @extend %display;
+            @extend %text;
+            color: #8B8989;
+
+            svg {
+                margin-right: 5px;
+            }
+        }
+
+        .card-like {
+            cursor: pointer;
+            svg {
+                fill: #8B8989;
+            }
+        }
+
+        .choose {
+            svg {
+                fill: #F08080;
+                color: #F08080;
+            }
+        }
+
+    }
+
+    &__img {
+        height: 234px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__text {
+        h6 {
+            @extend %sub-title-text;
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__manufacturer {
+        margin-bottom: .3rem;
+        @extend %text;  
+        display: flex;
+        align-items: flex-start;
+
+        span {
+            margin-left: 5px;
+            color: #8B8989;
+        }
+    }
+
+    &__vendorСode {
+        @extend %text; 
+        color: #8B8989;
+        margin-bottom: 1rem;
+    }
+
+    &__btns {
+        @extend %display;
+        
+        .add-basket {
+            width: 100px;
+            height: 32px;
+            background-color: #27AE60;
+            border: 1px solid #27AE60;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        &__choose {
+            padding: 2px;
+            background-color: #FFFFFF;
+            @extend %display;
+            border: 1px solid #27AE60;
+            border-radius: 8px;
+            button {
+                background-color: inherit;
+                border: none;
+                cursor: pointer;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            span {
+                margin: 0 10px;
+                @extend %sub-title-text;
+                font-weight: 400;
+                
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .card {
+        width: 290px;
+        min-height: 500px;
+    }    
+}

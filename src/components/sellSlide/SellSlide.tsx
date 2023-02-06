@@ -19,7 +19,6 @@ export const SellSlide: FC = () => {
     const cardWidthMar = cardWidth.current
       ? cardWidth.current.offsetWidth + 16
       : cardWidth.current!.offsetWidth + 16;
-    console.log(cardWidthMar);
     setSlideItemWidth(cardWidthMar);
     setWidthSlideList(widthSlide);
   }, [containerWidth.current, cardWidth.current]);

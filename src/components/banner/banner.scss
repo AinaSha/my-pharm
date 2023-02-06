@@ -46,7 +46,7 @@
         text-align: center;
         color: #003838;
         position: absolute;
-        top: 25%;
+        top: 15%;
         left: 50%;
         transform: translateX(-50%);
 
@@ -125,6 +125,7 @@
             }
         }
         &__text {
+            top: 6%;
             h1 {
                 font-size: 1.5rem;
             }
