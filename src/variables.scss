@@ -4,24 +4,31 @@
     letter-spacing: 0.01em;
   }
 
-%title-text {
-    @extend %style-text;
+%title-text {                     //20px
     font-weight: 400;
-    font-size: 1.2rem
+    font-size: 1.25rem
   }
 
-%sub-title-text {
+%sub-title-text {                //16px
     @extend %style-text;
     font-weight: 700;
     font-size: 1rem;
   }
 
-%text {
+%text {                     //14pxS
     @extend %style-text;
     font-weight: 400;
-    font-size: .8rem;
+    font-size: 0.875rem;
   }
 
+
+// Colors
+$green: #27ae60;
+$dark-green: #003838;
+$light-green: #F5FFFB;
+$black: #000000;
+$grey: #8B8989;
+$white: #FFFFFF;
 
 %display {
   display: flex;

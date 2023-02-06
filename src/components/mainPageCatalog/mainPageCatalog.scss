@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.catalog-block {
+.catalog-block-main {
     margin-top: 500px;
 
     h2 {
@@ -29,6 +29,7 @@
 .cards-block {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .catalog-list {
@@ -68,7 +69,7 @@
 }
 
 @media (max-width: 425px) {
-    .catalog-block {
+    .catalog-block-main {
         margin-top: 200px;
 
         h2 {

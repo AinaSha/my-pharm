@@ -78,7 +78,7 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .footer {
         flex-wrap: wrap;
     
@@ -92,6 +92,7 @@ footer {
             }
             p {
                 width: 172px;
+                margin-top: 0;
             }
         }
 
@@ -121,4 +122,18 @@ footer {
         }
     }
     
+}
+
+@media (max-width: 425px) {
+    .sub-footer {
+       flex-wrap: wrap;
+    
+        &__text {
+            text-align: center;
+        }
+    
+        &__links {
+            margin: 1rem auto 0;
+        }
+    }
 }

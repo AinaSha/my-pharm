@@ -1,9 +1,19 @@
+@import './variables.scss';
+
 *,
-*::after,
+**::after,
 *::before {
-    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans', sans-serif;
+}
+
 
 .container {
     max-width: 1240px;
@@ -28,6 +38,6 @@ a {
 
 @media (max-width: 1000px) {
     .container {
-        width: 90%;
+        width: 95%;
     }
 }

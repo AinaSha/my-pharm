@@ -10,7 +10,7 @@ export const Footer: FC = () => {
   const [showContact, setShowContact] = useState(false);
 
   const listenWindowWidth = () => {
-    window.innerWidth <= 768 ? setDounArrow(true) : setDounArrow(false);
+    window.innerWidth <= 1000 ? setDounArrow(true) : setDounArrow(false);
   };
 
   useEffect(() => {

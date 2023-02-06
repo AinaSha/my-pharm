@@ -152,14 +152,14 @@ export const MainPageCatalog: FC = () => {
   };
 
   return (
-    <section className="catalog-block">
+    <section className="catalog-block-main">
       <div className="container">
         <h2>Каталог</h2>
         <div className="catalog-list">
           <ul>{renderCatItems()}</ul>
         </div>
         <div className="cards-block">{renderCardItems()}</div>
-        <button className="catalog-block__btn">
+        <button className="catalog-block-main__btn">
           <a href="">Перейти в каталог</a>
         </button>
       </div>
