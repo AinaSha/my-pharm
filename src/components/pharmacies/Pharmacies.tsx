@@ -13,29 +13,47 @@ export const Phramacies: FC = () => {
       <div className="container">
         <h2>Фармацевтические компании</h2>
         <div className="pharmacies__gallery">
-          <div className="pharmacy-item">
-            <img src={neman} alt="Neman logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={bimed} alt="Bimed logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={lekar} alt="Lekar logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={pharmService} alt="PharmService logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={neman} alt="Neman logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={bimed} alt="Bimed logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={lekar} alt="Lekar logotype" />
-          </div>
-          <div className="pharmacy-item">
-            <img src={pharmService} alt="PharmService logotype" />
+          <div className="pharmacies__gallery-inner">
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={neman} alt="Neman logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={bimed} alt="Bimed logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={lekar} alt="Lekar logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={pharmService} alt="PharmService logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={neman} alt="Neman logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={bimed} alt="Bimed logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={lekar} alt="Lekar logotype" />
+              </a>
+            </div>
+            <div className="pharmacy-item">
+              <a href="#">
+                <img src={pharmService} alt="PharmService logotype" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
