@@ -1,22 +1,65 @@
 @import '../../variables.scss';
 
 .pharmacies {
+    margin-top: 90px;
     &__gallery {
-        display: grid;
-        grid-template-columns: repeat(4, 23.8%);
-        gap: 35px 16px;
+        width: 100%;
+        padding: 15px 0;
+    }
+    &__gallery-inner {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        row-gap: 35px;
     }
 
     .pharmacy-item {
-        // max-width: 100%;
+        width: 200px;
         height: 118px;
         display: flex;
         align-items: center;
         justify-content: center;
 
+        a {
+            cursor: pointer;
+        }
+
         img {
-            object-fit: fill;
+            display: block;
+            width: 100%;
         }
     }
 }
 
+@media (max-width: 1024px) {
+    .pharmacies {
+        &__gallery-inner {
+            width: 95%;
+        }
+    }
+}
+
+@media (max-width: 743px) {
+    .pharmacies {
+        &__gallery {
+            width: 90%;
+            margin: 0 auto;
+        }
+        
+        &__gallery-inner {
+            // width: 80%;
+            row-gap: 10px;
+        }
+    }
+}
+
+@media (max-width: 544px) {
+    .pharmacies {
+        &__gallery-inner {
+            width: 45%;
+            row-gap: 10px;
+        }
+    }
+}

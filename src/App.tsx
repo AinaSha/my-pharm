@@ -5,6 +5,7 @@ import { Footer } from './components/footer/Footer';
 import { MainPageCatalog } from './components/mainPageCatalog/MainPageCatalog';
 import { SellSlide } from './components/sellSlide/SellSlide';
 import './index.scss';
+import { Pharmacies } from './components/pharmacies/Pharmacies';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Banner />
       <SellSlide />
       <MainPageCatalog />
+      <Pharmacies />
       <Footer />
     </div>
   );
