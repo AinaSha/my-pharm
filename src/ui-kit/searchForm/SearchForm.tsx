@@ -20,7 +20,7 @@ export const SearchForm: FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      <input type="text" />
+      <input type="text" placeholder="Введите название товара, заболевания или симптома" />
       <button>Поиск</button>
     </form>
   );
