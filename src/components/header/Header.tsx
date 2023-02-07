@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { BurgerMenu } from '../../ui-kit/burgerMenu/BurgerMenu';
 import { Catalog } from '../../ui-kit/catalog/Catalog';
@@ -40,21 +41,21 @@ export const Header: FC = () => {
         <div className="bottom-header container">
           <div className="burger-logo-block">
             <BurgerMenu isActive={isActive} onClick={handleToggle} />
-            <a href="#" className="header__logo">
+            <Link to="/" className="header__logo">
               <img src={logo} alt="logotype" />
-            </a>
+            </Link>
           </div>
           <div className="catalog-parent">
             <Catalog />
           </div>
           <SearchForm />
           <div className="user-btns">
-            <a href="" className="bookmark-btn">
+            <Link to="/" className="bookmark-btn">
               <img src={bookmark} alt="bookmark icon" />
-            </a>
-            <a href="" className="basket-btn">
+            </Link>
+            <Link to="/" className="basket-btn">
               <img src={shopingCard} alt="basket icon" />
-            </a>
+            </Link>
             <SignIn />
           </div>
         </div>

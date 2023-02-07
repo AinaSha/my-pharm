@@ -1,10 +1,10 @@
 import { FC } from 'react';
-
+import { Link } from 'react-router-dom';
 import './SignIn.scss';
 
 export const SignIn: FC = () => {
   return (
-    <a href="" className="sign-btn">
+    <Link to="/" className="sign-btn">
       <svg
         width="32"
         height="32"
@@ -21,6 +21,6 @@ export const SignIn: FC = () => {
         />
       </svg>
       Войти
-    </a>
+    </Link>
   );
 };
