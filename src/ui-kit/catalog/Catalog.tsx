@@ -38,14 +38,7 @@ export const Catalog: FC = () => {
           </svg>
           Каталог
         </button>
-        {open && (
-          <CatalogList list={lists} />
-          // <ul className="catalog-menu">
-          //   {/* {lists.map((item: CatalogLink) => {
-          //     return <CatalogListItem key={href}/>;
-          //   })} */}
-          // </ul>
-        )}
+        {open && <CatalogList list={lists} to={''} />}
       </div>
     </>
   );
