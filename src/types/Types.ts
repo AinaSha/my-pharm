@@ -4,5 +4,5 @@ export interface User {
 
 export interface CatalogItemProps {
   value?: string;
-  link?: string;
+  href: string;
 }

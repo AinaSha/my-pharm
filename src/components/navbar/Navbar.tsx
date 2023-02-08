@@ -1,5 +1,5 @@
 import { FC } from 'react';
-
+import { NavLink } from 'react-router-dom';
 import { links } from '../link/link';
 import './Navbar.scss';
 
@@ -14,7 +14,7 @@ export const Navbar: FC = () => {
       {links.map((link: Link) => {
         return (
           <li key={link.href}>
-            <a href={link.href}>{link.label}</a>
+            <NavLink to={link.href}>{link.label}</NavLink>
           </li>
         );
       })}

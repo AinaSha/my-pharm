@@ -1,22 +1,28 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Header } from './components/header/Header';
-import { Banner } from './components/banner/Banner';
 import { Footer } from './components/footer/Footer';
-import { MainPageCatalog } from './components/mainPageCatalog/MainPageCatalog';
-import { SellSlide } from './components/sellSlide/SellSlide';
+import { Main } from './pages/main/Main';
+import { Promotion } from './pages/promotion/promotion';
+import { Contact } from './pages/contact/Contact';
+
 import './index.scss';
-import { Pharmacies } from './components/pharmacies/Pharmacies';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Banner />
-      <SellSlide />
-      <MainPageCatalog />
-      <Pharmacies />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/promotion" element={<Promotion />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

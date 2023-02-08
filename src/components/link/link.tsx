@@ -9,7 +9,7 @@ export const lists = [
 ];
 
 export const links = [
-  { label: 'Главная', href: '/home' },
+  { label: 'Главная', href: '/' },
   { label: 'Акции', href: '/promotion' },
   { label: 'Контакты', href: '/contact' },
 ];
