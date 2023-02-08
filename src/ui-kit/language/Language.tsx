@@ -1,13 +1,27 @@
 import { FC, useState, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store';
+import { setLanguage, setTranslate } from '../../store/languageReducer';
 
 import './Language.scss';
 
 export const Language: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [open, setOpen] = useState<boolean>(false);
+  const [lahguage, setLahguage] = useState<string>('RU');
   const dropDownRef = useRef<HTMLDivElement>(null);
-  const handleDropDownFocus = (state: boolean) => {
-    setOpen(!state);
+
+  const chooseLang = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const curentLi = e.currentTarget;
+    curentLi.textContent ? setLahguage(curentLi.textContent) : '';
+    localStorage.setItem('language', lahguage);
+    if (curentLi.textContent) {
+      dispatch(setTranslate(curentLi.textContent));
+      dispatch(setLanguage(curentLi.textContent));
+    }
+    setOpen(!open);
   };
+
   const handleClickOutsideDropDown = (e: MouseEvent) => {
     if (open && !dropDownRef.current?.contains(e.target as Node)) {
       setOpen(false);
@@ -23,8 +37,8 @@ export const Language: FC = () => {
   return (
     <>
       <div className="language-container" ref={dropDownRef}>
-        <button className="language" onClick={() => handleDropDownFocus(open)}>
-          <span>KG</span>
+        <button className="language" onClick={() => setOpen(!open)}>
+          <span>{lahguage}</span>
           <svg
             width="18"
             height="18"
@@ -43,9 +57,9 @@ export const Language: FC = () => {
         </button>
         {open && (
           <ul>
-            <li>KG</li>
-            <li>RU</li>
-            <li>EN</li>
+            <li onClick={chooseLang}>KG</li>
+            <li onClick={chooseLang}>RU</li>
+            <li onClick={chooseLang}>EN</li>
           </ul>
         )}
       </div>

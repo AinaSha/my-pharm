@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { RenderCardItem } from '../renderCard/RenderCardItem';
-import { RenderCatalog } from './RenderCatalog';
 import './mainPageCatalog.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 
 interface Card {
   id: string;
@@ -12,45 +14,6 @@ interface Card {
   vendorСode: string;
   recipe: boolean;
 }
-
-const list = [
-  {
-    item: 'Гигиена',
-    link: '#',
-  },
-  {
-    item: 'Витаминыи БАДы',
-    link: '#',
-  },
-  {
-    item: 'Косметика',
-    link: '#',
-  },
-  {
-    item: 'Для мамы',
-    link: '#',
-  },
-  {
-    item: 'Для детей',
-    link: '#',
-  },
-  {
-    item: 'Здоровое питание',
-    link: '#',
-  },
-  {
-    item: 'Медицинские изделия',
-    link: '#',
-  },
-  {
-    item: 'Ортопедия',
-    link: '#',
-  },
-  {
-    item: 'Все продукты',
-    link: '#',
-  },
-];
 
 const cardL = [
   {
@@ -128,11 +91,7 @@ const cardL = [
 ];
 
 export const MainPageCatalog: FC = () => {
-  const renderCatItems = () => {
-    return list.map((el: { item: string; link: string }, id: number) => {
-      return <RenderCatalog key={id} catalogItem={el} />;
-    });
-  };
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
 
   const renderCardItems = () => {
     return cardL.map((el: Card, id: number) => {
@@ -154,13 +113,13 @@ export const MainPageCatalog: FC = () => {
   return (
     <section className="catalog-block-main">
       <div className="container">
-        <h2>Каталог</h2>
+        <h2>{translate.catalog}</h2>
         <div className="catalog-list">
-          <ul>{renderCatItems()}</ul>
+          <CatalogList prop="catalog_list" />
         </div>
         <div className="cards-block">{renderCardItems()}</div>
         <button className="catalog-block-main__btn">
-          <a href="">Перейти в каталог</a>
+          <a href="">{translate.catalogButton}</a>
         </button>
       </div>
     </section>
