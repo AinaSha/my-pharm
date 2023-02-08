@@ -16,8 +16,9 @@ export const translateLang3 = {
     join: 'Войти',
     placeholder: 'Введите название товара, заболевания или симптома',
     heroTitle: 'MyPharm - онлайн аптека',
+    heroSubTitle:
+      'Интернет-аптека MyPharm предоставляет множество возможностей для поиска и заказа нужных лекарств',
     sectionTitle_1: 'Акции и предложения',
-    sectionTitle_2: 'Каталог',
     sectionTitle_3: 'Фармацевтические компании',
     allProducts: 'Все продукты',
     manifacturer: 'Производитель',
@@ -60,8 +61,9 @@ export const translateLang3 = {
     join: 'Sign in',
     placeholder: 'Enter the name of the product, disease or symptom',
     heroTitle: 'MyPharm - online pharmacy',
+    heroSubTitle:
+      'MyPharm online pharmacy provides many options for finding and ordering the right medicines',
     sectionTitle_1: 'Promotions and offers',
-    sectionTitle_2: 'Catalog',
     sectionTitle_3: 'Pharmaceutical companies',
     allProducts: 'All products',
     manifacturer: 'Manifacturer',
@@ -105,8 +107,9 @@ export const translateLang3 = {
     join: 'Кирүү',
     placeholder: 'Продукттун атын, ооруну же симптомду киргизиңиз',
     heroTitle: 'MyPharm - онлайн аптека',
+    heroSubTitle:
+      'MyPharm онлайн дарыканасы туура дарыларды табуу жана заказ кылуу үчүн көптөгөн мүмкүнчүлүктөрдү берет',
     sectionTitle_1: 'Акциялар жана сунуштар',
-    sectionTitle_2: 'Каталог',
     sectionTitle_3: 'Фармацевтикалык компаниялар',
     allProducts: 'Бардык продуктылар',
     manifacturer: 'Өндүрүүчү',

@@ -1,7 +1,10 @@
 import { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import './banner.scss';
 
 export const Banner: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [slide, setSlide] = useState(1);
 
   useEffect(() => {
@@ -23,13 +26,10 @@ export const Banner: FC = () => {
         ></div>
       </div>
       <div className="bunner__text">
-        <h1>MyPharm - онлайн аптека</h1>
-        <p>
-          Интернет-аптека MyPharm предоставляет множество возможностей для поиска и заказа нужных
-          лекарств
-        </p>
+        <h1>{translate.heroTitle}</h1>
+        <p>{translate.heroSubTitle}</p>
         <button>
-          <p>Каталог</p>
+          <p>{translate.catalog}</p>
         </button>
       </div>
     </section>

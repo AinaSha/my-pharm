@@ -15,8 +15,8 @@ export interface ITtranslate {
   join: string;
   placeholder: string;
   heroTitle: string;
+  heroSubTitle: string;
   sectionTitle_1: string;
-  sectionTitle_2: string;
   sectionTitle_3: string;
   allProducts: string;
   manifacturer: string;
