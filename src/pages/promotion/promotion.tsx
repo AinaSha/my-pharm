@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-export const Contact: FC = () => {
+export const Promotion: FC = () => {
   return (
     <div>
       <div className="container">
-        <h1>Contact page!</h1>
+        <h1>Promotion page</h1>
       </div>
     </div>
   );

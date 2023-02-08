@@ -1,5 +1,5 @@
 import { FC } from 'react';
 
-export const Baskat: FC = () => {
+export const Basket: FC = () => {
   return <div>Baskat</div>;
 };

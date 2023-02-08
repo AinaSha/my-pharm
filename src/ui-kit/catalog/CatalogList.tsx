@@ -1,9 +1,10 @@
 import { FC } from 'react';
-// import { CatalogListItem } from './CatalogListItem';
+import { Link, To } from 'react-router-dom';
 import { CatalogItemProps } from '../../types/Types';
 
 interface CatalogListProps {
   list: CatalogItemProps[];
+  to: To;
 }
 
 export const CatalogList: FC<CatalogListProps> = ({ list }) => {
@@ -11,8 +12,8 @@ export const CatalogList: FC<CatalogListProps> = ({ list }) => {
     <ul className="catalog-menu">
       {list.map((item) => {
         return (
-          <li key={item.link} className="catalog-menu__item">
-            <a href={item.link}>{item.value}</a>
+          <li key={item.href} className="catalog-menu__item">
+            <Link to={item.href}>{item.value}</Link>
           </li>
         );
       })}
