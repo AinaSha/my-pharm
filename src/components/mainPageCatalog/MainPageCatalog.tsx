@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { RenderCardItem } from '../renderCard/RenderCardItem';
 import { RenderCatalog } from './RenderCatalog';
 import './mainPageCatalog.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 interface Card {
   id: string;
@@ -128,6 +130,8 @@ const cardL = [
 ];
 
 export const MainPageCatalog: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
+
   const renderCatItems = () => {
     return list.map((el: { item: string; link: string }, id: number) => {
       return <RenderCatalog key={id} catalogItem={el} />;
@@ -154,13 +158,13 @@ export const MainPageCatalog: FC = () => {
   return (
     <section className="catalog-block-main">
       <div className="container">
-        <h2>Каталог</h2>
+        <h2>{translate.catalog}</h2>
         <div className="catalog-list">
           <ul>{renderCatItems()}</ul>
         </div>
         <div className="cards-block">{renderCardItems()}</div>
         <button className="catalog-block-main__btn">
-          <a href="">Перейти в каталог</a>
+          <a href="">{translate.catalogButton}</a>
         </button>
       </div>
     </section>

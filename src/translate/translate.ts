@@ -43,6 +43,7 @@ export const translateLang3 = {
     copyright: 'Интернет магазин',
     copyrightText:
       'Информация на сайте носит ознакомительный характер и не может служить заменой очной консультации врача',
+    prescription: 'по рецепту',
   },
   EN: {
     location: 'Kyrgyzstan',
@@ -89,6 +90,7 @@ export const translateLang3 = {
     copyright: 'Internet shop',
     copyrightText:
       'The information on this website is for informational purposes only and is not a substitute for an in-person medical consultation.',
+    prescription: 'on prescription',
   },
   KG: {
     location: 'Кыргызстан',
@@ -134,5 +136,6 @@ export const translateLang3 = {
     copyright: 'Интернет магазин',
     copyrightText:
       'Бул сайттагы маалымат маалыматтык максатта гана болуп саналат жана жеке медициналык консультацияны алмаштыра албайт.',
+    prescription: 'рецепт боюнча',
   },
 };

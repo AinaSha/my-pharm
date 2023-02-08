@@ -1,11 +1,12 @@
 import { FC, useState, useRef, useEffect } from 'react';
 import { lists } from '../../components/link/link';
 import { CatalogList } from './CatalogList';
-
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
 import './Catalog.scss';
-// import { CatalogListItem } from './CatalogListItem';
 
 export const Catalog: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [open, setOpen] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const handleClickOutsideDropDown = (e: MouseEvent) => {
@@ -36,7 +37,7 @@ export const Catalog: FC = () => {
             <path d="M0 5H12V7H0V5Z" fill="white" />
             <path d="M0 15H8.5V17H0V15Z" fill="white" />
           </svg>
-          Каталог
+          {translate.catalog}
         </button>
         {open && <CatalogList list={lists} to={''} />}
       </div>

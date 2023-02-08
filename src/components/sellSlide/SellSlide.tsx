@@ -1,8 +1,11 @@
 import { FC, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import sell5 from '../../assets/imeges/sell5.jpg';
+import { RootState } from '../../store';
 import './sellSlide.scss';
 
 export const SellSlide: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const containerWidth = useRef<HTMLDivElement>(null);
   const cardWidth = useRef<HTMLDivElement>(null);
   const [widthSlideList, setWidthSlideList] = useState(0);
@@ -43,7 +46,7 @@ export const SellSlide: FC = () => {
       <div ref={containerWidth} className="container">
         <div className="sell">
           <div className="sell__title">
-            <h5>Акции и предложения</h5>
+            <h5>{translate.sectionTitle_1}</h5>
             <div className="sell__title-btns">
               <button onClick={handleClickLeft} disabled={clickLeft ? false : true}>
                 <svg

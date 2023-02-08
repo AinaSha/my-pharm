@@ -40,4 +40,5 @@ export interface ITtranslate {
   payment: string;
   copyright: string;
   copyrightText: string;
+  prescription: string;
 }

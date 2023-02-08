@@ -1,8 +1,11 @@
 import { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Logo from '../../assets/imeges/Logo.png';
+import { RootState } from '../../store';
 import './footer.scss';
 
 export const Footer: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [dounArrow, setDounArrow] = useState(true);
   const [showCompani, setShowCompani] = useState(false);
   const [showService, setShowService] = useState(false);
@@ -30,14 +33,11 @@ export const Footer: FC = () => {
             <div className="logo">
               <img src={Logo} alt="" />
             </div>
-            <p>
-              Интернет-аптека MyPharm предоставляет множество возможностей для поиска и заказа
-              нужных лекарств
-            </p>
+            <p>{translate.heroSubTitle}</p>
           </div>
           <ul>
             <li className="title-list">
-              <span>О компании</span>
+              <span>{translate.aboutCompany}</span>
               {dounArrow && (
                 <svg
                   width="32"
@@ -60,19 +60,19 @@ export const Footer: FC = () => {
             </li>
             <ul className={dounArrow ? (showCompani ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
-                <a href="№">О нас</a>
+                <a href="№">{translate.aboutUs}</a>
               </li>
               <li>
-                <a href="">Лицензия и реквизиты</a>
+                <a href="">{translate.license}</a>
               </li>
               <li>
-                <a href="">Поставщики</a>
+                <a href="">{translate.purveryor}</a>
               </li>
             </ul>
           </ul>
           <ul>
             <li className="title-list">
-              <span>Сервис</span>
+              <span>{translate.service}</span>
               {dounArrow && (
                 <svg
                   width="32"
@@ -95,25 +95,25 @@ export const Footer: FC = () => {
             </li>
             <ul className={dounArrow ? (showService ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
-                <a href="№">Каталог</a>
+                <a href="№">{translate.catalog}</a>
               </li>
               <li>
-                <a href="">Пользовательское соглашение</a>
+                <a href="">{translate.termsOfUse}</a>
               </li>
               <li>
-                <a href="">Политика конфиденциальности</a>
+                <a href="">{translate.privacyPolicy}</a>
               </li>
               <li>
-                <a href="">Акции и предложения</a>
+                <a href="">{translate.sectionTitle_1}</a>
               </li>
               <li>
-                <a href="">Отзывы</a>
+                <a href="">{translate.comment}</a>
               </li>
             </ul>
           </ul>
           <ul>
             <li className="title-list">
-              <span>Помощь</span>
+              <span>{translate.help}</span>
               {dounArrow && (
                 <svg
                   width="32"
@@ -136,28 +136,25 @@ export const Footer: FC = () => {
             </li>
             <ul className={dounArrow ? (showHelp ? 'footer__sub-list' : 'hiden') : ''}>
               <li>
-                <a href="№">Часто задаваемые вопросы</a>
+                <a href="№">{translate.FAQ}</a>
               </li>
               <li>
-                <a href="">Как сделать заказ</a>
+                <a href="">{translate.order}</a>
               </li>
               <li>
-                <a href="">Обратная связь</a>
+                <a href="">{translate.feedback}</a>
               </li>
               <li>
-                <a href="">Доставка</a>
+                <a href="">{translate.delivery}</a>
               </li>
               <li>
-                <a href="">Оплата</a>
-              </li>
-              <li>
-                <a href="">Обмен и возврат</a>
+                <a href="">{translate.payment}</a>
               </li>
             </ul>
           </ul>
           <ul className="footer__contact">
             <li className="title-list">
-              <span>Конакты</span>
+              <span>{translate.contacts}</span>
               {dounArrow && (
                 <svg
                   width="32"
@@ -225,11 +222,8 @@ export const Footer: FC = () => {
         </div>
         <div className="sub-footer">
           <div className="sub-footer__text">
-            <p>Интернет магазин MyPharm 2022</p>
-            <p>
-              Информация на сайте носит ознакомительный характер и не может служить заменой очной
-              консультации врача.
-            </p>
+            <p>{translate.copyright} MyPharm 2022</p>
+            <p>{translate.copyrightText}</p>
           </div>
           <div className="sub-footer__links">
             <div className="">

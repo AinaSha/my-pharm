@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
 import lec22 from '../../assets/imeges/lec22.png';
+import { RootState } from '../../store';
 import './renderCardItem.scss';
 
 interface Card {
@@ -21,6 +23,7 @@ export const RenderCardItem: FC<Card> = ({
   vendorСode,
   recipe,
 }: Card) => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [chooseCard, setChooseCard] = useState(false);
 
   const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -45,7 +48,7 @@ export const RenderCardItem: FC<Card> = ({
               strokeLinejoin="round"
             />
           </svg>
-          <p>по рецепту</p>
+          <p>{translate.prescription}</p>
         </div>
         <div onClick={handleChooseCard} className={chooseCard ? 'choose card-like' : 'card-like'}>
           <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
@@ -65,11 +68,13 @@ export const RenderCardItem: FC<Card> = ({
       <div className="card__text">
         <h6>{title}</h6>
         <div className="card__manufacturer">
-          <p>Производитель:</p>
+          <p>{translate.manifacturer}:</p>
           <span>{manufacturer}</span>
         </div>
         <p className="card__vendorСode">{vendorСode}</p>
-        <h6>Цена {price} сом.</h6>
+        <h6>
+          {translate.price} {price} сом.
+        </h6>
       </div>
       <div className="card__btns">
         <div className="card__btns__choose">
@@ -109,7 +114,7 @@ export const RenderCardItem: FC<Card> = ({
             </svg>
           </button>
         </div>
-        <button className="add-basket">В корзину</button>
+        <button className="add-basket">{translate.basket}</button>
       </div>
     </div>
   );
