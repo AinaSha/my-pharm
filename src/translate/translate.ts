@@ -1,5 +1,14 @@
 export const translateLang3 = {
   RU: {
+    catigoryLists: [
+      { value: 'Лекарства', href: '/medicine' },
+      { value: 'Витамины и БАДы', href: '/vitamins' },
+      { value: 'Косметика', href: '/cosmetics' },
+      { value: 'Гигиена', href: '/guinea' },
+      { value: 'Медицинские изделия и приборы', href: '/tools' },
+      { value: 'Мама и малыш', href: '/baby' },
+      { value: 'Ортопедия', href: '/orthopedics' },
+    ],
     location: 'Кыргызстан',
     main: 'Главная',
     promotion: 'Акции',
@@ -46,6 +55,15 @@ export const translateLang3 = {
     prescription: 'по рецепту',
   },
   EN: {
+    catigoryLists: [
+      { value: 'Medicines', href: '/medicine' },
+      { value: 'Vitamins and dietary supplements', href: '/vitamins' },
+      { value: 'Cosmetics', href: '/cosmetics' },
+      { value: 'Hygiene', href: '/guinea' },
+      { value: 'Medical products and devices', href: '/tools' },
+      { value: 'Mom and baby', href: '/baby' },
+      { value: 'Orthopedics', href: '/orthopedics' },
+    ],
     location: 'Kyrgyzstan',
     main: 'Main',
     promotion: 'Promotions',
@@ -93,6 +111,15 @@ export const translateLang3 = {
     prescription: 'on prescription',
   },
   KG: {
+    catigoryLists: [
+      { value: 'Дарылар', href: '/medicine' },
+      { value: 'Витаминдер жана диеталык кошумчалар', href: '/vitamins' },
+      { value: 'Косметика', href: '/cosmetics' },
+      { value: 'Гигиена', href: '/guinea' },
+      { value: 'Медициналык продуктулар жана түзмөктөр', href: '/tools' },
+      { value: 'Эне жана бала', href: '/baby' },
+      { value: 'Ортопедия', href: '/orthopedics' },
+    ],
     location: 'Кыргызстан',
     main: 'Башкы бет',
     promotion: 'Акциялар',

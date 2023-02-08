@@ -1,4 +1,10 @@
+type ListsT = {
+  value: string;
+  href: string;
+};
+
 export interface ITtranslate {
+  catigoryLists: ListsT[];
   location: string;
   main: string;
   promotion: string;

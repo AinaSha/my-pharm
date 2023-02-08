@@ -1,18 +1,19 @@
 import { FC } from 'react';
-import { Link, To } from 'react-router-dom';
-import { CatalogItemProps } from '../../types/Types';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { RootState } from '../../store';
 
 interface CatalogListProps {
-  list: CatalogItemProps[];
-  to: To;
+  prop: string;
 }
 
-export const CatalogList: FC<CatalogListProps> = ({ list }) => {
+export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
-    <ul className="catalog-menu">
-      {list.map((item) => {
+    <ul className={prop.prop}>
+      {translate.catigoryLists.map((item) => {
         return (
-          <li key={item.href} className="catalog-menu__item">
+          <li key={item.href} className={prop.prop + '__item'}>
             <Link to={item.href}>{item.value}</Link>
           </li>
         );

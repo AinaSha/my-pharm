@@ -1,5 +1,4 @@
 import { FC, useState, useRef, useEffect } from 'react';
-import { lists } from '../../components/link/link';
 import { CatalogList } from './CatalogList';
 import { RootState } from '../../store';
 import { useSelector } from 'react-redux';
@@ -39,7 +38,7 @@ export const Catalog: FC = () => {
           </svg>
           {translate.catalog}
         </button>
-        {open && <CatalogList list={lists} to={''} />}
+        {open && <CatalogList prop="catalog-menu" />}
       </div>
     </>
   );
