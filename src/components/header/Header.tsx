@@ -21,6 +21,7 @@ export const Header: FC = () => {
 
   const handleToggle = () => {
     setActive((prevState) => !prevState);
+    document.body.classList.toggle('lock');
   };
 
   return (

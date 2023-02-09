@@ -24,6 +24,7 @@ export const translateLang3 = {
     catalogItem_8: 'Ортопедия',
     join: 'Войти',
     placeholder: 'Введите название товара, заболевания или симптома',
+    search: 'Поиск',
     heroTitle: 'MyPharm - онлайн аптека',
     heroSubTitle:
       'Интернет-аптека MyPharm предоставляет множество возможностей для поиска и заказа нужных лекарств',
@@ -79,6 +80,7 @@ export const translateLang3 = {
     catalogItem_8: 'Orthopedics',
     join: 'Sign in',
     placeholder: 'Enter the name of the product, disease or symptom',
+    search: 'Search',
     heroTitle: 'MyPharm - online pharmacy',
     heroSubTitle:
       'MyPharm online pharmacy provides many options for finding and ordering the right medicines',
@@ -135,6 +137,7 @@ export const translateLang3 = {
     catalogItem_8: 'Ортопедия',
     join: 'Кирүү',
     placeholder: 'Продукттун атын, ооруну же симптомду киргизиңиз',
+    search: 'Издөө',
     heroTitle: 'MyPharm - онлайн аптека',
     heroSubTitle:
       'MyPharm онлайн дарыканасы туура дарыларды табуу жана заказ кылуу үчүн көптөгөн мүмкүнчүлүктөрдү берет',
