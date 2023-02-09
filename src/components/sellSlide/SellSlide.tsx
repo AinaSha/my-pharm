@@ -6,6 +6,7 @@ import './sellSlide.scss';
 
 export const SellSlide: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const { windowWidth } = useSelector((state: RootState) => state.windowWidthReducer);
   const containerWidth = useRef<HTMLDivElement>(null);
   const cardWidth = useRef<HTMLDivElement>(null);
   const [widthSlideList, setWidthSlideList] = useState(0);
@@ -16,15 +17,16 @@ export const SellSlide: FC = () => {
 
   useEffect(() => {
     const widthSlide = containerWidth.current
-      ? (window.outerWidth - containerWidth.current.offsetWidth) / 2 +
-        containerWidth.current.offsetWidth
+      ? (windowWidth - containerWidth.current.offsetWidth) / 2 +
+        containerWidth.current.offsetWidth -
+        5
       : 0;
     const cardWidthMar = cardWidth.current
       ? cardWidth.current.offsetWidth + 16
       : cardWidth.current!.offsetWidth + 16;
     setSlideItemWidth(cardWidthMar);
     setWidthSlideList(widthSlide);
-  }, [containerWidth.current, cardWidth.current]);
+  }, [containerWidth.current, cardWidth.current, windowWidth]);
 
   const handleClickLeft = () => {
     if (clickLeft) {
