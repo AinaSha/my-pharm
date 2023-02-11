@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 footer {
-    margin-top: 90px;
+    margin-top: 150px;
 }
 
 .footer {
@@ -125,7 +125,18 @@ footer {
     
 }
 
+@media (max-width: 768px) {
+    footer {
+        margin-top: 100px;
+    }
+    
+}
+
 @media (max-width: 425px) {
+    footer {
+        margin-top: 50px;
+    }
+
     .sub-footer {
        flex-wrap: wrap;
     

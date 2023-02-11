@@ -40,7 +40,7 @@
 
     li a {
         @extend %text;
-        font-size: 16px;
+        font-size: 1rem;
         color: $dark-green; 
         transition: color ease .2s;
         margin-left: 20px;
@@ -62,3 +62,5 @@
         display: block;
     }
 }
+
+
