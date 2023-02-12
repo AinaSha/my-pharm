@@ -33,3 +33,16 @@
         cursor: pointer;
     }
 }
+
+@media (max-width: 600px) {
+    .search-input {
+        input::placeholder {
+           font-size: 10px;
+        }
+
+        button {
+            font-size: 0.875rem;
+            padding: 8px 20px;
+        }
+    }
+}

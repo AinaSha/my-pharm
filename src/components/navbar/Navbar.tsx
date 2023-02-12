@@ -1,23 +1,22 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import { links } from '../link/link';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import './Navbar.scss';
 
-type Link = {
-  label: string;
-  href: string;
-};
-
 export const Navbar: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
     <ul className="menu-list">
-      {links.map((link: Link) => {
-        return (
-          <li key={link.href}>
-            <NavLink to={link.href}>{link.label}</NavLink>
-          </li>
-        );
-      })}
+      <li>
+        <NavLink to="/">{translate.main}</NavLink>
+      </li>
+      <li>
+        <NavLink to="/promotion">{translate.promotion}</NavLink>
+      </li>
+      <li>
+        <NavLink to="/contact">{translate.contacts}</NavLink>
+      </li>
     </ul>
   );
 };

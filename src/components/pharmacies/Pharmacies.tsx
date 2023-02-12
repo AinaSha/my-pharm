@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 import neman from '../../assets/imeges/neman.png';
 import bimed from '../../assets/imeges/bimed.png';
@@ -8,10 +10,11 @@ import pharmService from '../../assets/imeges/farm-service.png';
 import './Pharmacies.scss';
 
 export const Pharmacies: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
     <section className="pharmacies">
       <div className="container">
-        <h2>Фармацевтические компании</h2>
+        <h2>{translate.sectionTitle_3}</h2>
         <div className="pharmacies__gallery">
           <div className="pharmacies__gallery-inner">
             <div className="pharmacy-item">

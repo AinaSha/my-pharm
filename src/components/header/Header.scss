@@ -1,6 +1,11 @@
 @import '../../variables.scss';
 
 .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: $white;
+    
     .header-inner {
         padding: 0px 0px;
     }
@@ -45,7 +50,7 @@
 @media (max-width: 1000px) {
     .header {
         .header-inner {
-            padding: 20px 0px;
+            padding: 0px 0px;
         }
     }
 

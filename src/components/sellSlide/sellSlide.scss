@@ -8,7 +8,7 @@
 }
 
 .sell {
-    margin-top: 90px;
+    margin-top: 150px;
     
     &__title {
         margin-bottom: 2rem;
@@ -95,7 +95,7 @@
 
 @media (max-width: 1000px) {
     .sell {
-        
+        margin-top: 100px;
         &__title {
             h5 {
                font-size: 1rem;
@@ -119,13 +119,18 @@
     }
 };
 
+@media (max-width: 768px) {
+  .sell {
+    margin-top: 50px;
+  } 
+}
 @media (max-width: 425px) {
     .sell {
         
         &__title {
             margin-bottom: 1.2rem;
-            h5 {
-               font-size: 1rem;
+            h2 {
+               font-size: 1.5rem;
                color: #003838;
             }
         }

@@ -4,6 +4,7 @@ type ListsT = {
 };
 
 export interface ITtranslate {
+  search: string;
   catigoryLists: ListsT[];
   location: string;
   main: string;

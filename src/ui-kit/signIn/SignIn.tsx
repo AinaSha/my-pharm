@@ -1,8 +1,11 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import './SignIn.scss';
 
 export const SignIn: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
     <Link to="/" className="sign-btn">
       <svg
@@ -20,7 +23,7 @@ export const SignIn: FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      Войти
+      {translate.join}
     </Link>
   );
 };

@@ -48,7 +48,7 @@ export const SellSlide: FC = () => {
       <div ref={containerWidth} className="container">
         <div className="sell">
           <div className="sell__title">
-            <h5>{translate.sectionTitle_1}</h5>
+            <h2>{translate.sectionTitle_1}</h2>
             <div className="sell__title-btns">
               <button onClick={handleClickLeft} disabled={clickLeft ? false : true}>
                 <svg
