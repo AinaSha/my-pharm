@@ -1,8 +1,10 @@
 import { FC } from 'react';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import './SearchForm.scss';
 
 export const SearchForm: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
     <form className="search-input">
       <svg
@@ -20,8 +22,8 @@ export const SearchForm: FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      <input type="text" placeholder="Введите название товара, заболевания или симптома" />
-      <button>Поиск</button>
+      <input type="text" placeholder={translate.placeholder} />
+      <button>{translate.search}</button>
     </form>
   );
 };

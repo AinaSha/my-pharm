@@ -1,8 +1,10 @@
 import { FC } from 'react';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import './Location.scss';
 
 export const Location: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
     <a className="location">
       <svg
@@ -27,7 +29,7 @@ export const Location: FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      Кыргызстан
+      {translate.location}
     </a>
   );
 };
