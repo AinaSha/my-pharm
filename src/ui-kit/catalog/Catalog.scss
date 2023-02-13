@@ -20,7 +20,7 @@
 .catalog-menu {
     position: absolute;
     top: 32px;
-    width: 260%;
+    width: 220%;
     background-color: #fcfcfc;
     padding: 20px 0px;
     border-radius: 6px;
@@ -44,6 +44,7 @@
         color: $dark-green; 
         transition: color ease .2s;
         margin-left: 20px;
+        display: inline-block;
     }
 
     li:hover {

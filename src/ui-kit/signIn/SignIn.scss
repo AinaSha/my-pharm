@@ -6,4 +6,11 @@
     @extend %sub-title-text;
     font-weight: 400;
     color: $dark-green;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+
+    svg {
+        margin-right: 3px;
+    }
 }
