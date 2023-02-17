@@ -1,0 +1,53 @@
+@import '../../variables.scss';
+
+.content-form {
+    width: 500px;
+    margin: 0 auto;
+    width: 100%;
+
+    .form-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .form-item input {
+        padding: 10px ;
+    }
+
+    .form-item p {
+        color: #ff0000;
+    }
+
+    label {
+        font-size: 0.875rem;
+    }
+   
+    button {
+        padding: 15px 50px;
+        font-size: 1.2rem;
+        background-color: $green;
+        border-style: none;
+        border-radius: 5px;
+        color: $white;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .confidentiality {
+        display: flex;
+        align-items: center;
+        margin: 40px 0;
+
+        input {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+        }
+
+        label a {
+            text-decoration: underline;
+            color: $green;
+        }
+    }
+}

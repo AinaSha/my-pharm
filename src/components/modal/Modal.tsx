@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import './modal.scss';
-
-interface ISignInform {
-  email: string;
-  password: string;
-}
 
 type Props = {
   active: boolean;
   setActive: any;
 };
+
+interface ISignInform {
+  email: string;
+  password: string;
+}
 
 export const Modal: FC<Props> = ({ active, setActive }) => {
   const {
@@ -70,7 +71,9 @@ export const Modal: FC<Props> = ({ active, setActive }) => {
             Войти
           </button>
         </form>
-        <a className="registr-link">Зарегистрироваться</a>
+        <Link to="/registration" className="registr-link" onClick={() => setActive(false)}>
+          Зарегистрироваться
+        </Link>
       </div>
     </div>
   );
