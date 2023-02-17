@@ -2,9 +2,10 @@
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+
 import './modal.scss';
 
-type Props = {
+export type Props = {
   active: boolean;
   setActive: any;
 };
@@ -65,7 +66,13 @@ export const Modal: FC<Props> = ({ active, setActive }) => {
               <input type="checkbox" />
               Запомнить меня
             </label>
-            <button type="submit">Получить код</button>
+            <Link
+              className="auth-block__link"
+              to="/forgottenPassword"
+              onClick={() => setActive(false)}
+            >
+              Забыли пароль?
+            </Link>
           </div>
           <button className="submit" type="submit">
             Войти

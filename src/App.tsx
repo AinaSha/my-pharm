@@ -7,6 +7,7 @@ import { Promotion } from './pages/promotion/promotion';
 import { Contact } from './pages/contact/Contact';
 import { Registration } from './pages/registration/registration';
 import { Confidentiality } from './pages/confidentiality/Confidentiality';
+import { ForgottenPassword } from './pages/forgottenPassword/ForgottenPassword';
 import './index.scss';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/confidentiality" element={<Confidentiality />} />
+            <Route path="/forgottenPassword" element={<ForgottenPassword />} />
           </Routes>
         </main>
         <Footer />
