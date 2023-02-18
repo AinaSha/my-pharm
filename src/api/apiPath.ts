@@ -1,7 +1,7 @@
-export const apiPath = '';
+export const apiPath = 'http://api.med-service.online/api/v1';
 export const apiEndpoints = {
-  signin: 'signin',
-  signup: 'signup',
+  signin: '/auth/token/',
+  signup: '',
 };
 export const enum METHODS {
   get = 'GET',
