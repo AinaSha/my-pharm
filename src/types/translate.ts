@@ -20,6 +20,7 @@ export interface ITtranslate {
   catalogItem_7: string;
   catalogItem_8: string;
   join: string;
+  exit: string;
   placeholder: string;
   heroTitle: string;
   heroSubTitle: string;

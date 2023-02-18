@@ -42,10 +42,20 @@ export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: T
   return data;
 });
 
+export const getUserMe = createAsyncThunk('Auth/SiginInUser', async () => {
+  const data = await api.getUserMe();
+  console.log(data);
+  return data;
+});
+
 export const authSlice = createSlice({
   name: 'Auth',
   initialState: initialAuth,
-  reducers: {},
+  reducers: {
+    exit: (state: IInitialAuth) => {
+      state.isAuth = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(SiginInUser.pending, (state) => {
       state.isLoading = true;
@@ -68,8 +78,8 @@ export const authSlice = createSlice({
   },
 });
 
-const { actions, reducer: AuthReducer } = authSlice;
+const { actions: AuthActions, reducer: AuthReducer } = authSlice;
 
-// export const actions;
+export const { exit } = AuthActions;
 
 export default AuthReducer;

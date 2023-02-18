@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
-import { SiginInUser } from '../../store/authUserReducer';
+import { getUserMe, SiginInUser } from '../../store/authUserReducer';
 
 import './modal.scss';
 
