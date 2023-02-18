@@ -4,5 +4,14 @@ export interface TAuthUser {
 }
 
 export type IToken = {
-  token: string;
+  access: string;
+  refresh: string;
+};
+
+export type DecodedToken = {
+  exp: number;
+  iat: number;
+  jti: string;
+  token_type: string;
+  user_id: number;
 };

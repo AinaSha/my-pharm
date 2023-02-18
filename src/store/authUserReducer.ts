@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { TAuthUser } from '../types/apiTypes';
+import { IToken, TAuthUser } from '../types/apiTypes';
+import { setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
 export interface IInitialAuth {
+  id: string;
   email: string;
   password: string;
   first_name: string;
@@ -19,6 +21,7 @@ export interface IInitialAuth {
 }
 
 const initialAuth = {
+  id: '',
   email: '',
   password: '',
   first_name: '',
@@ -46,15 +49,21 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(SiginInUser.pending, (state) => {
       state.isLoading = true;
-      console.log('SiginInUser.pending');
     }),
       builder.addCase(SiginInUser.fulfilled, (state, action) => {
-        state.isAuth = true;
-        console.log('SiginInUser.fulfilled', action.payload);
+        if (action.payload === 403) {
+          state.isAuth = false;
+          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+        } else {
+          state.isAuth = true;
+          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+          setLocalStorage('__token', (action.payload as IToken).access);
+          state.id = updateUserIdFromToken();
+        }
+        state.isLoading = true;
       }),
-      builder.addCase(SiginInUser.rejected, (state, action) => {
-        console.log('SiginInUser.rejected');
-        console.log(action.payload);
+      builder.addCase(SiginInUser.rejected, () => {
+        throw new Error('Authorization failed');
       });
   },
 });
