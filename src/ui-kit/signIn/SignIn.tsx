@@ -11,6 +11,7 @@ export const SignIn: FC = () => {
   const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = useState(false);
+  console.log(isAuth);
 
   useEffect(() => {
     setModalActive(false);

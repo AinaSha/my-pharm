@@ -28,6 +28,32 @@ export const api = {
       throw new Error('Authorization failed');
     }
   },
+  async RefreshToken(refresh: string): Promise<IToken | number | null> {
+    try {
+      console.log('RefreshToken', refresh);
+      const response = await fetch(`${apiPath}${apiEndpoints.refresh}`, {
+        method: METHODS.post,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          refresh,
+        }),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Authorization failed');
+    }
+  },
   async getUserMe() {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
@@ -35,12 +61,11 @@ export const api = {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${getFromLocalStorage('__token')}`,
+          Authorization: `JWT ${getFromLocalStorage('__token')}`,
         },
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         return data;
       } else if (response.status === 403) {
         return response.status;

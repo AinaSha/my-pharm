@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { IToken, TAuthUser } from '../types/apiTypes';
+import { DecodedToken, IToken, TAuthUser } from '../types/apiTypes';
 import { setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
 export interface IInitialAuth {
@@ -18,6 +18,8 @@ export interface IInitialAuth {
   successReg: boolean;
   isLoading: boolean;
   isAuth: boolean;
+  exp: number;
+  refreshToken: string;
 }
 
 const initialAuth = {
@@ -35,6 +37,8 @@ const initialAuth = {
   successReg: false,
   isLoading: false,
   isAuth: false,
+  exp: 0,
+  refreshToken: '',
 };
 
 export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: TAuthUser) => {
@@ -42,9 +46,13 @@ export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: T
   return data;
 });
 
-export const getUserMe = createAsyncThunk('Auth/SiginInUser', async () => {
+export const GetUserMe = createAsyncThunk('Auth/GetUserMe', async () => {
   const data = await api.getUserMe();
-  console.log(data);
+  return data;
+});
+
+export const RefreshToken = createAsyncThunk('Auth/RefreshToken', async (option: string) => {
+  const data = await api.RefreshToken(option);
   return data;
 });
 
@@ -68,12 +76,35 @@ export const authSlice = createSlice({
           state.isAuth = true;
           setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
           setLocalStorage('__token', (action.payload as IToken).access);
-          state.id = updateUserIdFromToken();
+          state.refreshToken = (action.payload as IToken).refresh;
+          console.log(state.refreshToken);
+          const data = updateUserIdFromToken() as DecodedToken;
+          state.id = String(data.user_id);
+          state.exp = data.exp;
         }
         state.isLoading = true;
-      }),
-      builder.addCase(SiginInUser.rejected, () => {
-        throw new Error('Authorization failed');
+      });
+    builder.addCase(RefreshToken.pending, (state) => {}),
+      builder.addCase(RefreshToken.fulfilled, (state, action) => {
+        if (action.payload === 403) {
+          state.isAuth = false;
+          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+        } else {
+          state.isAuth = true;
+          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+          setLocalStorage('__token', (action.payload as IToken).access);
+          console.log(state.refreshToken);
+          const data = updateUserIdFromToken() as DecodedToken;
+          state.id = String(data.user_id);
+          state.exp = data.exp;
+        }
+      });
+    builder.addCase(GetUserMe.pending, (state) => {
+      state.isLoading = true;
+    }),
+      builder.addCase(GetUserMe.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.isLoading = true;
       });
   },
 });

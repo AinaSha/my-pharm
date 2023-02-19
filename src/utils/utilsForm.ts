@@ -18,7 +18,9 @@ export function updateUserIdFromToken() {
   const myDecodedToken: DecodedToken | null = decodeToken(token);
   if (myDecodedToken) {
     setLocalStorage('__userId', JSON.stringify(myDecodedToken!.user_id));
-    return String(myDecodedToken!.user_id);
+    console.log(myDecodedToken);
+    return myDecodedToken;
+    // return String(myDecodedToken!.user_id);
   }
   return '';
 }

@@ -9,7 +9,12 @@ export interface IlanguageState {
 
 const initiallanguageState: IlanguageState = {
   language: localStorage.getItem('language') ? localStorage.getItem('language') : 'RU',
-  translate: translateLang3.RU,
+  translate:
+    localStorage.getItem('language') === 'RU'
+      ? translateLang3.RU
+      : localStorage.getItem('language') === 'EN'
+      ? translateLang3.EN
+      : translateLang3.KG,
 };
 
 export const languageSlice = createSlice({
@@ -23,12 +28,15 @@ export const languageSlice = createSlice({
       switch (action.payload) {
         case 'EN':
           state.translate = translateLang3.EN;
+          localStorage.setItem('language', 'EN');
           break;
         case 'RU':
           state.translate = translateLang3.RU;
+          localStorage.setItem('language', 'RU');
           break;
         case 'KG':
           state.translate = translateLang3.KG;
+          localStorage.setItem('language', 'KG');
           break;
         default:
           state.translate = translateLang3.KG;

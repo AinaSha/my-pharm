@@ -1,20 +1,21 @@
 import { FC, useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { AppDispatch, RootState } from '../../store';
 import { setLanguage, setTranslate } from '../../store/languageReducer';
 
 import './Language.scss';
 
 export const Language: FC = () => {
+  const { language } = useSelector((state: RootState) => state.languageReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [open, setOpen] = useState<boolean>(false);
-  const [lahguage, setLahguage] = useState<string>('RU');
+  const [lahguage, setLahguage] = useState<string | null>(language);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
   const chooseLang = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const curentLi = e.currentTarget;
     curentLi.textContent ? setLahguage(curentLi.textContent) : '';
-    localStorage.setItem('language', lahguage);
     if (curentLi.textContent) {
       dispatch(setTranslate(curentLi.textContent));
       dispatch(setLanguage(curentLi.textContent));
