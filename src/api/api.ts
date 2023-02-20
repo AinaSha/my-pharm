@@ -30,7 +30,6 @@ export const api = {
   },
   async RefreshToken(refresh: string): Promise<IToken | number | null> {
     try {
-      console.log('RefreshToken', refresh);
       const response = await fetch(`${apiPath}${apiEndpoints.refresh}`, {
         method: METHODS.post,
         headers: {
@@ -43,7 +42,6 @@ export const api = {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         return data;
       } else if (response.status === 403) {
         return response.status;

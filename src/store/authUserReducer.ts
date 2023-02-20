@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
 import { DecodedToken, IToken, TAuthUser } from '../types/apiTypes';
-import { setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
+import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
 export interface IInitialAuth {
   id: string;
@@ -19,7 +19,6 @@ export interface IInitialAuth {
   isLoading: boolean;
   isAuth: boolean;
   exp: number;
-  refreshToken: string;
 }
 
 const initialAuth = {
@@ -38,7 +37,6 @@ const initialAuth = {
   isLoading: false,
   isAuth: false,
   exp: 0,
-  refreshToken: '',
 };
 
 export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: TAuthUser) => {
@@ -76,8 +74,7 @@ export const authSlice = createSlice({
           state.isAuth = true;
           setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
           setLocalStorage('__token', (action.payload as IToken).access);
-          state.refreshToken = (action.payload as IToken).refresh;
-          console.log(state.refreshToken);
+          createCookiFile('refreshToken', (action.payload as IToken).refresh, 1);
           const data = updateUserIdFromToken() as DecodedToken;
           state.id = String(data.user_id);
           state.exp = data.exp;
@@ -93,7 +90,6 @@ export const authSlice = createSlice({
           state.isAuth = true;
           setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
           setLocalStorage('__token', (action.payload as IToken).access);
-          console.log(state.refreshToken);
           const data = updateUserIdFromToken() as DecodedToken;
           state.id = String(data.user_id);
           state.exp = data.exp;
@@ -103,7 +99,6 @@ export const authSlice = createSlice({
       state.isLoading = true;
     }),
       builder.addCase(GetUserMe.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = true;
       });
   },
