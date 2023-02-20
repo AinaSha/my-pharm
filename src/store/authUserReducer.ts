@@ -17,6 +17,7 @@ export interface IInitialAuth {
   is_beneficiaries: boolean;
   successReg: boolean;
   isLoading: boolean;
+  siginIn: boolean;
   isAuth: boolean;
   exp: number;
 }
@@ -35,7 +36,8 @@ const initialAuth = {
   is_beneficiaries: false,
   successReg: false,
   isLoading: false,
-  isAuth: false,
+  siginIn: false,
+  isAuth: localStorage.getItem('__userIsAuth') ? true : false,
   exp: 0,
 };
 
@@ -60,6 +62,9 @@ export const authSlice = createSlice({
   reducers: {
     exit: (state: IInitialAuth) => {
       state.isAuth = false;
+    },
+    siginin: (state: IInitialAuth) => {
+      state.siginIn = true;
     },
   },
   extraReducers: (builder) => {
@@ -100,12 +105,13 @@ export const authSlice = createSlice({
     }),
       builder.addCase(GetUserMe.fulfilled, (state, action) => {
         state.isLoading = true;
+        console.log(action.payload);
       });
   },
 });
 
 const { actions: AuthActions, reducer: AuthReducer } = authSlice;
 
-export const { exit } = AuthActions;
+export const { exit, siginin } = AuthActions;
 
 export default AuthReducer;

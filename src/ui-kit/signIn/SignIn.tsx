@@ -3,25 +3,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '../../components/modal/Modal';
 import { RootState } from '../../store';
 import { exit } from '../../store/authUserReducer';
-import { removeLocalStorage } from '../../utils/utilsForm';
+import { deleteCookie, removeLocalStorage } from '../../utils/utilsForm';
 import './SignIn.scss';
 
 export const SignIn: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
+  const { isAuth, siginIn } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = useState(false);
-  console.log(isAuth);
 
   useEffect(() => {
     setModalActive(false);
   }, [isAuth]);
+
+  useEffect(() => {
+    setModalActive(siginIn);
+  }, [siginIn]);
 
   const exitUser = () => {
     removeLocalStorage('__token');
     removeLocalStorage('__userIsAuth');
     removeLocalStorage('__userId');
     dispatch(exit());
+    deleteCookie('refreshToken');
   };
 
   return (

@@ -1,17 +1,24 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
 import { GetUserMe, RefreshToken } from '../../store/authUserReducer';
-import { getCookiFile } from '../../utils/utilsForm';
+import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
+import { siginin, exit } from '../../store/authUserReducer';
 
 export const Contact: FC = () => {
   const { exp } = useSelector((state: RootState) => state.AuthReducer);
+  const dispatch = useDispatch();
   const getUserMe = () => {
-    console.log(exp);
     const curentTime = Math.ceil(new Date().getTime() / 1000) >= exp;
     if (curentTime && localStorage.getItem('__userIsAuth')) {
-      console.log('getUserMe');
       const refresh = getCookiFile('refreshToken');
+      if (!refresh) {
+        removeLocalStorage('__token');
+        removeLocalStorage('__userIsAuth');
+        removeLocalStorage('__userId');
+        dispatch(exit());
+        dispatch(siginin());
+      }
       store.dispatch(RefreshToken(refresh!));
       setTimeout(() => {
         store.dispatch(GetUserMe());

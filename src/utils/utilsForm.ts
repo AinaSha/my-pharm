@@ -27,6 +27,10 @@ export function getCookiFile(name: string) {
   return matches ? matches[1] : undefined;
 }
 
+export function deleteCookie(name: string) {
+  createCookiFile(name, '', -1);
+}
+
 export function updateUserIdFromToken() {
   const token = localStorage.getItem('__token') as string;
   const myDecodedToken: DecodedToken | null = decodeToken(token);
