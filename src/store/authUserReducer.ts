@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
 import { DecodedToken, IToken, TAuthUser } from '../types/apiTypes';
+import { IcreateUser, ILogInform } from '../types/Types';
 import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
 export interface IInitialAuth {
@@ -19,6 +20,7 @@ export interface IInitialAuth {
   isLoading: boolean;
   siginIn: boolean;
   isAuth: boolean;
+  registration: boolean;
   exp: number;
 }
 
@@ -39,7 +41,14 @@ const initialAuth = {
   siginIn: false,
   isAuth: localStorage.getItem('__userIsAuth') ? true : false,
   exp: 0,
+  registration: false,
 };
+
+export const CreateUser = createAsyncThunk('Auth/CreateUser', async (option: ILogInform) => {
+  const data = await api.CreateUser(option);
+  console.log(data);
+  return data;
+});
 
 export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: TAuthUser) => {
   const data = await api.SiginInUser(option.email, option.password);
@@ -85,6 +94,19 @@ export const authSlice = createSlice({
           state.exp = data.exp;
         }
         state.isLoading = true;
+      });
+    builder.addCase(CreateUser.pending, (state) => {
+      state.isLoading = true;
+    }),
+      builder.addCase(CreateUser.fulfilled, (state, action) => {
+        if (action.payload === 400) {
+          console.log('store____', action.payload);
+        } else {
+          console.log('store____', action.payload);
+          state.registration = true;
+          console.log('state.registration', state.registration);
+        }
+        state.registration = true;
       });
     builder.addCase(RefreshToken.pending, (state) => {}),
       builder.addCase(RefreshToken.fulfilled, (state, action) => {
