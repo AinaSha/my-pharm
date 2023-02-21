@@ -116,7 +116,7 @@ export const authSlice = createSlice({
           };
         }
       });
-    builder.addCase(RefreshToken.pending, (state) => {}),
+    builder.addCase(RefreshToken.pending, () => {}),
       builder.addCase(RefreshToken.fulfilled, (state, action) => {
         if (action.payload === 403) {
           state.isAuth = false;

@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '../../components/modal/Modal';
-import { RootState, store } from '../../store';
-import { exit, GetUserMe } from '../../store/authUserReducer';
+import { RootState } from '../../store';
+import { exit } from '../../store/authUserReducer';
 import { deleteCookie, removeLocalStorage } from '../../utils/utilsForm';
 import './SignIn.scss';
 
@@ -14,7 +14,6 @@ export const SignIn: FC = () => {
 
   useEffect(() => {
     setModalActive(false);
-    console.log('store.dispatch(GetUserMe());');
   }, [isAuth]);
 
   useEffect(() => {
