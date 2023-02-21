@@ -22,6 +22,7 @@ export interface ILogInform {
 }
 
 export interface IcreateUser {
+  id?: string | undefined;
   email: string;
   first_name: string;
   last_name: string;

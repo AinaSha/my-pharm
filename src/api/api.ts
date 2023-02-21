@@ -112,4 +112,36 @@ export const api = {
       throw new Error('Authorization failed');
     }
   },
+  async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {
+    try {
+      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+        method: METHODS.patch,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${getFromLocalStorage('__token')}`,
+        },
+        body: JSON.stringify({
+          first_name: options.first_name,
+          last_name: options.last_name,
+          sur_name: options.sur_name,
+          gender: options.gender,
+          phone: options.phone,
+          address: options.address,
+          is_pensioner: options.is_pensioner,
+          is_beneficiaries: options.is_beneficiaries,
+        }),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 400) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Update user failed');
+    }
+  },
 };

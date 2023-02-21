@@ -5,17 +5,7 @@ import { IcreateUser, ILogInform } from '../types/Types';
 import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
 export interface IInitialAuth {
-  id: string;
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  sur_name: string;
-  gender: string;
-  phone: string;
-  address: string;
-  is_pensioner: boolean;
-  is_beneficiaries: boolean;
+  dataUser: IcreateUser;
   successReg: boolean;
   isLoading: boolean;
   siginIn: boolean;
@@ -25,17 +15,18 @@ export interface IInitialAuth {
 }
 
 const initialAuth = {
-  id: '',
-  email: '',
-  password: '',
-  first_name: '',
-  last_name: '',
-  sur_name: '',
-  gender: '',
-  phone: '',
-  address: '',
-  is_pensioner: false,
-  is_beneficiaries: false,
+  dataUser: {
+    id: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+    sur_name: '',
+    gender: '',
+    phone: '',
+    address: '',
+    is_pensioner: false,
+    is_beneficiaries: false,
+  },
   successReg: false,
   isLoading: false,
   siginIn: false,
@@ -46,7 +37,11 @@ const initialAuth = {
 
 export const CreateUser = createAsyncThunk('Auth/CreateUser', async (option: ILogInform) => {
   const data = await api.CreateUser(option);
-  console.log(data);
+  return data;
+});
+
+export const UpdateUserMe = createAsyncThunk('Auth/UpdateUserMe', async (option: ILogInform) => {
+  const data = await api.UpdateUserMe(option);
   return data;
 });
 
@@ -90,7 +85,7 @@ export const authSlice = createSlice({
           setLocalStorage('__token', (action.payload as IToken).access);
           createCookiFile('refreshToken', (action.payload as IToken).refresh, 1);
           const data = updateUserIdFromToken() as DecodedToken;
-          state.id = String(data.user_id);
+          state.dataUser.id = String(data.user_id);
           state.exp = data.exp;
         }
         state.isLoading = true;
@@ -100,13 +95,26 @@ export const authSlice = createSlice({
     }),
       builder.addCase(CreateUser.fulfilled, (state, action) => {
         if (action.payload === 400) {
-          console.log('store____', action.payload);
         } else {
-          console.log('store____', action.payload);
+          state.dataUser = {
+            id: String((action.payload as IcreateUser).id),
+            ...(action.payload as IcreateUser),
+          };
           state.registration = true;
-          console.log('state.registration', state.registration);
         }
         state.registration = true;
+      });
+    builder.addCase(UpdateUserMe.pending, (state) => {
+      state.isLoading = true;
+    }),
+      builder.addCase(UpdateUserMe.fulfilled, (state, action) => {
+        if (action.payload === 400) {
+        } else {
+          state.dataUser = {
+            id: state.dataUser.id,
+            ...(action.payload as IcreateUser),
+          };
+        }
       });
     builder.addCase(RefreshToken.pending, (state) => {}),
       builder.addCase(RefreshToken.fulfilled, (state, action) => {
@@ -118,7 +126,7 @@ export const authSlice = createSlice({
           setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
           setLocalStorage('__token', (action.payload as IToken).access);
           const data = updateUserIdFromToken() as DecodedToken;
-          state.id = String(data.user_id);
+          state.dataUser.id = String(data.user_id);
           state.exp = data.exp;
         }
       });
@@ -127,7 +135,10 @@ export const authSlice = createSlice({
     }),
       builder.addCase(GetUserMe.fulfilled, (state, action) => {
         state.isLoading = true;
-        console.log(action.payload);
+        state.dataUser = {
+          id: state.dataUser.id,
+          ...(action.payload as IcreateUser),
+        };
       });
   },
 });

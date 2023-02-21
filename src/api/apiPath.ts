@@ -8,6 +8,7 @@ export const apiEndpoints = {
 export const enum METHODS {
   get = 'GET',
   post = 'POST',
+  patch = 'PATCH',
   delete = 'DELETE',
   put = 'PUT',
 }
