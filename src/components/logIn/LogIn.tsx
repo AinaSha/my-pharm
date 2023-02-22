@@ -20,16 +20,8 @@ export const LogIn: FC = () => {
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
     store.dispatch(CreateUser(data));
     reset();
-    if (registration) {
-      console.log('_11___', dataSiginIn.email, dataSiginIn.password);
-    }
     store.dispatch(SiginInUser({ email: data.email, password: data.password }));
   };
-  const dataSiginIn = watch();
-  useEffect(() => {
-    console.log('____', dataSiginIn.email, dataSiginIn.password);
-    store.dispatch(SiginInUser({ email: dataSiginIn.email, password: dataSiginIn.password }));
-  }, [registration]);
 
   return (
     <form className="content-form" onSubmit={handleSubmit(onSubmit)}>

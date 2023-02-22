@@ -54,8 +54,6 @@ export const api = {
       });
       if (response.status === 201) {
         const data = await response.json();
-        // this.SiginInUser(options.email, options.password);
-        console.log('api____', data);
         return data;
       } else if (response.status === 400) {
         return response.status;
@@ -110,6 +108,28 @@ export const api = {
       }
     } catch (error) {
       throw new Error('Authorization failed');
+    }
+  },
+  async DeleteUserMe() {
+    try {
+      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+        method: METHODS.delete,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${getFromLocalStorage('__token')}`,
+        },
+      });
+      if (response.status === 204) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 401) {
+        throw new Error(`${response.status}`);
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('user deleted...');
     }
   },
   async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {

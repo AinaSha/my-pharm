@@ -1,26 +1,25 @@
 import { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { api } from '../../api/api';
 import { RootState, store } from '../../store';
 import { exit, GetUserMe, RefreshToken, siginin, UpdateUserMe } from '../../store/authUserReducer';
 import { ILogInform } from '../../types/Types';
-import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
+import { deleteCookie, getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
 import './personalArea.scss';
 
 export const PersonalArea: FC = () => {
-  const { dataUser, isAuth, exp } = useSelector((state: RootState) => state.AuthReducer);
+  const { dataUser, exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const [change, setChange] = useState(false);
   const {
     register,
     handleSubmit,
     setValue,
-    reset,
-    watch,
     formState: { errors },
   } = useForm<ILogInform>();
+
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
-    console.log(data);
     store.dispatch(UpdateUserMe(data));
     setChange(!change);
   };
@@ -61,8 +60,7 @@ export const PersonalArea: FC = () => {
     setValueForm();
   };
 
-  const curentTime = Math.ceil(new Date().getTime() / 1000) >= exp;
-  if (curentTime && localStorage.getItem('__userIsAuth')) {
+  const isValidToken = () => {
     const refresh = getCookiFile('refreshToken');
     if (!refresh) {
       removeLocalStorage('__token');
@@ -72,10 +70,37 @@ export const PersonalArea: FC = () => {
       dispatch(siginin());
     }
     store.dispatch(RefreshToken(refresh!));
+  };
+
+  if (exp < Math.ceil(new Date().getTime() / 1000) && localStorage.getItem('__userIsAuth')) {
+    isValidToken();
     setTimeout(() => {
       store.dispatch(GetUserMe());
     }, 700);
   }
+
+  const deletUser = () => {
+    api.DeleteUserMe();
+    removeLocalStorage('__token');
+    removeLocalStorage('__userIsAuth');
+    removeLocalStorage('__userId');
+    deleteCookie('refreshToken');
+    dispatch(exit());
+    dispatch(siginin());
+  };
+
+  const handleDelete = () => {
+    if (exp < Math.ceil(new Date().getTime() / 1000) && localStorage.getItem('__userIsAuth')) {
+      isValidToken();
+      console.log('handleDelete2');
+      setTimeout(() => {
+        console.log('handleDelete3');
+        deletUser();
+      }, 400);
+    } else {
+      deletUser();
+    }
+  };
 
   return (
     <div className="container" onSubmit={handleSubmit(onSubmit)}>
@@ -257,9 +282,10 @@ export const PersonalArea: FC = () => {
               <button onClick={() => setChange(!change)}>Отменить</button>
             </div>
           )}
-          <button id="person_delete">Удалиться из приложения</button>
         </form>
-        {/* <button onClick={() => setChange(!change)}>Изменить</button> */}
+        <button id="person_delete" onClick={handleDelete}>
+          Удалиться из приложения
+        </button>
       </div>
     </div>
   );
