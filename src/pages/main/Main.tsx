@@ -6,18 +6,21 @@ import { Pharmacies } from '../../components/pharmacies/Pharmacies';
 import { WindowWidthChange } from '../../store/windowWidthRedux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
+import { PersonalArea } from '../personalArea/PersonalArea';
 
 export const Main: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   window.addEventListener('resize', () => {
     dispatch(WindowWidthChange());
   });
+
   return (
     <>
-      <Banner />
+      <PersonalArea />
+      {/* <Banner />
       <SellSlide />
       <MainPageCatalog />
-      <Pharmacies />
+      <Pharmacies /> */}
     </>
   );
 };

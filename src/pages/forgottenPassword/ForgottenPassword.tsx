@@ -1,11 +1,6 @@
 import { FC } from 'react';
-// import { useForm } from 'react-hook-form';
 
 import './ForgottenPassword.scss';
-
-// interface ForgottenPasswordProps {
-//   email: string;
-// }
 
 export const ForgottenPassword: FC = () => {
   return (

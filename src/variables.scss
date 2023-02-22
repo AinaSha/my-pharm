@@ -35,3 +35,15 @@ $white: #FFFFFF;
   align-items: center;
   justify-content: space-between;
 }
+
+%btn {
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  background-color: $green;
+  border-style: none;
+  border-radius: 5px;
+  color: $white;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
