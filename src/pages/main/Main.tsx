@@ -8,7 +8,7 @@ export const Main: FC = () => {
   return (
     <>
       <Banner />
-      <SellSlide />
+      {/* <SellSlide /> */}
       <MainPageCatalog />
       <Pharmacies />
     </>

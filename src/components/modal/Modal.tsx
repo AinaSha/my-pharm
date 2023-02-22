@@ -16,6 +16,7 @@ interface ISignInform {
 }
 
 export const Modal: FC<Props> = ({ active, setActive }) => {
+  // const isNotValid = "Неправильный адрес электронной почты или пароль";
   const {
     register,
     handleSubmit,

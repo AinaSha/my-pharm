@@ -28,15 +28,15 @@
         top: 50%;
         position: absolute;
     }
-//    hr {
-// //     margin: 40px 0;
-// //    }
 
-   button {
-    background-color: transparent;
-    border-style: none;
-    display: block;
-    margin: 0 auto;
-    cursor: pointer;
-   }
+    #signUpDiv {
+        display: flex;
+        justify-content: center;
+    }
 }
+
+// @media (max-width: 475px)  {
+//     #signUpDiv {
+//       width: 40%;
+//     }
+// }
