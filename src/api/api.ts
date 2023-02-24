@@ -30,7 +30,7 @@ export const api = {
       throw new Error('Authorization failed');
     }
   },
-  async CreateUser(options: ILogInform): Promise<IcreateUser | number | null> {
+  async CreateUser(options: ILogInform): Promise<IcreateUser> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.signup}`, {
         method: METHODS.post,
@@ -55,8 +55,6 @@ export const api = {
       if (response.status === 201) {
         const data = await response.json();
         return data;
-      } else if (response.status === 400) {
-        return response.status;
       } else {
         return await Promise.reject(new Error(response.statusText));
       }

@@ -26,6 +26,8 @@ const initialAuth = {
     address: '',
     is_pensioner: false,
     is_beneficiaries: false,
+    refresh: '',
+    access: '',
   },
   successReg: false,
   isLoading: false,
@@ -94,15 +96,19 @@ export const authSlice = createSlice({
       state.isLoading = true;
     }),
       builder.addCase(CreateUser.fulfilled, (state, action) => {
-        if (action.payload === 400) {
-        } else {
-          state.dataUser = {
-            id: String((action.payload as IcreateUser).id),
-            ...(action.payload as IcreateUser),
-          };
-          state.registration = true;
-        }
+        state.dataUser = {
+          id: String((action.payload as IcreateUser).id),
+          ...(action.payload as IcreateUser),
+          access: '',
+          refresh: '',
+        };
+        setLocalStorage('__token', action.payload.access);
+        createCookiFile('refreshToken', action.payload.refresh, 1);
+        setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+        const data = updateUserIdFromToken() as DecodedToken;
+        state.exp = data.exp;
         state.registration = true;
+        state.isAuth = true;
       });
     builder.addCase(UpdateUserMe.pending, (state) => {
       state.isLoading = true;
