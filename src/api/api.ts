@@ -1,7 +1,7 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
 import { IToken } from '../types/apiTypes';
 import { getFromLocalStorage } from '../utils/utilsForm';
-import { IcreateUser, ILogInform } from '../types/Types';
+import { ICatigories, IcreateUser, ILogInform } from '../types/Types';
 
 export const api = {
   async SiginInUser(email: string, password: string): Promise<IToken | number | null> {
@@ -118,7 +118,7 @@ export const api = {
           Authorization: `JWT ${getFromLocalStorage('__token')}`,
         },
       });
-      if (response.status === 204) {
+      if (response.status === 200) {
         const data = await response.json();
         return data;
       } else if (response.status === 401) {
@@ -160,6 +160,50 @@ export const api = {
       }
     } catch (error) {
       throw new Error('Update user failed');
+    }
+  },
+  async GetCatigories(): Promise<ICatigories | number | null> {
+    try {
+      console.log('click GetCatigories');
+      const response = await fetch(`${apiPath}${apiEndpoints.catigories}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Catigories failed');
+    }
+  },
+  async GetCatigoriesChildren() {
+    try {
+      console.log('click GetCatigoriesChildren');
+      const response = await fetch(`${apiPath}${apiEndpoints.catigoriesChildren}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get GetCatigories Children failed');
     }
   },
 };

@@ -35,3 +35,9 @@ export interface IcreateUser {
   is_beneficiaries: boolean;
   is_pensioner: boolean;
 }
+
+export interface ICatigories {
+  id: number;
+  parent: number;
+  title: string;
+}
