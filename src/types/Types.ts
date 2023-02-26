@@ -30,6 +30,14 @@ export interface IcreateUser {
   gender: string;
   phone: string;
   address: string;
+  refresh: string;
+  access: string;
   is_beneficiaries: boolean;
   is_pensioner: boolean;
+}
+
+export interface ICatigories {
+  id: number;
+  parent: number;
+  title: string;
 }

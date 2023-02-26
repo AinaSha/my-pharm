@@ -8,30 +8,35 @@ import { Catalog } from '../catalog/Catalog';
 import { Navbar } from '../../components/navbar/Navbar';
 
 import './BurgerMenu.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setActiveBurger } from '../../store/burgerStyleReducer';
 
 export interface MenuProps {
-  // children: React.ReactNode;
   isActive: boolean;
   onClick: (event: React.MouseEvent) => void;
 }
 
 export const BurgerMenu: FC<MenuProps> = ({ isActive = false, onClick }) => {
-  let classNames = 'burger ';
+  const { active } = useSelector((state: RootState) => state.BurgerReducer);
+  const dispatch = useDispatch();
 
-  if (isActive) {
-    classNames += 'active';
-  }
+  const handleClick = () => {
+    dispatch(setActiveBurger(false));
+  };
 
   return (
     <>
-      <div className={classNames} onClick={onClick}>
+      <div className={active ? 'burger active' : 'burger'} onClick={onClick}>
         <span></span>
       </div>
-      <div className={isActive ? 'burger-menu active' : 'burger-menu'}>
-        <div className="first-block">
+      <div className={active ? 'burger-menu active' : 'burger-menu'}>
+        <div className="first-block" onClick={handleClick}>
           <Location />
           <PhoneContact />
           <SignIn />
+        </div>
+        <div>
           <Language />
         </div>
         <div className="second-block">
