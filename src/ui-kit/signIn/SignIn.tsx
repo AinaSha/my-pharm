@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from '../../components/modal/Modal';
 import { RootState } from '../../store';
 import { exit } from '../../store/authUserReducer';
+import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 import { deleteCookie, removeLocalStorage } from '../../utils/utilsForm';
 import './SignIn.scss';
 
@@ -10,14 +10,13 @@ export const SignIn: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { isAuth, siginIn } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
-  const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
-    setModalActive(false);
+    dispatch(setActiveModalSiginIn(false));
   }, [isAuth]);
 
   useEffect(() => {
-    setModalActive(siginIn);
+    dispatch(setActiveModalSiginIn(siginIn));
   }, [siginIn]);
 
   const exitUser = () => {
@@ -28,12 +27,13 @@ export const SignIn: FC = () => {
     deleteCookie('refreshToken');
   };
 
+  const handleModalClick = () => {
+    dispatch(setActiveModalSiginIn(true));
+  };
+
   return (
     <>
-      <button
-        className={isAuth ? 'sign-btn hiden' : 'sign-btn'}
-        onClick={() => setModalActive(true)}
-      >
+      <button className={isAuth ? 'sign-btn hiden' : 'sign-btn'} onClick={handleModalClick}>
         <svg
           width="32"
           height="32"
@@ -69,7 +69,6 @@ export const SignIn: FC = () => {
         </svg>
         {translate.exit}
       </button>
-      <Modal active={modalActive} setActive={setModalActive} />
     </>
   );
 };

@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { store } from '../../store';
+import { RootState, store } from '../../store';
 import { SiginInUser } from '../../store/authUserReducer';
+import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 
 import './modal.scss';
 
@@ -17,7 +19,9 @@ interface ISignInform {
   password: string;
 }
 
-export const Modal: FC<Props> = ({ active, setActive }) => {
+export const Modal: FC = () => {
+  const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -28,8 +32,13 @@ export const Modal: FC<Props> = ({ active, setActive }) => {
     store.dispatch(SiginInUser(data));
     reset();
   };
+
+  const handleModalClick = () => {
+    dispatch(setActiveModalSiginIn(false));
+  };
+
   return (
-    <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
+    <div className={activeSiginIn ? 'modal active' : 'modal'} onClick={handleModalClick}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <h2>Вход в личный кабинет</h2>
         <form className="modal__content-form" onSubmit={handleSubmit(onSubmit)}>
@@ -68,11 +77,7 @@ export const Modal: FC<Props> = ({ active, setActive }) => {
               <input type="checkbox" />
               Запомнить меня
             </label>
-            <Link
-              className="auth-block__link"
-              to="/forgottenPassword"
-              onClick={() => setActive(false)}
-            >
+            <Link className="auth-block__link" to="/forgottenPassword" onClick={handleModalClick}>
               Забыли пароль?
             </Link>
           </div>
@@ -80,7 +85,7 @@ export const Modal: FC<Props> = ({ active, setActive }) => {
             Войти
           </button>
         </form>
-        <Link to="/registration" className="registr-link" onClick={() => setActive(false)}>
+        <Link to="/registration" className="registr-link" onClick={handleModalClick}>
           Зарегистрироваться
         </Link>
       </div>
