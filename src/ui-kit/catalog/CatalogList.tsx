@@ -18,6 +18,13 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
           </li>
         );
       })}
+      {prop.prop === 'catalog_list' ? (
+        <li key="Все продукты" className={prop.prop + '__item'}>
+          <Link to="/">Все продукты</Link>
+        </li>
+      ) : (
+        ''
+      )}
     </ul>
   );
 };

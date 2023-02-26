@@ -2,6 +2,8 @@
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { store } from '../../store';
+import { SiginInUser } from '../../store/authUserReducer';
 
 import './modal.scss';
 
@@ -24,7 +26,7 @@ export const Modal: FC<Props> = ({ active, setActive }) => {
     formState: { errors },
   } = useForm<ISignInform>();
   const onSubmit: SubmitHandler<ISignInform> = (data) => {
-    console.log(data);
+    store.dispatch(SiginInUser(data));
     reset();
   };
   return (

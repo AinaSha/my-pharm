@@ -10,7 +10,7 @@
         margin-bottom: 20px;
     }
 
-    .form-item input {
+    .form-item input, select {
         padding: 10px ;
     }
 
@@ -40,7 +40,7 @@
         align-items: center;
         margin: 40px 0;
 
-        input {
+        input, select {
             width: 15px;
             height: 15px;
             margin-right: 10px;

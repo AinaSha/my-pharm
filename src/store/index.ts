@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
+import AuthReducer from './authUserReducer';
 import languageReducer from './languageReducer';
+import { windowWidthReducer } from './windowWidthRedux';
 
 export const store = configureStore({
   reducer: {
+    AuthReducer: AuthReducer,
     languageReducer: languageReducer,
+    windowWidthReducer: windowWidthReducer,
   },
 });
 
