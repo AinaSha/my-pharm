@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import AuthReducer from './authUserReducer';
+import BurgerReducer from './burgerStyleReducer';
 import languageReducer from './languageReducer';
 import { windowWidthReducer } from './windowWidthRedux';
 
@@ -8,6 +9,7 @@ export const store = configureStore({
     AuthReducer: AuthReducer,
     languageReducer: languageReducer,
     windowWidthReducer: windowWidthReducer,
+    BurgerReducer: BurgerReducer,
   },
 });
 
