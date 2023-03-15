@@ -38,6 +38,14 @@
             }
         }
 
+        .delete {
+            svg {
+                width: 25px;
+                height: 25px;
+                fill: $delete;
+            }
+        }
+
     }
 
     &__img {

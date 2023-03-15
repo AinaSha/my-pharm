@@ -1,9 +1,7 @@
 import { FC } from 'react';
-import { RenderCardItem } from '../renderCard/RenderCardItem';
-import './mainPageCatalog.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { CatalogList } from '../../ui-kit/catalog/CatalogList';
+import { LinkButtons } from '../../components/linkButtons/LinkButtons';
+import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
+import './favorites.scss';
 
 interface Card {
   id: string;
@@ -25,7 +23,7 @@ const cardL = [
     price: '400',
     vendorСode: 'Арт. 31378',
     recipe: true,
-    favorites: false,
+    favorites: true,
   },
   {
     id: 'qqqqqqq',
@@ -35,7 +33,7 @@ const cardL = [
     price: '400',
     vendorСode: 'Арт. 31378',
     recipe: true,
-    favorites: false,
+    favorites: true,
   },
   {
     id: 'qqqqqqq',
@@ -45,7 +43,7 @@ const cardL = [
     price: '400',
     vendorСode: 'Арт. 31378',
     recipe: true,
-    favorites: false,
+    favorites: true,
   },
   {
     id: 'qqqqqqq',
@@ -55,7 +53,7 @@ const cardL = [
     price: '400',
     vendorСode: 'Арт. 31378',
     recipe: true,
-    favorites: false,
+    favorites: true,
   },
   {
     id: 'qqqqqqq',
@@ -65,12 +63,28 @@ const cardL = [
     price: '400',
     vendorСode: 'Арт. 31378',
     recipe: true,
-    favorites: false,
+    favorites: true,
+  },
+  {
+    id: 'qqqqqqq',
+    image: '',
+    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
+    manufacturer: 'Ниармедик Фарма, Россия',
+    price: '400',
+    vendorСode: 'Арт. 31378',
+    recipe: true,
+    favorites: true,
   },
 ];
 
-export const MainPageCatalog: FC = () => {
-  const { translate } = useSelector((state: RootState) => state.languageReducer);
+export const Favorites: FC = () => {
+  const show = {
+    basket: true,
+    favorites: false,
+    delivery: true,
+    exit: false,
+    window: false,
+  };
 
   const renderCardItems = () => {
     return cardL.map((el: Card, id: number) => {
@@ -91,17 +105,13 @@ export const MainPageCatalog: FC = () => {
   };
 
   return (
-    <section className="catalog-block-main">
+    <>
       <div className="container">
-        <h2>{translate.catalog}</h2>
-        <div className="catalog-list">
-          <CatalogList prop="catalog_list" />
+        <div className="link-buttons-favorit">
+          <LinkButtons show={show} />
         </div>
-        <div className="cards-block">{renderCardItems()}</div>
-        <button className="catalog-block-main__btn">
-          <a href="">{translate.catalogButton}</a>
-        </button>
       </div>
-    </section>
+      <div className="container cards-block-favorite">{renderCardItems()}</div>
+    </>
   );
 };
