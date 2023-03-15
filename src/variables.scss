@@ -29,6 +29,7 @@ $light-green: #F5FFFB;
 $black: #000000;
 $grey: #8B8989;
 $white: #FFFFFF;
+$delete: #F08080;
 
 %display {
   display: flex;
@@ -46,4 +47,30 @@ $white: #FFFFFF;
   display: block;
   margin: 0 auto;
   cursor: pointer;
+}
+
+
+%btn0choose-count {
+  padding: 2px;
+  background-color: #FFFFFF;
+  @extend %display;
+  border: 1px solid #27AE60;
+  border-radius: 8px;
+  button {
+      background-color: inherit;
+      border: none;
+      cursor: pointer;
+
+      svg {
+          width: 20px;
+          height: 20px;
+      }
+  }
+
+  span {
+      margin: 0 10px;
+      @extend %sub-title-text;
+      font-weight: 400;
+      
+  }
 }
