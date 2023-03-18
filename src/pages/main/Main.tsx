@@ -9,6 +9,7 @@ import { AppDispatch } from '../../store';
 // import { PersonalArea } from '../personalArea/PersonalArea';
 import { Basket } from '../basket/Basket';
 import { Favorites } from '../favorites/Favorites';
+import { Products } from '../products/Products';
 
 export const Main: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,7 +19,8 @@ export const Main: FC = () => {
 
   return (
     <>
-      <Favorites />
+      <Products />
+      {/* <Favorites /> */}
       {/* <Basket /> */}
       {/* <PersonalArea /> */}
       {/* <Banner /> */}
