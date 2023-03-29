@@ -2,91 +2,33 @@ import { FC, useState } from 'react';
 import { Pagination } from '../../components/pagination/Pagination';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { IProduct } from '../../types/Types';
 import './products.scss';
 
-interface Card {
-  id: string;
-  image: string;
-  title: string;
-  manufacturer: string;
-  price: string;
-  vendorСode: string;
-  recipe: boolean;
-  favorites: boolean;
-}
-
-const cardL = [
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-    favorites: false,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-    favorites: false,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-    favorites: false,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-    favorites: false,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-    favorites: false,
-  },
-];
-
 export const Products: FC = () => {
+  const { products } = useSelector((state: RootState) => state.ProductsReducer);
   const [showCategore, setShowCategore] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showAppointments, setshowAppointments] = useState(false);
   const [showСountry, setshowСountry] = useState(false);
 
   const renderCardItems = () => {
-    return cardL.map((el: Card, id: number) => {
+    return products.map((el: IProduct, id: number) => {
       return (
         <RenderCardItem
           key={id}
           id={el.id}
           title={el.title}
-          image={el.image}
-          manufacturer={el.manufacturer}
+          thumbnail={el.thumbnail}
+          manufacturer="{el.manufacturer}"
           price={el.price}
-          vendorСode={el.vendorСode}
-          recipe={el.recipe}
-          favorites={el.favorites}
+          is_req_prescription={el.is_req_prescription}
+          favorites="false"
+          catalog={0}
+          discount_price={''}
+          sale={''}
         />
       );
     });

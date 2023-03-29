@@ -2,29 +2,29 @@ import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import lec22 from '../../assets/imeges/lec22.png';
 import { RootState } from '../../store';
+import { IProduct } from '../../types/Types';
 import './renderCardItem.scss';
 
-interface Card {
-  id: string;
-  image: string;
-  title: string;
-  manufacturer: string;
-  price: string;
-  vendorСode: string;
-  recipe: boolean;
-  favorites: boolean;
-}
+// interface Card {
+//   id: string;
+//   image: string;
+//   title: string;
+//   manufacturer: string;
+//   price: string;
+//   vendorСode: string;
+//   recipe: boolean;
+//   favorites: boolean;
+// }
 
-export const RenderCardItem: FC<Card> = ({
+export const RenderCardItem: FC<IProduct> = ({
   id,
-  image,
+  thumbnail,
   title,
   manufacturer,
   price,
-  vendorСode,
-  recipe,
+  is_req_prescription,
   favorites,
-}: Card) => {
+}: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [chooseCard, setChooseCard] = useState(false);
 
@@ -37,9 +37,9 @@ export const RenderCardItem: FC<Card> = ({
   };
 
   return (
-    <div id={id} className="card">
+    <div id={String(id)} className="card">
       <div className="card__header">
-        <div className={recipe ? 'recipe' : 'recipe opacity'}>
+        <div className={is_req_prescription ? 'recipe' : 'recipe opacity'}>
           <svg
             width="21"
             height="21"
@@ -100,7 +100,7 @@ export const RenderCardItem: FC<Card> = ({
         )}
       </div>
       <div className="card__img">
-        <img src={lec22} alt={image} />
+        <img src={lec22} alt={thumbnail} />
       </div>
       <div className="card__text">
         <h6>{title}</h6>
@@ -108,7 +108,7 @@ export const RenderCardItem: FC<Card> = ({
           <p>{translate.manifacturer}:</p>
           <span>{manufacturer}</span>
         </div>
-        <p className="card__vendorСode">{vendorСode}</p>
+        <p className="card__vendorСode">{id}</p>
         <h6>
           {translate.price} {price} сом.
         </h6>

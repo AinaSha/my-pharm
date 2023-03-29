@@ -1,7 +1,7 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
 import { IToken } from '../types/apiTypes';
 import { getFromLocalStorage } from '../utils/utilsForm';
-import { ICatigories, IcreateUser, ILogInform } from '../types/Types';
+import { ICatigories, IcreateUser, ILogInform, IProduct } from '../types/Types';
 
 export const api = {
   async SiginInUser(email: string, password: string): Promise<IToken | number | null> {
@@ -163,10 +163,10 @@ export const api = {
       throw new Error('Update user failed');
     }
   },
-  async GetCatigories(): Promise<ICatigories | number | null> {
+  async GetCatalogs(): Promise<ICatigories | number | null> {
     try {
-      console.log('click GetCatigories');
-      const response = await fetch(`${apiPath}${apiEndpoints.catigories}`, {
+      console.log('click GetCatalogs');
+      const response = await fetch(`${apiPath}${apiEndpoints.catalogs}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
@@ -185,10 +185,10 @@ export const api = {
       throw new Error('Get Catigories failed');
     }
   },
-  async GetCatigoriesChildren() {
+  async GetCatalogProducts(id: string): Promise<ICatigories | number | null> {
     try {
-      console.log('click GetCatigoriesChildren');
-      const response = await fetch(`${apiPath}${apiEndpoints.catigoriesChildren}`, {
+      console.log('click GetCatalogProducts');
+      const response = await fetch(`${apiPath}${apiEndpoints.catalogs}$${id}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
@@ -204,7 +204,97 @@ export const api = {
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Get GetCatigories Children failed');
+      throw new Error('Get Catigories failed');
+    }
+  },
+  async GetCompanies(): Promise<ICatigories | number | null> {
+    try {
+      console.log('click GetCompanies');
+      const response = await fetch(`${apiPath}${apiEndpoints.companies}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Products failed');
+    }
+  },
+  async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
+    try {
+      console.log(`${apiPath}${apiEndpoints.companies}1${apiEndpoints.pharmacies}`);
+      const response = await fetch(
+        `${apiPath}${apiEndpoints.companies}1${apiEndpoints.pharmacies}`,
+        {
+          method: METHODS.get,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Products failed');
+    }
+  },
+  async GetPharmacies(): Promise<ICatigories | number | null> {
+    try {
+      console.log('click GetPharmacies');
+      const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Products failed');
+    }
+  },
+  async GetProducts(): Promise<IProduct[] | null> {
+    try {
+      console.log('click products');
+      const response = await fetch(`${apiPath}${apiEndpoints.products}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Products failed');
     }
   },
 };

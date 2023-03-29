@@ -41,3 +41,16 @@ export interface ICatigories {
   parent: number;
   title: string;
 }
+
+export interface IProduct {
+  catalog: number;
+  discount_price: string;
+  id: number;
+  is_req_prescription: boolean;
+  price: string;
+  sale: string;
+  thumbnail: string;
+  title: string;
+  favorites?: string;
+  manufacturer?: string;
+}
