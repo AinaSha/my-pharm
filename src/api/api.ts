@@ -165,7 +165,6 @@ export const api = {
   },
   async GetCatalogs(): Promise<ICatigories | number | null> {
     try {
-      console.log('click GetCatalogs');
       const response = await fetch(`${apiPath}${apiEndpoints.catalogs}`, {
         method: METHODS.get,
         headers: {
@@ -185,21 +184,25 @@ export const api = {
       throw new Error('Get Catigories failed');
     }
   },
-  async GetCatalogProducts(id: string): Promise<ICatigories | number | null> {
+  async GetFilterProducts(
+    id: string,
+    form: string,
+    appointment: string
+  ): Promise<IProduct[] | null> {
     try {
-      console.log('click GetCatalogProducts');
-      const response = await fetch(`${apiPath}${apiEndpoints.catalogs}$${id}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${apiPath}${apiEndpoints.products}?catalog=${id}&release_form=${form}&appointment=${appointment}`,
+        {
+          method: METHODS.get,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       if (response.status === 200) {
         const data = await response.json();
         return data;
-      } else if (response.status === 403) {
-        return response.status;
       } else {
         return await Promise.reject(new Error(response.statusText));
       }
@@ -209,7 +212,6 @@ export const api = {
   },
   async GetCompanies(): Promise<ICatigories | number | null> {
     try {
-      console.log('click GetCompanies');
       const response = await fetch(`${apiPath}${apiEndpoints.companies}`, {
         method: METHODS.get,
         headers: {
@@ -231,7 +233,6 @@ export const api = {
   },
   async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
     try {
-      console.log(`${apiPath}${apiEndpoints.companies}1${apiEndpoints.pharmacies}`);
       const response = await fetch(
         `${apiPath}${apiEndpoints.companies}1${apiEndpoints.pharmacies}`,
         {
@@ -256,7 +257,6 @@ export const api = {
   },
   async GetPharmacies(): Promise<ICatigories | number | null> {
     try {
-      console.log('click GetPharmacies');
       const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
         method: METHODS.get,
         headers: {
@@ -266,7 +266,6 @@ export const api = {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         return data;
       } else if (response.status === 403) {
         return response.status;
@@ -279,7 +278,6 @@ export const api = {
   },
   async GetProducts(): Promise<IProduct[] | null> {
     try {
-      console.log('click products');
       const response = await fetch(`${apiPath}${apiEndpoints.products}`, {
         method: METHODS.get,
         headers: {

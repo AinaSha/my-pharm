@@ -35,24 +35,6 @@ export const MainPageCatalog: FC = () => {
     });
   };
 
-  // const renderCardItems = () => {
-  //   return cardL.map((el: Card, id: number) => {
-  //     return (
-  //       <RenderCardItem
-  //         key={id}
-  //         id={el.id}
-  //         title={el.title}
-  //         image={el.image}
-  //         manufacturer={el.manufacturer}
-  //         price={el.price}
-  //         vendorСode={el.vendorСode}
-  //         recipe={el.recipe}
-  //         favorites={el.favorites}
-  //       />
-  //     );
-  //   });
-  // };
-
   return (
     <section className="catalog-block-main">
       <div className="container">

@@ -54,3 +54,9 @@ export interface IProduct {
   favorites?: string;
   manufacturer?: string;
 }
+
+export interface Options {
+  id: string;
+  form: string;
+  appointment: string;
+}
