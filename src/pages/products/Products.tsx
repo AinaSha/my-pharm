@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Pagination } from '../../components/pagination/Pagination';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
@@ -9,6 +9,8 @@ import './products.scss';
 import {
   getProductFilter,
   setAppointment,
+  setCatalog,
+  setCountry,
   setFormText,
   setShowCategore,
 } from '../../store/productsReducer';
@@ -26,8 +28,11 @@ export const Products: FC = () => {
   } = useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [showForm, setShowForm] = useState(false);
+  const [textForm, setTextForm] = useState('');
+  const [textCatalog, setTextCatalog] = useState('');
   const [showAppointments, setshowAppointments] = useState(false);
   const [showСountry, setshowСountry] = useState(false);
+  const [textСountry, setTextСountry] = useState('');
 
   const renderCardItems = () => {
     return products.map((el: IProduct, id: number) => {
@@ -50,29 +55,69 @@ export const Products: FC = () => {
   };
 
   const handleForm = (e: React.MouseEvent) => {
-    const formId = (e.target as HTMLLinkElement).id;
-    const formText = (e.target as HTMLLinkElement).innerHTML;
-    setShowForm(false);
-    const option = {
-      id: catalogId,
-      form: formId,
-      appointment: appointmentId,
-    };
-    store.dispatch(getProductFilter(option));
-    dispatch(setFormText({ formText, formId }));
+    if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
+      const nodeLiId = (e.target as HTMLLinkElement).id;
+      const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
+      setTextForm(nodeLiText);
+      setShowForm(false);
+      const option = {
+        id: catalogId,
+        form: nodeLiId,
+        appointment: appointmentId,
+      };
+      store.dispatch(getProductFilter(option));
+      dispatch(setFormText({ nodeLiText, nodeLiId }));
+    }
   };
 
   const handleAppointment = (e: React.MouseEvent) => {
-    const nodeLiId = (e.target as HTMLLinkElement).id;
-    const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
-    setshowAppointments(false);
+    if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
+      const nodeLiId = (e.target as HTMLLinkElement).id;
+      const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
+      setshowAppointments(false);
+      const option = {
+        id: catalogId,
+        form: form,
+        appointment: nodeLiId,
+      };
+      store.dispatch(getProductFilter(option));
+      dispatch(setAppointment({ nodeLiId, nodeLiText }));
+    }
+  };
+
+  const handleCountry = (e: React.MouseEvent) => {
+    if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
+      const nodeLiId = (e.target as HTMLLinkElement).id;
+      const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
+      setshowСountry(false);
+      setTextСountry(nodeLiText);
+      const option = {
+        id: catalogId,
+        form: form,
+        appointment: appointmentId,
+        country: nodeLiId,
+      };
+      store.dispatch(getProductFilter(option));
+      dispatch(setCountry({ nodeLiId, nodeLiText }));
+    }
+  };
+
+  useEffect(() => {
+    setTextCatalog(catalog);
+    window.scrollTo(0, 0);
+  }, [catalog]);
+
+  const resetFilter = () => {
     const option = {
-      id: catalogId,
-      form: form,
-      appointment: nodeLiId,
+      nodLiId: '',
+      nodeLiText: '',
     };
-    store.dispatch(getProductFilter(option));
-    dispatch(setAppointment({ nodeLiId, nodeLiText }));
+    setTextСountry('');
+    setTextForm('');
+    dispatch(setCatalog(option));
+    dispatch(setFormText(option));
+    dispatch(setCountry(option));
+    dispatch(setAppointment(option));
   };
 
   return (
@@ -82,7 +127,7 @@ export const Products: FC = () => {
           <input
             type="text"
             placeholder="Категории товаров"
-            defaultValue={catalog ? catalog : ''}
+            defaultValue={textCatalog ? textCatalog : ''}
           />
           <button onClick={() => dispatch(setShowCategore(!showCategore))}>
             <svg
@@ -131,7 +176,7 @@ export const Products: FC = () => {
               <input
                 type="text"
                 placeholder="По форма выпуска"
-                defaultValue={formText ? formText : ''}
+                defaultValue={textForm ? textForm : ''}
               />
               <button onClick={() => setShowForm(!showForm)}>
                 <svg
@@ -152,7 +197,7 @@ export const Products: FC = () => {
               </button>
               <div>
                 {showForm && (
-                  <ul onClick={handleForm}>
+                  <ul className="parant-ul" onClick={handleForm}>
                     <li id="other">другой</li>
                     <li id="tablet">таблетки</li>
                     <li id="capsule">порошок</li>
@@ -190,7 +235,7 @@ export const Products: FC = () => {
               </button>
               <div>
                 {showAppointments && (
-                  <ul onClick={handleAppointment}>
+                  <ul className="parant-ul" onClick={handleAppointment}>
                     <li id="other">другой</li>
                     <li id="for_adults">взрослый</li>
                     <li id="for_children">детский</li>
@@ -201,7 +246,11 @@ export const Products: FC = () => {
               </div>
             </label>
             <label className="select-pharmacies" htmlFor="">
-              <input type="text" placeholder="Страна" />
+              <input
+                type="text"
+                placeholder="Страна"
+                defaultValue={textСountry ? textСountry : ''}
+              />
               <button onClick={() => setshowСountry(!showСountry)}>
                 <svg
                   width="32"
@@ -221,15 +270,18 @@ export const Products: FC = () => {
               </button>
               <div>
                 {showСountry && (
-                  <ul>
-                    <li>Россия</li>
-                    <li>Кыргызстан</li>
-                    <li>Германия</li>
-                    <li>Франция</li>
-                    <li>Индия</li>
+                  <ul className="parant-ul" onClick={handleCountry}>
+                    <li id="russia">Россия</li>
+                    <li id="kyrgystan">Кыргызстан</li>
+                    <li id="germany">Германия</li>
+                    <li id="france">Франция</li>
+                    <li id="india">Индия</li>
                   </ul>
                 )}
               </div>
+            </label>
+            <label className="reset-btn">
+              <input onClick={resetFilter} type="button" placeholder="Страна" value="очистить" />
             </label>
           </div>
         </div>

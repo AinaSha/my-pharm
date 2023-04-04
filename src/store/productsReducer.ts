@@ -10,6 +10,8 @@ interface IProductsState {
   form: string;
   appointmentId: string;
   appointmentText: string;
+  countryId: string;
+  countryText: string;
   showCategore: boolean;
   isLoading: boolean;
 }
@@ -33,6 +35,8 @@ const initialProductsState: IProductsState = {
   form: '',
   appointmentId: '',
   appointmentText: '',
+  countryId: '',
+  countryText: '',
   showCategore: false,
   isLoading: false,
 };
@@ -54,22 +58,24 @@ export const productsSlice = createSlice({
   name: 'Products',
   initialState: initialProductsState,
   reducers: {
-    setCatalog: (state: IProductsState, action: PayloadAction<string>) => {
-      state.catalog = action.payload;
-    },
-    setCatalogId: (state: IProductsState, action: PayloadAction<string>) => {
-      state.catalogId = action.payload;
+    setCatalog: (state: IProductsState, action) => {
+      state.catalog = action.payload.nodeLiText;
+      state.catalogId = action.payload.nodeLiId;
     },
     setShowCategore: (state: IProductsState, action: PayloadAction<boolean>) => {
       state.showCategore = action.payload;
     },
     setFormText: (state: IProductsState, action) => {
-      state.formText = action.payload.formText;
-      state.form = action.payload.form;
+      state.formText = action.payload.nodeLiText;
+      state.form = action.payload.nodeLiId;
     },
     setAppointment: (state: IProductsState, action) => {
       state.appointmentText = action.payload.nodeLiText;
       state.appointmentId = action.payload.nodeLiId;
+    },
+    setCountry: (state: IProductsState, action) => {
+      state.countryText = action.payload.nodeLiText;
+      state.countryId = action.payload.nodeLiId;
     },
   },
   extraReducers: (builder) => {
@@ -94,6 +100,6 @@ export const productsSlice = createSlice({
 
 const { actions, reducer: ProductsReducer } = productsSlice;
 
-export const { setCatalog, setCatalogId, setShowCategore, setFormText, setAppointment } = actions;
+export const { setCatalog, setShowCategore, setFormText, setAppointment, setCountry } = actions;
 
 export default ProductsReducer;
