@@ -59,4 +59,9 @@ export interface Options {
   id: string;
   form: string;
   appointment: string;
+  title: string;
+}
+
+export interface ISearchMainInput {
+  search: string;
 }

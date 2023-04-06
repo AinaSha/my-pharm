@@ -25,14 +25,22 @@ export const Products: FC = () => {
     form,
     appointmentId,
     appointmentText,
+    resetFilter,
   } = useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [showForm, setShowForm] = useState(false);
   const [textForm, setTextForm] = useState('');
   const [textCatalog, setTextCatalog] = useState('');
   const [showAppointments, setshowAppointments] = useState(false);
+  const [textAppointments, setTextAppointments] = useState('');
   const [showСountry, setshowСountry] = useState(false);
   const [textСountry, setTextСountry] = useState('');
+
+  const resetSets = () => {
+    setTextСountry('');
+    setTextAppointments('');
+    setTextForm('');
+  };
 
   const renderCardItems = () => {
     return products.map((el: IProduct, id: number) => {
@@ -64,6 +72,7 @@ export const Products: FC = () => {
         id: catalogId,
         form: nodeLiId,
         appointment: appointmentId,
+        title: '',
       };
       store.dispatch(getProductFilter(option));
       dispatch(setFormText({ nodeLiText, nodeLiId }));
@@ -79,7 +88,9 @@ export const Products: FC = () => {
         id: catalogId,
         form: form,
         appointment: nodeLiId,
+        title: '',
       };
+      setTextAppointments(nodeLiText);
       store.dispatch(getProductFilter(option));
       dispatch(setAppointment({ nodeLiId, nodeLiText }));
     }
@@ -96,6 +107,7 @@ export const Products: FC = () => {
         form: form,
         appointment: appointmentId,
         country: nodeLiId,
+        title: '',
       };
       store.dispatch(getProductFilter(option));
       dispatch(setCountry({ nodeLiId, nodeLiText }));
@@ -104,16 +116,16 @@ export const Products: FC = () => {
 
   useEffect(() => {
     setTextCatalog(catalog);
+    resetSets();
     window.scrollTo(0, 0);
-  }, [catalog]);
+  }, [catalog, resetFilter]);
 
-  const resetFilter = () => {
+  const resetFilters = () => {
     const option = {
       nodLiId: '',
       nodeLiText: '',
     };
-    setTextСountry('');
-    setTextForm('');
+    resetSets();
     dispatch(setCatalog(option));
     dispatch(setFormText(option));
     dispatch(setCountry(option));
@@ -214,7 +226,7 @@ export const Products: FC = () => {
               <input
                 type="text"
                 placeholder="Назначения"
-                defaultValue={appointmentText ? appointmentText : ''}
+                defaultValue={textAppointments ? textAppointments : ''}
               />
               <button onClick={() => setshowAppointments(!showAppointments)}>
                 <svg
@@ -281,7 +293,7 @@ export const Products: FC = () => {
               </div>
             </label>
             <label className="reset-btn">
-              <input onClick={resetFilter} type="button" placeholder="Страна" value="очистить" />
+              <input onClick={resetFilters} type="button" placeholder="Страна" value="очистить" />
             </label>
           </div>
         </div>

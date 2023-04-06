@@ -187,11 +187,12 @@ export const api = {
   async GetFilterProducts(
     id: string,
     form: string,
-    appointment: string
+    appointment: string,
+    title: string
   ): Promise<IProduct[] | null> {
     try {
       const response = await fetch(
-        `${apiPath}${apiEndpoints.products}?catalog=${id}&release_form=${form}&appointment=${appointment}`,
+        `${apiPath}${apiEndpoints.products}?catalog=${id}&release_form=${form}&appointment=${appointment}&search=${title}`,
         {
           method: METHODS.get,
           headers: {

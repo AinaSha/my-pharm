@@ -14,6 +14,7 @@ interface IProductsState {
   countryText: string;
   showCategore: boolean;
   isLoading: boolean;
+  resetFilter: boolean;
 }
 
 const initialProductsState: IProductsState = {
@@ -39,6 +40,7 @@ const initialProductsState: IProductsState = {
   countryText: '',
   showCategore: false,
   isLoading: false,
+  resetFilter: false,
 };
 
 export const getProduct = createAsyncThunk('Products/getProduct', async () => {
@@ -48,8 +50,8 @@ export const getProduct = createAsyncThunk('Products/getProduct', async () => {
 
 export const getProductFilter = createAsyncThunk(
   'Products/getProductFilter',
-  async ({ id, form, appointment }: Options) => {
-    const data = await api.GetFilterProducts(id, form, appointment);
+  async ({ id, form, appointment, title }: Options) => {
+    const data = await api.GetFilterProducts(id, form, appointment, title);
     return data;
   }
 );
@@ -77,6 +79,9 @@ export const productsSlice = createSlice({
       state.countryText = action.payload.nodeLiText;
       state.countryId = action.payload.nodeLiId;
     },
+    setResetFilter: (state: IProductsState, action) => {
+      state.resetFilter = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProduct.pending, (state) => {
@@ -100,6 +105,13 @@ export const productsSlice = createSlice({
 
 const { actions, reducer: ProductsReducer } = productsSlice;
 
-export const { setCatalog, setShowCategore, setFormText, setAppointment, setCountry } = actions;
+export const {
+  setCatalog,
+  setShowCategore,
+  setFormText,
+  setAppointment,
+  setCountry,
+  setResetFilter,
+} = actions;
 
 export default ProductsReducer;

@@ -18,6 +18,7 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
       id: linkelement.id as string,
       form: '',
       appointment: '',
+      title: '',
     };
     const option = {
       nodLiId: linkelement.id,
