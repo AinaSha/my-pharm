@@ -1,0 +1,117 @@
+@import '../../../variables.scss';
+
+.products {
+    &__card {
+        @extend %display;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    &__card-right {
+        @extend %display;
+    }
+
+    &__img {
+        img {
+            margin-right: 1rem;
+            width: 65px;
+        }
+    }
+
+    &__delete {
+        margin-bottom: .8rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: end;
+        svg {
+            width: 25px;
+            height: 25px;
+            fill: $delete;
+        }
+    }
+
+    &__count {
+        @extend %btn0choose-count;
+        width: 95px;
+    }
+  
+    &__pay {
+        width: 95px;
+        @extend %display;
+        justify-content: end;
+        span {
+            margin-right: 5px;
+            font-weight: 700;
+        }
+    }
+}
+
+
+@media (max-width: 768px) {
+    .products {
+        &__text {
+            h3 {
+                font-size: 1rem;
+            }
+            p {
+                font-size: .8rem;
+            }
+        }
+
+        &__delete {
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        &__count {
+            button {
+                svg {
+                    width: 17px;
+                    height: 17px;
+                }
+            }
+          
+            span {
+                margin: 0 2px;
+                
+            }
+            width: 80px;
+            margin-left: auto;
+        }
+    }  
+}
+
+@media (max-width: 425px) {
+    .products {
+        &__card {
+            flex-direction: column;
+            position: relative;
+        }
+
+        &__text {
+            width: 70%;
+            margin-right: auto;
+        }
+
+        &__card-left {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__delete {
+            position: absolute;
+            right: 4%;
+            top: 9%;
+        }
+
+        &__count {
+            height: 27px;
+            margin-left: 0;
+        }
+    }  
+}

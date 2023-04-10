@@ -59,9 +59,11 @@ export const Header: FC = () => {
             <div className="user-btns">
               <Link to="/" className="bookmark-btn">
                 <img src={bookmark} alt="bookmark icon" />
+                <span className="user-btns-index bookmark-index">0</span>
               </Link>
               <Link to="/" className="basket-btn">
                 <img src={shopingCard} alt="basket icon" />
+                <span className="user-btns-index basket-index">0</span>
               </Link>
               <SignIn />
             </div>
