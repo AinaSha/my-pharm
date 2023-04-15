@@ -160,26 +160,6 @@ export const Products: FC = () => {
           </button>
           <div>{showCategore && <CatalogList prop="catalog-menu" />}</div>
         </label>
-        <label className="select-pharmacies" htmlFor="">
-          <input type="text" placeholder="Адрес аптек" />
-          <button>
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M25.3334 12L16.0001 21.3333L6.66675 12"
-                stroke="#003838"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </label>
       </div>
       <div className="main-page">
         <div className="filter-select">
@@ -235,6 +215,7 @@ export const Products: FC = () => {
                   viewBox="0 0 32 32"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className={showAppointments ? 'up' : ''}
                 >
                   <path
                     d="M25.3334 12L16.0001 21.3333L6.66675 12"

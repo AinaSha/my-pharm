@@ -6,11 +6,6 @@ import { Pharmacies } from '../../components/pharmacies/Pharmacies';
 import { WindowWidthChange } from '../../store/windowWidthRedux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
-// import { PersonalArea } from '../personalArea/PersonalArea';
-// import { Basket } from '../basket/Basket';
-// import { Favorites } from '../favorites/Favorites';
-// import { Products } from '../products/Products';
-// import { ProductCards } from '../product-card/ProductCards';
 
 export const Main: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,11 +15,6 @@ export const Main: FC = () => {
 
   return (
     <>
-      {/* <ProductCards /> */}
-      {/* <Products /> */}
-      {/* <Favorites /> */}
-      {/* <Basket /> */}
-      {/* <PersonalArea /> */}
       <Banner />
       <SellSlide />
       <MainPageCatalog />

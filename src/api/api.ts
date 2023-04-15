@@ -19,7 +19,6 @@ export const api = {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log('SiginInUser___', data);
         return data;
       } else if (response.status === 403) {
         return response.status;
