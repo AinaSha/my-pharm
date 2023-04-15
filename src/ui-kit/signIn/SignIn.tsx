@@ -8,7 +8,7 @@ import './SignIn.scss';
 
 export const SignIn: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const { isAuth, siginIn } = useSelector((state: RootState) => state.AuthReducer);
+  const { isAuth, siginIn, dataUser } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export const SignIn: FC = () => {
             strokeLinejoin="round"
           />
         </svg>
-        {translate.exit}
+        {dataUser.first_name}
       </button>
     </>
   );

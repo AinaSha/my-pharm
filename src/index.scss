@@ -93,6 +93,10 @@ h2 {
     background: linear-gradient(90deg, #f4afaf 0%, $delete 101.57%), #FFFFFF;
 }
 
+button {
+    cursor: pointer;
+}
+
 @media (max-width: 1000px) {
     .container {
         width: 95%;

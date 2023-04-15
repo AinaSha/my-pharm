@@ -1,6 +1,7 @@
 type ListsT = {
   value: string;
   href: string;
+  id: string;
 };
 
 export interface ITtranslate {
