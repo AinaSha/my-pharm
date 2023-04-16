@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
-import { SiginInUser } from '../../store/authUserReducer';
+import { GetUserMe, SiginInUser } from '../../store/authUserReducer';
 import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 
 import './modal.scss';
@@ -21,6 +21,7 @@ interface ISignInform {
 
 export const Modal: FC = () => {
   const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
+  const { exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const {
     register,
@@ -32,6 +33,10 @@ export const Modal: FC = () => {
     store.dispatch(SiginInUser(data));
     reset();
   };
+
+  useEffect(() => {
+    store.dispatch(GetUserMe());
+  }, [exp]);
 
   const handleModalClick = () => {
     dispatch(setActiveModalSiginIn(false));

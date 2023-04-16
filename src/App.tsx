@@ -10,6 +10,7 @@ import { Confidentiality } from './pages/confidentiality/Confidentiality';
 import { ForgottenPassword } from './pages/forgottenPassword/ForgottenPassword';
 import { ProfileData } from './pages/profileData/ProfileData';
 import { OrderPage } from './pages/orderPage/OrderPage';
+import { Products } from './pages/products/Products';
 import './index.scss';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/profileData" element={<ProfileData />} />
             <Route path="/profileData" element={<ProfileData />} />
             <Route path="/orderPage" element={<OrderPage />} />
+            <Route path="/products" element={<Products />} />
           </Routes>
         </main>
         <Footer />

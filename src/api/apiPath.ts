@@ -4,8 +4,11 @@ export const apiEndpoints = {
   signup: '/users/',
   refresh: '/auth/token/refresh/',
   getMe: '/users/me/',
-  catigories: '/categories/',
+  catalogs: '/catalogs/',
   catigoriesChildren: '/categories/children/',
+  companies: '/companies/',
+  pharmacies: '/pharmacies/',
+  products: '/products/',
 };
 export const enum METHODS {
   get = 'GET',

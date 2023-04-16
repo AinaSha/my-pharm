@@ -2,37 +2,44 @@ import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import lec22 from '../../assets/imeges/lec22.png';
 import { RootState } from '../../store';
+import { IProduct } from '../../types/Types';
 import './renderCardItem.scss';
 
-interface Card {
-  id: string;
-  image: string;
-  title: string;
-  manufacturer: string;
-  price: string;
-  vendorСode: string;
-  recipe: boolean;
-}
+// interface Card {
+//   id: string;
+//   image: string;
+//   title: string;
+//   manufacturer: string;
+//   price: string;
+//   vendorСode: string;
+//   recipe: boolean;
+//   favorites: boolean;
+// }
 
-export const RenderCardItem: FC<Card> = ({
+export const RenderCardItem: FC<IProduct> = ({
   id,
-  image,
+  thumbnail,
   title,
   manufacturer,
   price,
-  vendorСode,
-  recipe,
-}: Card) => {
+  is_req_prescription,
+  favorites,
+}: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [chooseCard, setChooseCard] = useState(false);
 
   const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget.classList.contains('card-like')) setChooseCard(!chooseCard);
   };
+
+  const handleChooseCardDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    console.log('deleted', e);
+  };
+
   return (
-    <div id={id} className="card">
+    <div id={String(id)} className="card">
       <div className="card__header">
-        <div className={recipe ? 'recipe' : 'recipe opacity'}>
+        <div className={is_req_prescription ? 'recipe' : 'recipe opacity'}>
           <svg
             width="21"
             height="21"
@@ -50,20 +57,50 @@ export const RenderCardItem: FC<Card> = ({
           </svg>
           <p>{translate.prescription}</p>
         </div>
-        <div onClick={handleChooseCard} className={chooseCard ? 'choose card-like' : 'card-like'}>
-          <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M2.4477 1.78105C1.94761 2.28115 1.66666 2.95942 1.66666 3.66667V25L11 20.3333L20.3333 25V3.66667C20.3333 2.95942 20.0524 2.28115 19.5523 1.78105C19.0522 1.28095 18.3739 1 17.6667 1H4.33332C3.62608 1 2.9478 1.28095 2.4477 1.78105Z"
-              stroke=""
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
+        {!favorites && (
+          <div onClick={handleChooseCard} className={chooseCard ? 'choose card-like' : 'card-like'}>
+            <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M2.4477 1.78105C1.94761 2.28115 1.66666 2.95942 1.66666 3.66667V25L11 20.3333L20.3333 25V3.66667C20.3333 2.95942 20.0524 2.28115 19.5523 1.78105C19.0522 1.28095 18.3739 1 17.6667 1H4.33332C3.62608 1 2.9478 1.28095 2.4477 1.78105Z"
+                stroke=""
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        )}
+        {favorites && (
+          <div onClick={handleChooseCardDelete} className="delete">
+            <svg
+              enableBackground="new 0 0 40 40"
+              version="1.1"
+              viewBox="0 0 40 40"
+              xmlSpace="preserve"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+            >
+              <g>
+                <path d="M28,40H11.8c-3.3,0-5.9-2.7-5.9-5.9V16c0-0.6,0.4-1,1-1s1,0.4,1,1v18.1c0,2.2,1.8,3.9,3.9,3.9H28c2.2,0,3.9-1.8,3.9-3.9V16   c0-0.6,0.4-1,1-1s1,0.4,1,1v18.1C33.9,37.3,31.2,40,28,40z" />
+              </g>
+              <g>
+                <path d="M33.3,4.9h-7.6C25.2,2.1,22.8,0,19.9,0s-5.3,2.1-5.8,4.9H6.5c-2.3,0-4.1,1.8-4.1,4.1S4.2,13,6.5,13h26.9   c2.3,0,4.1-1.8,4.1-4.1S35.6,4.9,33.3,4.9z M19.9,2c1.8,0,3.3,1.2,3.7,2.9h-7.5C16.6,3.2,18.1,2,19.9,2z M33.3,11H6.5   c-1.1,0-2.1-0.9-2.1-2.1c0-1.1,0.9-2.1,2.1-2.1h26.9c1.1,0,2.1,0.9,2.1,2.1C35.4,10.1,34.5,11,33.3,11z" />
+              </g>
+              <g>
+                <path d="M12.9,35.1c-0.6,0-1-0.4-1-1V17.4c0-0.6,0.4-1,1-1s1,0.4,1,1v16.7C13.9,34.6,13.4,35.1,12.9,35.1z" />
+              </g>
+              <g>
+                <path d="M26.9,35.1c-0.6,0-1-0.4-1-1V17.4c0-0.6,0.4-1,1-1s1,0.4,1,1v16.7C27.9,34.6,27.4,35.1,26.9,35.1z" />
+              </g>
+              <g>
+                <path d="M19.9,35.1c-0.6,0-1-0.4-1-1V17.4c0-0.6,0.4-1,1-1s1,0.4,1,1v16.7C20.9,34.6,20.4,35.1,19.9,35.1z" />
+              </g>
+            </svg>
+          </div>
+        )}
       </div>
       <div className="card__img">
-        <img src={lec22} alt={image} />
+        <img src={lec22} alt={thumbnail} />
       </div>
       <div className="card__text">
         <h6>{title}</h6>
@@ -71,7 +108,7 @@ export const RenderCardItem: FC<Card> = ({
           <p>{translate.manifacturer}:</p>
           <span>{manufacturer}</span>
         </div>
-        <p className="card__vendorСode">{vendorСode}</p>
+        <p className="card__vendorСode">{id}</p>
         <h6>
           {translate.price} {price} сом.
         </h6>
