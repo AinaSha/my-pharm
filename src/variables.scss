@@ -74,3 +74,15 @@ $delete: #F08080;
       
   }
 }
+
+%tab-btn {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  color: $dark-green;
+  border-style: none;
+  border-radius: 6px;
+  padding: 11px 30px;
+  width: 193px;
+  cursor: pointer;
+}

@@ -1,108 +1,121 @@
 @import '../../variables.scss';
 
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: $white;
-    
-    .header-inner {
-        padding: 0px 0px;
-    }
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: $white;
+
+  .header-inner {
+    padding: 0px 0px;
+  }
 }
 
 .top-header {
-    background-color: $light-green;
-    
-    &__wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  background-color: $light-green;
 
-    }
-}
-
-.left {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.bottom-header {
+  &__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0px;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.bottom-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0px;
 }
 
 .user-btns {
-   width: 18%;
-   display: flex;
-   justify-content: space-between;
+  width: 18%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.basket-btn,
+.bookmark-btn {
+  position: relative;
+}
+
+.user-btns-index {
+  min-width: 16px;
+  font-size: .8rem;
+  color: $white;
+  text-align: center;
+  background-color: #eb5757;
+  padding: 2px 3px;
+  border-radius: 16px;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: 18px;
 }
 
 @media (max-width: 1000px) {
-    .header {
-        .header-inner {
-            padding: 0px 0px;
-        }
+  .header {
+    .header-inner {
+      padding: 0px 0px;
     }
+  }
 
-    .top-header,
-    .user-btns .sign-btn,
-    .catalog-parent{
-        display: none;
-    }
+  .top-header,
+  .user-btns .sign-btn,
+  .catalog-parent {
+    display: none;
+  }
 
-    .burger-logo-block {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 19px;
-    }
-    
-    .user-btns {
-        width: 10%;
-    }
+  .burger-logo-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 19px;
+  }
 
+  .user-btns {
+    width: 10%;
+  }
 }
 
 @media (max-width: 744px) {
-    .header {
-        &__logo img {
-            width: 54px;
-            height: 37px;
-        }
+  .header {
+    &__logo img {
+      width: 54px;
+      height: 37px;
     }
+  }
 
-  
-    .user-btns {
-        width: 14%;
-    }
-
+  .user-btns {
+    width: 14%;
+  }
 }
 
-
 @media (max-width: 575px) {
-    .bottom-header {
-        flex-wrap: wrap;
-        row-gap: 35px;
-    }
+  .bottom-header {
+    flex-wrap: wrap;
+    row-gap: 35px;
+  }
 
-    .search-input {
-        width: 100%;
-        order: 2;
-        margin: 0 auto;
-    }
+  .search-input {
+    width: 100%;
+    order: 2;
+    margin: 0 auto;
+  }
 
-    .user-btns {
-        width: 20%;
-        order: 1;
-    }
+  .user-btns {
+    width: 20%;
+    order: 1;
+  }
 }

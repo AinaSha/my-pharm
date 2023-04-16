@@ -97,13 +97,6 @@
       }
    }
 
-   .catalog-btn::after {
-      content: url('../../assets/icones/chevron-down.svg');
-      position: absolute;
-      top: 8px;
-      transform: translate( 350px,  0px );
-   }
-
    .catalog-menu {
       position: relative;
       top: -15px;
@@ -153,24 +146,10 @@
       padding: 6px 0px;
    }
 
-   .catalog-btn::after {
-      content: url('../../assets/icones/chevron-down.svg');
-      position: relative;
-      top: 3px;
-      transform: translate( 100px,  0px );
-   }
-
 }
 
 @media (max-width: 575px) {
    .burger-menu {
       top: 153px;
-   }
-
-   .catalog-btn::after {
-      content: url('../../assets/icones/chevron-down.svg');
-      position: relative;
-      top: 3px;
-      transform: translate( 100px,  0px );
    }
 }

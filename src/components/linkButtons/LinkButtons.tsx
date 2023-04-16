@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-interface LinksBTNs {
+export interface LinksBTNs {
   show: {
     basket: boolean;
     favorites: boolean;

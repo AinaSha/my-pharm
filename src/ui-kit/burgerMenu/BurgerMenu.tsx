@@ -55,7 +55,9 @@ export const BurgerMenu: FC<MenuProps> = () => {
         </div>
         <div className="second-block">
           <Catalog />
-          <Navbar />
+          <div onClick={handleClick}>
+            <Navbar />
+          </div>
         </div>
       </div>
     </>

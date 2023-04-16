@@ -1,7 +1,6 @@
 @import '../../variables.scss';
 
 .content-form {
-    width: 500px;
     margin: 0 auto;
     width: 100%;
 
@@ -33,6 +32,7 @@
         color: $white;
         display: block;
         margin: 0 auto;
+        cursor: pointer;
     }
 
     .confidentiality {
@@ -50,5 +50,53 @@
             text-decoration: underline;
             color: $green;
         }
+    }
+}
+
+
+@media (max-width: 767px) {
+    .content-form {
+        button {
+            padding: 15px 35px;
+            font-size: 1rem;
+        }
+    
+    }
+}
+
+
+@media (max-width: 575px) {
+    .content-form {
+        label {
+            font-size: 0.75rem;
+            margin-bottom: 5px;
+        }
+
+        
+        .form-item input {
+            padding: 6px ;
+        }
+        
+        button {
+            padding: 8px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .form-item p {
+            font-size: 0.75rem;
+        }
+    
+    }
+}
+
+
+@media (max-width: 475px) {
+    .content-form {
+        button {
+            padding: 8px 20px;
+            font-size: 0.75rem;
+        }
+       
     }
 }
