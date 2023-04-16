@@ -4,7 +4,17 @@
   }    
   
   .order-wrapper {
+    width: 90%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
   }
 }
+
+@media (max-width: 1100px) {
+  .order-wrapper {
+    flex-direction: column;
+  }
+}
+
+
