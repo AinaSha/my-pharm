@@ -27,6 +27,7 @@ export const RenderCardItem: FC<IProduct> = ({
   favorites,
 }: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const [countProduct, setCountProduct] = useState(1);
   const [chooseCard, setChooseCard] = useState(false);
 
   const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -52,6 +53,28 @@ export const RenderCardItem: FC<IProduct> = ({
 
   const handleChooseCardDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log('deleted', e);
+  };
+
+  const handleAddBascket = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const targetCard = e.currentTarget as HTMLElement;
+    const idCard = targetCard.parentElement?.parentElement?.id as string;
+    console.log(idCard);
+
+    const basckeds = getFromLocalStorage('bascket');
+    if (basckeds) {
+      const basArr = JSON.parse(basckeds!);
+      setLocalStorage('bascket', JSON.stringify({ ...basArr, [idCard]: countProduct }));
+    } else {
+      setLocalStorage('bascket', JSON.stringify({ [idCard]: countProduct }));
+    }
+  };
+
+  const handleCountProductMin = () => {
+    if (countProduct > 1) setCountProduct(countProduct - 1);
+  };
+
+  const handleCountProductPlus = () => {
+    if (countProduct < 10) setCountProduct(countProduct + 1);
   };
 
   return (
@@ -133,7 +156,7 @@ export const RenderCardItem: FC<IProduct> = ({
       </div>
       <div className="card__btns">
         <div className="card__btns__choose">
-          <button>
+          <button onClick={handleCountProductMin}>
             <svg
               width="24"
               height="24"
@@ -150,8 +173,8 @@ export const RenderCardItem: FC<IProduct> = ({
               />
             </svg>
           </button>
-          <span>1</span>
-          <button>
+          <span>{countProduct}</span>
+          <button onClick={handleCountProductPlus}>
             <svg
               width="24"
               height="24"
@@ -169,7 +192,9 @@ export const RenderCardItem: FC<IProduct> = ({
             </svg>
           </button>
         </div>
-        <button className="add-basket">{translate.basket}</button>
+        <button onClick={handleAddBascket} className="add-basket">
+          {translate.basket}
+        </button>
       </div>
     </div>
   );
