@@ -65,3 +65,13 @@ export interface Options {
 export interface ISearchMainInput {
   search: string;
 }
+
+export interface IInitialAuth {
+  dataUser: IcreateUser;
+  successReg: boolean;
+  isLoading: boolean;
+  siginIn: boolean;
+  isAuth: boolean;
+  registration: boolean;
+  exp: number;
+}

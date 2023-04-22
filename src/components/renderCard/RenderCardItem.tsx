@@ -1,21 +1,11 @@
 import { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import lec22 from '../../assets/imeges/lec22.png';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import { setLocalStorage, getFromLocalStorage } from '../../utils/utilsForm';
 import './renderCardItem.scss';
-
-// interface Card {
-//   id: string;
-//   image: string;
-//   title: string;
-//   manufacturer: string;
-//   price: string;
-//   vendorСode: string;
-//   recipe: boolean;
-//   favorites: boolean;
-// }
+import { addBascket, changeFavorite } from '../../store/BascketFavoriteReducer';
 
 export const RenderCardItem: FC<IProduct> = ({
   id,
@@ -27,6 +17,8 @@ export const RenderCardItem: FC<IProduct> = ({
   favorites,
 }: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const dispatch = useDispatch();
+
   const [countProduct, setCountProduct] = useState(1);
   const [chooseCard, setChooseCard] = useState(false);
 
@@ -42,12 +34,15 @@ export const RenderCardItem: FC<IProduct> = ({
       const favArr = JSON.parse(favoritesArr!);
       if (favArr.indexOf(idCard) === -1) {
         setLocalStorage('favorites', JSON.stringify([...favArr, idCard]));
+        dispatch(changeFavorite(favArr.length + 1));
       } else {
         favArr.splice(favArr.indexOf(idCard), 1);
         setLocalStorage('favorites', JSON.stringify(favArr));
+        dispatch(changeFavorite(favArr.length));
       }
     } else {
       setLocalStorage('favorites', JSON.stringify([idCard]));
+      dispatch(changeFavorite(1));
     }
   };
 
@@ -58,14 +53,20 @@ export const RenderCardItem: FC<IProduct> = ({
   const handleAddBascket = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const targetCard = e.currentTarget as HTMLElement;
     const idCard = targetCard.parentElement?.parentElement?.id as string;
-    console.log(idCard);
 
     const basckeds = getFromLocalStorage('bascket');
     if (basckeds) {
       const basArr = JSON.parse(basckeds!);
       setLocalStorage('bascket', JSON.stringify({ ...basArr, [idCard]: countProduct }));
+      const objKeys = Object.keys(basArr);
+      let allProducts = countProduct;
+      objKeys.forEach((el: string) => {
+        if (!(el === idCard)) allProducts += basArr[el];
+      });
+      dispatch(addBascket(allProducts));
     } else {
       setLocalStorage('bascket', JSON.stringify({ [idCard]: countProduct }));
+      dispatch(addBascket(countProduct));
     }
   };
 
