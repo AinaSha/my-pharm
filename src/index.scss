@@ -97,11 +97,17 @@ button {
     cursor: pointer;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1240px) {
   .container {
     width: 95%;
   }
 }
+
+// @media (max-width: 1000px) {
+//   .container {
+//     width: 95%;
+//   }
+// }
 
 @media (max-width: 575px) {
   h2 {
