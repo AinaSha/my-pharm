@@ -21,7 +21,6 @@ export const bascketFavorite = createSlice({
     addBascket: (state: BascketFavorite, action) => {
       state.countBascket = action.payload;
       setLocalStorage('allProduct', JSON.stringify(state.countBascket));
-      console.log(state.countBascket);
     },
   },
 });

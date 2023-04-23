@@ -19,8 +19,12 @@ export const RenderCardItem: FC<IProduct> = ({
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const dispatch = useDispatch();
 
-  const [countProduct, setCountProduct] = useState(1);
+  const basckeds = getFromLocalStorage('bascket');
+  const basArr = JSON.parse(basckeds!);
+
   const [chooseCard, setChooseCard] = useState(false);
+  const [change, setChange] = useState(basArr ? basArr.hasOwnProperty(id) : false);
+  const [countProduct, setCountProduct] = useState(change ? basArr[id] : 1);
 
   const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const targetCard = e.currentTarget as HTMLElement;
@@ -54,9 +58,7 @@ export const RenderCardItem: FC<IProduct> = ({
     const targetCard = e.currentTarget as HTMLElement;
     const idCard = targetCard.parentElement?.parentElement?.id as string;
 
-    const basckeds = getFromLocalStorage('bascket');
     if (basckeds) {
-      const basArr = JSON.parse(basckeds!);
       setLocalStorage('bascket', JSON.stringify({ ...basArr, [idCard]: countProduct }));
       const objKeys = Object.keys(basArr);
       let allProducts = countProduct;
@@ -68,6 +70,7 @@ export const RenderCardItem: FC<IProduct> = ({
       setLocalStorage('bascket', JSON.stringify({ [idCard]: countProduct }));
       dispatch(addBascket(countProduct));
     }
+    setChange(true);
   };
 
   const handleCountProductMin = () => {
@@ -194,7 +197,7 @@ export const RenderCardItem: FC<IProduct> = ({
           </button>
         </div>
         <button onClick={handleAddBascket} className="add-basket">
-          {translate.basket}
+          {change ? 'изменить' : translate.basket}
         </button>
       </div>
     </div>
