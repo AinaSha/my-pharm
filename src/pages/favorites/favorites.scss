@@ -1,3 +1,13 @@
+.favorite {
+    display: flex;
+    gap: 83px;
+
+    &__info-block h3 {
+        font-size: 1.5rem;
+    }
+}
+
+
 .cards-block-favorite {
     margin-top: 2rem;
     display: flex;

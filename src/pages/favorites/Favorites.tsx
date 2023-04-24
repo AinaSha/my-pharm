@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { LinkButtons } from '../../components/linkButtons/LinkButtons';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
@@ -39,12 +38,35 @@ export const Favorites: FC = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="link-buttons-favorit">
-          <LinkButtons show={show} />
+      <div className="favorite container">
+        <ul className="aside-nav-list">
+          <li>
+            <a href="#">Мои заказы</a>
+          </li>
+          <li>
+            <a href="#">Личные данные</a>
+          </li>
+          <li>
+            <a href="#">Избранное</a>
+          </li>
+          <li className="active">
+            <a href="#">Корзина</a>
+          </li>
+          <li>
+            <a href="#">Выйти</a>
+          </li>
+        </ul>
+        <div className="favorite__info-block">
+          <h3>Избранное</h3>
+          <div className="cards-block-favorite">{renderCardItems()}</div>
+          <div className="empty-basket__info">
+            <p>На данный момент вы еще не добавили товаров</p>
+            <a className="empty-basket__info-btn" href="#">
+              На главную страницу
+            </a>
+          </div>
         </div>
       </div>
-      <div className="container cards-block-favorite">{renderCardItems()}</div>
     </>
   );
 };
