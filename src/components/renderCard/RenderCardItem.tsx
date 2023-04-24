@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import lec22 from '../../assets/imeges/lec22.png';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
+import { setLocalStorage, getFromLocalStorage } from '../../utils/utilsForm';
 import './renderCardItem.scss';
 
 // interface Card {
@@ -29,7 +30,24 @@ export const RenderCardItem: FC<IProduct> = ({
   const [chooseCard, setChooseCard] = useState(false);
 
   const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.currentTarget.classList.contains('card-like')) setChooseCard(!chooseCard);
+    const targetCard = e.currentTarget as HTMLElement;
+
+    if (targetCard.classList.contains('card-like')) setChooseCard(!chooseCard);
+
+    const idCard = targetCard.parentElement?.parentElement?.id;
+    const favoritesArr = getFromLocalStorage('favorites');
+
+    if (favoritesArr) {
+      const favArr = JSON.parse(favoritesArr!);
+      if (favArr.indexOf(idCard) === -1) {
+        setLocalStorage('favorites', JSON.stringify([...favArr, idCard]));
+      } else {
+        favArr.splice(favArr.indexOf(idCard), 1);
+        setLocalStorage('favorites', JSON.stringify(favArr));
+      }
+    } else {
+      setLocalStorage('favorites', JSON.stringify([idCard]));
+    }
   };
 
   const handleChooseCardDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

@@ -6,6 +6,7 @@ import { RootState, store } from '../../store';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 import { getProduct } from '../../store/productsReducer';
 import { IProduct } from '../../types/Types';
+import { NavLink } from 'react-router-dom';
 
 export const MainPageCatalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -26,7 +27,7 @@ export const MainPageCatalog: FC = () => {
           manufacturer="{el.manufacturer}"
           price={el.price}
           is_req_prescription={el.is_req_prescription}
-          favorites="true"
+          favorites=""
           catalog={0}
           discount_price={''}
           sale={''}
@@ -44,7 +45,7 @@ export const MainPageCatalog: FC = () => {
         </div>
         <div className="cards-block">{renderCardItems()}</div>
         <button className="catalog-block-main__btn">
-          <a href="">{translate.catalogButton}</a>
+          <NavLink to="/products">{translate.catalogButton}</NavLink>
         </button>
       </div>
     </section>
