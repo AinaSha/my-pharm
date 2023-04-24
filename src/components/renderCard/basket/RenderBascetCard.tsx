@@ -4,47 +4,25 @@ import './renderBascetCard.scss';
 
 export const RenderBascetCard: FC = () => {
   return (
-    <div className="container">
-      <div className="products">
-        <div className="products__card">
-          <div className="products__card-right">
-            <div className="products__img">
-              <img src={lec22} alt="" />
-            </div>
-            <div className="products__text">
-              <h3>Алмагель, суспензия для приема внутрь 170 мл</h3>
-              <p>Аптека НЭМАН</p>
-            </div>
+    <div className="product-card">
+      <div className="product-card__inner">
+        <div className="product-card__img">
+          <img src={lec22} alt="" />
+        </div>
+        <div className="product-card__info">
+          <div className="product-card__text">
+            <h3>Алмагель, суспензия для приема внутрь 170 мл</h3>
+            <p>Аптека НЭМАН</p>
           </div>
-          <div className="products__card-left">
-            <div className="products__delete">
-              <svg
-                enableBackground="new 0 0 40 40"
-                id="Слой_1"
-                version="1.1"
-                viewBox="0 0 40 40"
-                xmlSpace="preserve"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-              >
-                <g>
-                  <path d="M28,40H11.8c-3.3,0-5.9-2.7-5.9-5.9V16c0-0.6,0.4-1,1-1s1,0.4,1,1v18.1c0,2.2,1.8,3.9,3.9,3.9H28c2.2,0,3.9-1.8,3.9-3.9V16   c0-0.6,0.4-1,1-1s1,0.4,1,1v18.1C33.9,37.3,31.2,40,28,40z" />
-                </g>
-                <g>
-                  <path d="M33.3,4.9h-7.6C25.2,2.1,22.8,0,19.9,0s-5.3,2.1-5.8,4.9H6.5c-2.3,0-4.1,1.8-4.1,4.1S4.2,13,6.5,13h26.9   c2.3,0,4.1-1.8,4.1-4.1S35.6,4.9,33.3,4.9z M19.9,2c1.8,0,3.3,1.2,3.7,2.9h-7.5C16.6,3.2,18.1,2,19.9,2z M33.3,11H6.5   c-1.1,0-2.1-0.9-2.1-2.1c0-1.1,0.9-2.1,2.1-2.1h26.9c1.1,0,2.1,0.9,2.1,2.1C35.4,10.1,34.5,11,33.3,11z" />
-                </g>
-                <g>
-                  <path d="M12.9,35.1c-0.6,0-1-0.4-1-1V17.4c0-0.6,0.4-1,1-1s1,0.4,1,1v16.7C13.9,34.6,13.4,35.1,12.9,35.1z" />
-                </g>
-                <g>
-                  <path d="M26.9,35.1c-0.6,0-1-0.4-1-1V17.4c0-0.6,0.4-1,1-1s1,0.4,1,1v16.7C27.9,34.6,27.4,35.1,26.9,35.1z" />
-                </g>
-                <g>
-                  <path d="M19.9,35.1c-0.6,0-1-0.4-1-1V17.4c0-0.6,0.4-1,1-1s1,0.4,1,1v16.7C20.9,34.6,20.4,35.1,19.9,35.1z" />
-                </g>
-              </svg>
+          <div className="product-card__price-block">
+            <div className="price-for-one">
+              <p>Цена</p>
+              <p></p>
+              <p>
+                <span>159</span> сом/шт.
+              </p>
             </div>
-            <div className="products__count">
+            <div className="product-card__count">
               <button>
                 <svg
                   width="24"
@@ -81,11 +59,29 @@ export const RenderBascetCard: FC = () => {
                 </svg>
               </button>
             </div>
-            <div className="products__pay">
-              <span>260</span>
-              <p>сом</p>
+            <div className="product-card__pay">
+              <p>
+                <span>159</span> сом/шт.
+              </p>
             </div>
           </div>
+        </div>
+        <div className="product-card__delete">
+          <svg
+            width="24"
+            height="26"
+            viewBox="0 0 24 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.33398 11.6667V19.6667M14.6673 11.6667V19.6667M1.33398 6.33333H22.6673M21.334 6.33333L20.178 22.5227C20.1301 23.1954 19.829 23.8251 19.3355 24.2848C18.8419 24.7444 18.1925 25 17.518 25H6.48332C5.80884 25 5.15941 24.7444 4.66583 24.2848C4.17226 23.8251 3.87121 23.1954 3.82332 22.5227L2.66732 6.33333H21.334ZM16.0007 6.33333V2.33333C16.0007 1.97971 15.8602 1.64057 15.6101 1.39052C15.3601 1.14048 15.0209 1 14.6673 1H9.33398C8.98036 1 8.64122 1.14048 8.39118 1.39052C8.14113 1.64057 8.00065 1.97971 8.00065 2.33333V6.33333H16.0007Z"
+              stroke="#8B8989"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </div>
     </div>
