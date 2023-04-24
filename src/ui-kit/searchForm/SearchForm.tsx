@@ -1,12 +1,46 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { AppDispatch, RootState, store } from '../../store';
+import { ISearchMainInput } from '../../types/Types';
+import {
+  getProductFilter,
+  setAppointment,
+  setCatalog,
+  setCountry,
+  setFormText,
+  setResetFilter,
+} from '../../store/productsReducer';
 import './SearchForm.scss';
 
 export const SearchForm: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const { resetFilter } = useSelector((state: RootState) => state.ProductsReducer);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { register, handleSubmit, reset } = useForm<ISearchMainInput>();
+  const onSubmit: SubmitHandler<ISearchMainInput> = (data) => {
+    const option = {
+      nodLiId: '',
+      nodeLiText: '',
+    };
+    dispatch(setCatalog(option));
+    dispatch(setFormText(option));
+    dispatch(setCountry(option));
+    dispatch(setAppointment(option));
+    dispatch(setResetFilter(!resetFilter));
+    const titleSearch = {
+      id: '',
+      form: '',
+      appointment: '',
+      title: data.search,
+    };
+    store.dispatch(getProductFilter(titleSearch));
+    reset();
+  };
+
   return (
-    <form className="search-input">
+    <form onSubmit={handleSubmit(onSubmit)} className="search-input">
       <svg
         width="32"
         height="32"
@@ -22,8 +56,8 @@ export const SearchForm: FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      <input type="text" placeholder={translate.placeholder} />
-      <button>{translate.search}</button>
+      <input type="text" placeholder={translate.placeholder} {...register('search')} />
+      <button type="submit">{translate.search}</button>
     </form>
   );
 };

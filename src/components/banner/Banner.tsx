@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import './banner.scss';
+import { NavLink } from 'react-router-dom';
 
 export const Banner: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -29,7 +30,9 @@ export const Banner: FC = () => {
         <h1>{translate.heroTitle}</h1>
         <p>{translate.heroSubTitle}</p>
         <button>
-          <p>{translate.catalog}</p>
+          <p>
+            <NavLink to="/products">{translate.catalog}</NavLink>
+          </p>
         </button>
       </div>
     </section>

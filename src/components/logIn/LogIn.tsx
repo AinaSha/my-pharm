@@ -1,19 +1,15 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RootState, store } from '../../store';
+import { CreateUser, SiginInUser } from '../../store/authUserReducer';
+import { ILogInform } from '../../types/Types';
 
 import './LogIn.scss';
 
-interface ILogInform {
-  firstName: string;
-  lastName: string;
-  mobileNumber: number;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
 export const LogIn: FC = () => {
+  const { registration } = useSelector((state: RootState) => state.AuthReducer);
   const {
     register,
     handleSubmit,
@@ -22,16 +18,18 @@ export const LogIn: FC = () => {
     formState: { errors },
   } = useForm<ILogInform>();
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
-    console.log(data);
+    store.dispatch(CreateUser(data));
     reset();
+    store.dispatch(SiginInUser({ email: data.email, password: data.password }));
   };
+
   return (
     <form className="content-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-item">
         <label>Имя:</label>
         <input
           type="text"
-          {...register('firstName', {
+          {...register('first_name', {
             required: '* Поле обьязательно к заполнению',
             minLength: {
               value: 4,
@@ -39,13 +37,13 @@ export const LogIn: FC = () => {
             },
           })}
         />
-        <div>{errors?.firstName && <p>{errors?.firstName?.message || 'Error!'}</p>}</div>
+        <div>{errors?.first_name && <p>{errors?.first_name?.message || 'Error!'}</p>}</div>
       </div>
       <div className="form-item">
         <label>Фамилия:</label>
         <input
           type="text"
-          {...register('lastName', {
+          {...register('last_name', {
             required: '* Поле обьязательно к заполнению',
             minLength: {
               value: 3,
@@ -53,7 +51,21 @@ export const LogIn: FC = () => {
             },
           })}
         />
-        <div>{errors?.lastName && <p>{errors?.lastName?.message || 'Error!'}</p>}</div>
+        <div>{errors?.last_name && <p>{errors?.last_name?.message || 'Error!'}</p>}</div>
+      </div>
+      <div className="form-item">
+        <label>Отчество:</label>
+        <input
+          type="text"
+          {...register('sur_name', {
+            required: '* Поле обьязательно к заполнению',
+            minLength: {
+              value: 3,
+              message: 'Минимум 3 символов',
+            },
+          })}
+        />
+        <div>{errors?.sur_name && <p>{errors?.sur_name?.message || 'Error!'}</p>}</div>
       </div>
       <div className="form-item">
         <label>Адрес эл.почты</label>
@@ -75,7 +87,7 @@ export const LogIn: FC = () => {
         <input
           type="tel"
           placeholder="996"
-          {...register('mobileNumber', {
+          {...register('phone', {
             required: '* Поле обьязательно к заполнению',
             minLength: {
               value: 12,
@@ -87,7 +99,38 @@ export const LogIn: FC = () => {
             },
           })}
         />
-        <div>{errors?.mobileNumber && <p>{errors?.mobileNumber?.message || 'Error!'}</p>}</div>
+        <div>{errors?.phone && <p>{errors?.phone?.message || 'Error!'}</p>}</div>
+      </div>
+      <div className="form-item">
+        <label>Адрес:</label>
+        <input
+          type="text"
+          {...register('address', {
+            minLength: {
+              value: 3,
+              message: 'Минимум 3 символов',
+            },
+          })}
+        />
+        <div>{errors?.address && <p>{errors?.address?.message || 'Error!'}</p>}</div>
+      </div>
+      <div className="form-item">
+        <label>Выберите пол:</label>
+        <select {...register('gender')}>
+          <option value=""></option>
+          <option value="women">women</option>
+          <option value="men">men</option>
+        </select>
+      </div>
+      <div className="form-item">
+        <label>
+          Вы пенсионер:
+          <input type="checkbox" {...register('is_pensioner')} />
+        </label>
+        <label>
+          Вы beneficiaries:
+          <input type="checkbox" {...register('is_beneficiaries')} />
+        </label>
       </div>
       <div className="form-item">
         <label>Пароль</label>
@@ -107,7 +150,7 @@ export const LogIn: FC = () => {
         <label>Повторите пароль</label>
         <input
           type="password"
-          {...register('confirmPassword', {
+          {...register('password_confirm', {
             required: 'Повторите пароль',
             validate: (val: string) => {
               if (watch('password') !== val) {
@@ -117,7 +160,7 @@ export const LogIn: FC = () => {
           })}
         />
         <div>
-          {errors?.confirmPassword && <p>{errors?.confirmPassword?.message || 'Error!'}</p>}
+          {errors?.password_confirm && <p>{errors?.password_confirm?.message || 'Error!'}</p>}
         </div>
       </div>
       <div className="confidentiality">

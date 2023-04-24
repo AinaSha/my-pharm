@@ -103,3 +103,45 @@
     }
 }
 
+
+@media (max-width: 768px) {
+    .modal__content {
+        h2 {
+            font-size: 1.5rem; 
+        }
+    }
+}
+
+
+@media (max-width: 575px) {
+    .modal__content {
+        padding: 0px 25px 20px 25px;
+        label {
+            font-size: 0.75rem;
+            margin-bottom: 5px;
+        }
+
+        .checkbox {
+            margin: 0px;
+        }
+
+        .auth-block {
+            margin: 15px 0;
+
+            &__link {
+               font-size: 0.75rem;
+            }
+        }
+
+        .submit {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+    }
+
+    .modal__content-form input{
+        padding: 6px ;
+    }
+
+    
+}

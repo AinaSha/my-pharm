@@ -12,6 +12,7 @@ export const Main: FC = () => {
   window.addEventListener('resize', () => {
     dispatch(WindowWidthChange());
   });
+
   return (
     <>
       <Banner />

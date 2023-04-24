@@ -3,6 +3,11 @@
 .language-container {
     position: relative;
 
+    .lang-btn-up {
+        transform: rotate(-180deg);
+        transition: .5s;
+    }
+
     ul {
         position: absolute;
         top: 21px;

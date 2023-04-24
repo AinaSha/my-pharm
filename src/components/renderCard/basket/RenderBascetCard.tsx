@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import lec22 from '../../../assets/imeges/lec22.png';
 import './renderBascetCard.scss';
-import React from 'react';
 
 export const RenderBascetCard: FC = () => {
   return (
