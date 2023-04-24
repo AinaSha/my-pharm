@@ -12,6 +12,7 @@ import { ProfileData } from './pages/profileData/ProfileData';
 import { OrderPage } from './pages/orderPage/OrderPage';
 import { Products } from './pages/products/Products';
 import { Basket } from './pages/basket/Basket';
+import { Favorites } from './pages/favorites/Favorites';
 import './index.scss';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/orderPage" element={<OrderPage />} />
             <Route path="/products" element={<Products />} />
             <Route path="/basket" element={<Basket />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </main>
         <Footer />

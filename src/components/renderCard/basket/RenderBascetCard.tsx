@@ -22,15 +22,6 @@ export const RenderBascetCard: FC = () => {
                 <span>159</span> сом/шт.
               </p>
             </div>
-            {/* <table>
-              <tr>
-                <td>Цена</td>
-                <td></td>
-                <td>
-                  <span>159</span> сом/шт.
-                </td>
-              </tr>
-            </table> */}
             <div className="product-card__count">
               <button>
                 <svg
