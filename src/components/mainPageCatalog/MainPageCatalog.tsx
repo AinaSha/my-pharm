@@ -1,110 +1,36 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { RenderCardItem } from '../renderCard/RenderCardItem';
 import './mainPageCatalog.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, store } from '../../store';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
-
-interface Card {
-  id: string;
-  image: string;
-  title: string;
-  manufacturer: string;
-  price: string;
-  vendorСode: string;
-  recipe: boolean;
-}
-
-const cardL = [
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-  {
-    id: 'qqqqqqq',
-    image: '',
-    title: 'Ринофлуимуцил, спрей назальный 10 мл 1 шт',
-    manufacturer: 'Ниармедик Фарма, Россия',
-    price: '400',
-    vendorСode: 'Арт. 31378',
-    recipe: true,
-  },
-];
+import { getProduct } from '../../store/productsReducer';
+import { IProduct } from '../../types/Types';
+import { NavLink } from 'react-router-dom';
 
 export const MainPageCatalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const { products } = useSelector((state: RootState) => state.ProductsReducer);
+
+  useEffect(() => {
+    store.dispatch(getProduct());
+  }, []);
 
   const renderCardItems = () => {
-    return cardL.map((el: Card, id: number) => {
+    return products.map((el: IProduct, id: number) => {
       return (
         <RenderCardItem
           key={id}
           id={el.id}
           title={el.title}
-          image={el.image}
-          manufacturer={el.manufacturer}
+          thumbnail={el.thumbnail}
+          manufacturer="{el.manufacturer}"
           price={el.price}
-          vendorСode={el.vendorСode}
-          recipe={el.recipe}
+          is_req_prescription={el.is_req_prescription}
+          favorites=""
+          catalog={0}
+          discount_price={''}
+          sale={''}
         />
       );
     });
@@ -119,7 +45,7 @@ export const MainPageCatalog: FC = () => {
         </div>
         <div className="cards-block">{renderCardItems()}</div>
         <button className="catalog-block-main__btn">
-          <a href="">{translate.catalogButton}</a>
+          <NavLink to="/products">{translate.catalogButton}</NavLink>
         </button>
       </div>
     </section>

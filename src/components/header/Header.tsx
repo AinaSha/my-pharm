@@ -14,17 +14,23 @@ import './Header.scss';
 import logo from '../../assets/icones/Logo.svg';
 import bookmark from '../../assets/icones/bookmark.svg';
 import shopingCard from '../../assets/icones/shopping-cart.svg';
+import { useDispatch } from 'react-redux';
+import { setActiveBurger } from '../../store/burgerStyleReducer';
+import { Modal } from '../modal/Modal';
 
 export const Header: FC = () => {
+  const dispatch = useDispatch();
   const [isActive, setActive] = useState(false);
 
   const handleToggle = () => {
+    dispatch(setActiveBurger(true));
     setActive((prevState) => !prevState);
     document.body.classList.toggle('lock');
   };
 
   return (
     <>
+      <Modal />
       <div className="header">
         <div className="header-inner">
           <div className="top-header">
@@ -53,9 +59,11 @@ export const Header: FC = () => {
             <div className="user-btns">
               <Link to="/" className="bookmark-btn">
                 <img src={bookmark} alt="bookmark icon" />
+                <span className="user-btns-index bookmark-index">0</span>
               </Link>
               <Link to="/" className="basket-btn">
                 <img src={shopingCard} alt="basket icon" />
+                <span className="user-btns-index basket-index">0</span>
               </Link>
               <SignIn />
             </div>

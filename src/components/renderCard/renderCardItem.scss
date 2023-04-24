@@ -33,8 +33,16 @@
 
         .choose {
             svg {
-                fill: #F08080;
-                color: #F08080;
+                fill: $delete;
+                color: $delete;
+            }
+        }
+
+        .delete {
+            svg {
+                width: 25px;
+                height: 25px;
+                fill: $delete;
             }
         }
 
@@ -91,28 +99,29 @@
         }
 
         &__choose {
-            padding: 2px;
-            background-color: #FFFFFF;
-            @extend %display;
-            border: 1px solid #27AE60;
-            border-radius: 8px;
-            button {
-                background-color: inherit;
-                border: none;
-                cursor: pointer;
+            @extend %btn0choose-count;
+            // padding: 2px;
+            // background-color: #FFFFFF;
+            // @extend %display;
+            // border: 1px solid #27AE60;
+            // border-radius: 8px;
+            // button {
+            //     background-color: inherit;
+            //     border: none;
+            //     cursor: pointer;
 
-                svg {
-                    width: 20px;
-                    height: 20px;
-                }
-            }
+            //     svg {
+            //         width: 20px;
+            //         height: 20px;
+            //     }
+            // }
 
-            span {
-                margin: 0 10px;
-                @extend %sub-title-text;
-                font-weight: 400;
+            // span {
+            //     margin: 0 10px;
+            //     @extend %sub-title-text;
+            //     font-weight: 400;
                 
-            }
+            // }
         }
     }
 }

@@ -29,9 +29,60 @@ $light-green: #F5FFFB;
 $black: #000000;
 $grey: #8B8989;
 $white: #FFFFFF;
+$delete: #F08080;
 
 %display {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+%btn {
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  background-color: $green;
+  border-style: none;
+  border-radius: 5px;
+  color: $white;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+
+%btn0choose-count {
+  padding: 2px;
+  background-color: $white;
+  @extend %display;
+  border: 1px solid #27AE60;
+  border-radius: 8px;
+  button {
+      background-color: inherit;
+      border: none;
+      cursor: pointer;
+
+      svg {
+          width: 20px;
+          height: 20px;
+      }
+  }
+
+  span {
+      margin: 0 10px;
+      @extend %sub-title-text;
+      font-weight: 400;
+      
+  }
+}
+
+%tab-btn {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  color: $dark-green;
+  border-style: none;
+  border-radius: 6px;
+  padding: 11px 30px;
+  width: 193px;
+  cursor: pointer;
 }

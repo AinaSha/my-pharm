@@ -2,6 +2,7 @@
   "name": "my_pharm",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://api.med-service.online/api/v1",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -9,6 +10,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/google.accounts": "^0.0.6",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.25",
@@ -23,6 +25,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "husky": "^7.0.4",
+    "jwt-decode": "^3.1.2",
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
     "react": "^18.2.0",

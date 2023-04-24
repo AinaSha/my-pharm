@@ -37,6 +37,22 @@ export const Catalog: FC = () => {
             <path d="M0 15H8.5V17H0V15Z" fill="white" />
           </svg>
           {translate.catalog}
+          <svg
+            className={open ? 'arrow-icon arrow-icon-up' : 'arrow-icon'}
+            width="25"
+            height="25"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M25.3334 12L16.0001 21.3333L6.66675 12"
+              stroke="#003838"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         {open && <CatalogList prop="catalog-menu" />}
       </div>
