@@ -4,6 +4,7 @@ import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import './favorites.scss';
+import { UserNavList } from '../../ui-kit/userList/UserNavList';
 
 export const Favorites: FC = () => {
   const show = {
@@ -39,26 +40,14 @@ export const Favorites: FC = () => {
   return (
     <>
       <div className="favorite container">
-        <ul className="aside-nav-list">
-          <li>
-            <a href="#">Мои заказы</a>
-          </li>
-          <li>
-            <a href="#">Личные данные</a>
-          </li>
-          <li>
-            <a href="#">Избранное</a>
-          </li>
-          <li className="active">
-            <a href="#">Корзина</a>
-          </li>
-          <li>
-            <a href="#">Выйти</a>
-          </li>
-        </ul>
+        <UserNavList />
         <div className="favorite__info-block">
           <h3>Избранное</h3>
-          <div className="cards-block-favorite">{renderCardItems()}</div>
+          <div className="cards-block-favorite">
+            {renderCardItems()}
+            {renderCardItems()}
+            {renderCardItems()}
+          </div>
           <div className="empty-basket__info">
             <p>На данный момент вы еще не добавили товаров</p>
             <a className="empty-basket__info-btn" href="#">

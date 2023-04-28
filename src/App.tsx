@@ -13,6 +13,8 @@ import { OrderPage } from './pages/orderPage/OrderPage';
 import { Products } from './pages/products/Products';
 import { Basket } from './pages/basket/Basket';
 import { Favorites } from './pages/favorites/Favorites';
+import { MyOrdering } from './pages/myOrdering/MyOrdering';
+
 import './index.scss';
 
 function App() {
@@ -29,11 +31,11 @@ function App() {
             <Route path="/confidentiality" element={<Confidentiality />} />
             <Route path="/forgottenPassword" element={<ForgottenPassword />} />
             <Route path="/profileData" element={<ProfileData />} />
-            <Route path="/profileData" element={<ProfileData />} />
             <Route path="/orderPage" element={<OrderPage />} />
             <Route path="/products" element={<Products />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/myOrdering" element={<MyOrdering />} />
           </Routes>
         </main>
         <Footer />
