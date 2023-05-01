@@ -103,20 +103,6 @@
   }
 }
 
-.aside-nav-list>li a {
-  @extend %title-text;
-  font-size: 1.125rem;
-  color: $black;
-}
-
-.aside-nav-list>li a .active {
-  color: $green;
-}
-
-li+ li {
-  margin-top: 10px;
-}
-
 @media (max-width: 1170px) {
   .basket-info,
   .order-info  {
@@ -141,18 +127,6 @@ li+ li {
     flex-direction: column;
     align-items:flex-start;
     gap: 0px;
-
-    .aside-nav-list {
-      display: flex;
-      width: 100%;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    li+ li {
-      margin-top: 0px;
-    }
-    
   } 
 }
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { LinkButtons } from '../../components/linkButtons/LinkButtons';
 import { RenderBascetCard } from '../../components/renderCard/basket/RenderBascetCard';
 import './basket.scss';
+import { UserNavList } from '../../ui-kit/userList/UserNavList';
 
 export const Basket: FC = () => {
   const show = {
@@ -61,23 +61,7 @@ export const Basket: FC = () => {
           </div>
         </div>
         <div className="empty-basket">
-          <ul className="aside-nav-list">
-            <li>
-              <a href="#">Мои заказы</a>
-            </li>
-            <li>
-              <a href="#">Личные данные</a>
-            </li>
-            <li>
-              <a href="#">Избранное</a>
-            </li>
-            <li className="active">
-              <a href="#">Корзина</a>
-            </li>
-            <li>
-              <a href="#">Выйти</a>
-            </li>
-          </ul>
+          <UserNavList />
           <div className="empty-basket__info">
             <h2>Ваша корзина пуста</h2>
             <p>Начните поиск и добавьте товар в корзину.</p>
