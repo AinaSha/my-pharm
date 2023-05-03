@@ -65,7 +65,7 @@ export const Header: FC = () => {
                 <img src={bookmark} alt="bookmark icon" />
                 <span className="user-btns-index bookmark-index">{countFavorite}</span>
               </Link>
-              <Link to="/" className="basket-btn">
+              <Link to="/basket" className="basket-btn">
                 <img src={shopingCard} alt="basket icon" />
                 <span className="user-btns-index basket-index">{countBascket}</span>
               </Link>

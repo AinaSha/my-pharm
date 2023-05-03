@@ -7,7 +7,9 @@ export interface BascketFavorite {
 }
 
 const initialBascketFavorite: BascketFavorite = {
-  countFavorite: 0,
+  countFavorite: localStorage.getItem('favorites')
+    ? JSON.parse(localStorage.getItem('favorites') as string).length
+    : 0,
   countBascket: localStorage.getItem('allProduct') ? Number(localStorage.getItem('allProduct')) : 0,
 };
 

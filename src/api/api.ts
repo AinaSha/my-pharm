@@ -212,7 +212,7 @@ export const api = {
   },
   async GetCompanies(): Promise<ICatigories | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.companies}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.manufacturers}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
@@ -231,51 +231,51 @@ export const api = {
       throw new Error('Get Products failed');
     }
   },
-  async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
-    try {
-      const response = await fetch(
-        `${apiPath}${apiEndpoints.companies}1${apiEndpoints.pharmacies}`,
-        {
-          method: METHODS.get,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Get Products failed');
-    }
-  },
-  async GetPharmacies(): Promise<ICatigories | number | null> {
-    try {
-      const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Get Products failed');
-    }
-  },
+  // async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
+  //   try {
+  //     const response = await fetch(
+  //       `${apiPath}${apiEndpoints.manufacturers}1${apiEndpoints.pharmacies}`,
+  //       {
+  //         method: METHODS.get,
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       return data;
+  //     } else if (response.status === 403) {
+  //       return response.status;
+  //     } else {
+  //       return await Promise.reject(new Error(response.statusText));
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Get Products failed');
+  //   }
+  // },
+  // async GetPharmacies(): Promise<ICatigories | number | null> {
+  //   try {
+  //     const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
+  //       method: METHODS.get,
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       return data;
+  //     } else if (response.status === 403) {
+  //       return response.status;
+  //     } else {
+  //       return await Promise.reject(new Error(response.statusText));
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Get Products failed');
+  //   }
+  // },
   async GetProducts(): Promise<IProduct[] | null> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.products}`, {

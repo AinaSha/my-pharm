@@ -20,14 +20,31 @@ interface IProductsState {
 const initialProductsState: IProductsState = {
   products: [
     {
-      catalog: 0,
+      category: {
+        id: 0,
+        name: '',
+      },
+      characteristics: {
+        on_prescription: '',
+        before_date: '',
+        compound: '',
+        package: '',
+        purpose: '',
+        release_form: '',
+      },
+      description: '',
       discount_price: '',
-      id: 0,
-      is_req_prescription: false,
-      price: '',
-      sale: '',
-      thumbnail: '',
-      title: '',
+      image: '',
+      in_stock: false,
+      manufacturer: {
+        id: 0,
+        name: '',
+      },
+      name: '',
+      price: 0,
+      rating: 0,
+      id: '',
+      favorites: false,
     },
   ],
   catalog: '',

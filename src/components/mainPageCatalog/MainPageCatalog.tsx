@@ -11,28 +11,32 @@ import { NavLink } from 'react-router-dom';
 export const MainPageCatalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { products } = useSelector((state: RootState) => state.ProductsReducer);
-
+  const favirutesProduct = localStorage.getItem('favorites')
+    ? JSON.parse(localStorage.getItem('favorites') as string)
+    : [];
   useEffect(() => {
     store.dispatch(getProduct());
   }, []);
 
   const renderCardItems = () => {
-    return products.map((el: IProduct, id: number) => {
-      return (
-        <RenderCardItem
-          key={id}
-          id={el.id}
-          title={el.title}
-          thumbnail={el.thumbnail}
-          manufacturer="{el.manufacturer}"
-          price={el.price}
-          is_req_prescription={el.is_req_prescription}
-          favorites=""
-          catalog={0}
-          discount_price={''}
-          sale={''}
-        />
-      );
+    return products.map((el: IProduct) => {
+      if (el.in_stock) {
+        return (
+          <RenderCardItem
+            key={el.id}
+            id={el.id}
+            name={el.name}
+            manufacturer={el.manufacturer}
+            price={el.price}
+            favorites={favirutesProduct.includes(String(el.id))}
+            page="main"
+            discount_price={el.discount_price}
+            image={el.image}
+            rating={el.rating}
+            characteristics={el.characteristics}
+          />
+        );
+      }
     });
   };
 

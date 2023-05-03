@@ -1,20 +1,22 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import lec22 from '../../assets/imeges/lec22.png';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import { setLocalStorage, getFromLocalStorage } from '../../utils/utilsForm';
-import './renderCardItem.scss';
 import { addBascket, changeFavorite } from '../../store/BascketFavoriteReducer';
+import './renderCardItem.scss';
 
 export const RenderCardItem: FC<IProduct> = ({
   id,
-  thumbnail,
-  title,
+  name,
   manufacturer,
   price,
-  is_req_prescription,
   favorites,
+  page,
+  discount_price,
+  image,
+  rating,
+  characteristics,
 }: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ export const RenderCardItem: FC<IProduct> = ({
   const basckeds = getFromLocalStorage('bascket');
   const basArr = JSON.parse(basckeds!);
 
-  const [chooseCard, setChooseCard] = useState(false);
+  const [chooseCard, setChooseCard] = useState(favorites);
   const [change, setChange] = useState(basArr ? basArr.hasOwnProperty(id) : false);
   const [countProduct, setCountProduct] = useState(change ? basArr[id] : 1);
 
@@ -84,7 +86,7 @@ export const RenderCardItem: FC<IProduct> = ({
   return (
     <div id={String(id)} className="card">
       <div className="card__header">
-        <div className={is_req_prescription ? 'recipe' : 'recipe opacity'}>
+        <div className={characteristics?.on_prescription === 'true' ? 'recipe' : 'recipe opacity'}>
           <svg
             width="21"
             height="21"
@@ -102,7 +104,7 @@ export const RenderCardItem: FC<IProduct> = ({
           </svg>
           <p>{translate.prescription}</p>
         </div>
-        {!favorites && (
+        {page !== 'favorite' && (
           <div onClick={handleChooseCard} className={chooseCard ? 'choose card-like' : 'card-like'}>
             <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -115,7 +117,7 @@ export const RenderCardItem: FC<IProduct> = ({
             </svg>
           </div>
         )}
-        {favorites && (
+        {page === 'favorite' && (
           <div onClick={handleChooseCardDelete} className="delete">
             <svg
               enableBackground="new 0 0 40 40"
@@ -145,17 +147,16 @@ export const RenderCardItem: FC<IProduct> = ({
         )}
       </div>
       <div className="card__img">
-        <img src={lec22} alt={thumbnail} />
+        <img src={image} alt={name} />
       </div>
       <div className="card__text">
-        <h6>{title}</h6>
+        <h6>{name}</h6>
         <div className="card__manufacturer">
           <p>{translate.manifacturer}:</p>
-          <span>{manufacturer}</span>
+          <span>{manufacturer?.name}</span>
         </div>
-        <p className="card__vendorСode">{id}</p>
         <h6>
-          {translate.price} {price} сом.
+          {translate.price} {price} {discount_price} сом.
         </h6>
       </div>
       <div className="card__btns">
