@@ -2,10 +2,12 @@ import { FC } from 'react';
 
 import './MyOrdering.scss';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const MyOrdering: FC = () => {
   return (
     <div className="my-ordering container">
+      <Breadcrumbs homeLabel="Home" />
       <div className="my-ordering__inner">
         <UserNavList />
         <div className="list-order-side">

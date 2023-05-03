@@ -5,6 +5,7 @@ import { GetUserMe, RefreshToken } from '../../store/authUserReducer';
 import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
 import { siginin, exit } from '../../store/authUserReducer';
 import { api } from '../../api/api';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Contact: FC = () => {
   const { exp } = useSelector((state: RootState) => state.AuthReducer);
@@ -48,6 +49,7 @@ export const Contact: FC = () => {
   return (
     <div>
       <div className="container">
+        <Breadcrumbs homeLabel="Home" />
         <h1>Contact page!</h1>
         <button onClick={getUserMe}>get Catalog</button>
       </div>
