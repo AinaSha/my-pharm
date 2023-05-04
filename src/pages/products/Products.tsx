@@ -36,6 +36,10 @@ export const Products: FC = () => {
   const [showСountry, setshowСountry] = useState(false);
   const [textСountry, setTextСountry] = useState('');
 
+  const favirutesProduct = localStorage.getItem('favorites')
+    ? JSON.parse(localStorage.getItem('favorites') as string)
+    : [];
+
   const resetSets = () => {
     setTextСountry('');
     setTextAppointments('');
@@ -43,19 +47,24 @@ export const Products: FC = () => {
   };
 
   const renderCardItems = () => {
-    return products.map((el: IProduct, id: number) => {
-      return (
-        <RenderCardItem
-          key={id}
-          id={el.name}
-          name={el.name}
-          manufacturer={el.manufacturer}
-          price={el.price}
-          favorites={false}
-          discount_price={el.discount_price}
-          image={el.image}
-        />
-      );
+    return products.map((el: IProduct) => {
+      if (el.in_stock) {
+        return (
+          <RenderCardItem
+            key={el.id}
+            id={el.id}
+            name={el.name}
+            manufacturer={el.manufacturer}
+            price={el.price}
+            favorites={favirutesProduct.includes(String(el.id))}
+            page="main"
+            discount_price={el.discount_price}
+            image={el.image}
+            rating={el.rating}
+            characteristics={el.characteristics}
+          />
+        );
+      }
     });
   };
 
