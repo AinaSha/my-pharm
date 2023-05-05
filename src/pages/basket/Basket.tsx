@@ -23,7 +23,12 @@ export const Basket: FC = () => {
             <button className="basket-info__delete-btn">Очистить корзину</button>
           </div>
           <div className="basket-card-block">
-            <RenderBascetCard />
+            {/* <RenderBascetCard /> */}
+            <div className="basket-cards-gallery">
+              <RenderBascetCard />
+              <RenderBascetCard />
+              <RenderBascetCard />
+            </div>
             <div className="order-info">
               <div className="order-info__inner">
                 <div className="basket-pay">
@@ -44,7 +49,7 @@ export const Basket: FC = () => {
                           <td>Итог</td>
                           <td></td>
                           <td>
-                            <span>1896</span>
+                            <span>360000</span>
                             сом
                           </td>
                         </tr>
