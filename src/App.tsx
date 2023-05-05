@@ -39,6 +39,7 @@ function App() {
             <Route path="/myOrdering" element={<MyOrdering />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

@@ -295,4 +295,24 @@ export const api = {
       throw new Error('Get Products failed');
     }
   },
+  async GetProductsPart(ids: string): Promise<IProduct[] | null> {
+    try {
+      const response = await fetch(`https://mypharm.fly.dev/products/list-by-ids/${ids}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Products failed');
+    }
+  },
 };

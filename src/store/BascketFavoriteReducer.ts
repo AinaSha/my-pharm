@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { setLocalStorage } from '../utils/utilsForm';
+import { IProduct } from '../types/Types';
+import { api } from '../api/api';
 
 export interface BascketFavorite {
   countFavorite: number;
   countBascket: number;
   bascketLS: string[];
+  bascketProducts: IProduct[];
 }
 
 const initialBascketFavorite: BascketFavorite = {
@@ -15,7 +18,16 @@ const initialBascketFavorite: BascketFavorite = {
   bascketLS: localStorage.getItem('bascket')
     ? JSON.parse(localStorage.getItem('bascket') as string)
     : {},
+  bascketProducts: [],
 };
+
+export const GetProductsPart = createAsyncThunk(
+  'BascketFavorite/GetProductsPart',
+  async (ids: string) => {
+    const data = await api.GetProductsPart(ids);
+    return data;
+  }
+);
 
 export const bascketFavorite = createSlice({
   name: 'BascketFavorite',
@@ -31,6 +43,11 @@ export const bascketFavorite = createSlice({
     setBascketLS: (state: BascketFavorite, action) => {
       state.bascketLS = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(GetProductsPart.fulfilled, (state: BascketFavorite, actions) => {
+      if (actions.payload) state.bascketProducts = actions.payload;
+    });
   },
 });
 

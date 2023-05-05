@@ -1,8 +1,23 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import lec22 from '../../../assets/imeges/lec22.png';
+import { useSelector } from 'react-redux';
+import { RootState, store } from '../../../store';
+import { GetProductsPart } from '../../../store/BascketFavoriteReducer';
+import { IProduct } from '../../../types/Types';
 import './renderBascetCard.scss';
 
-export const RenderBascetCard: FC = () => {
+export const RenderBascetCard: FC<IProduct> = ({
+  id,
+  name,
+  manufacturer,
+  price,
+  favorites,
+  page,
+  discount_price,
+  image,
+  rating,
+  characteristics,
+}) => {
   return (
     <div className="product-card">
       <div className="product-card__inner">
