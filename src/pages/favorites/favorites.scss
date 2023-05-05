@@ -1,8 +1,11 @@
 @import '../../variables.scss';
 
 .favorite {
-    display: flex;
-    gap: 83px;
+
+    &__inner {
+        display: flex;
+        gap: 83px;
+    }
 
     &__info-block h3 {
         font-size: 1.5rem;
