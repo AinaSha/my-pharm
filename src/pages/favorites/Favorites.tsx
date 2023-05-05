@@ -50,6 +50,9 @@ export const Favorites: FC = () => {
               {renderCardItems()}
               {renderCardItems()}
               {renderCardItems()}
+              {renderCardItems()}
+              {renderCardItems()}
+              {renderCardItems()}
             </div>
             <div className="empty-basket__info">
               <p>На данный момент вы еще не добавили товаров</p>
