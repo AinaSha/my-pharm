@@ -14,6 +14,7 @@ import { Products } from './pages/products/Products';
 import { Basket } from './pages/basket/Basket';
 import { Favorites } from './pages/favorites/Favorites';
 import { MyOrdering } from './pages/myOrdering/MyOrdering';
+import { PersonalArea } from './pages/personalArea/PersonalArea';
 
 import './index.scss';
 
@@ -38,7 +39,6 @@ function App() {
             <Route path="/myOrdering" element={<MyOrdering />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   );

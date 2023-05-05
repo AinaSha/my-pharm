@@ -5,6 +5,7 @@ import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import './favorites.scss';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Favorites: FC = () => {
   const show = {
@@ -37,19 +38,22 @@ export const Favorites: FC = () => {
   return (
     <>
       <div className="favorite container">
-        <UserNavList />
-        <div className="favorite__info-block">
-          <h3>Избранное</h3>
-          <div className="cards-block-favorite">
-            {renderCardItems()}
-            {renderCardItems()}
-            {renderCardItems()}
-          </div>
-          <div className="empty-basket__info">
-            <p>На данный момент вы еще не добавили товаров</p>
-            <a className="empty-basket__info-btn" href="#">
-              На главную страницу
-            </a>
+        <Breadcrumbs homeLabel="Home" />
+        <div className="favorite__inner">
+          <UserNavList />
+          <div className="favorite__info-block">
+            <h3>Избранное</h3>
+            <div className="cards-block-favorite">
+              {renderCardItems()}
+              {renderCardItems()}
+              {renderCardItems()}
+            </div>
+            <div className="empty-basket__info">
+              <p>На данный момент вы еще не добавили товаров</p>
+              <a className="empty-basket__info-btn" href="#">
+                На главную страницу
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,25 @@
+@import '../../variables.scss';
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    list-style: none;
+    padding-left: 0;
+}
+
+.breadcrumb::before {
+    content: url('../../assets/icones/chevron-left.svg');
+    margin-top: 4px;
+}
+
+
+.breadcrumb>li:not(:last-child)::after {
+    content: "\002F";
+    margin-left: 5px;
+}
+
+.breadcrubs-link {
+    font-size: 16px;
+    color: $dark-green;
+}
