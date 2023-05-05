@@ -4,6 +4,7 @@ import { setLocalStorage } from '../utils/utilsForm';
 export interface BascketFavorite {
   countFavorite: number;
   countBascket: number;
+  bascketLS: string[];
 }
 
 const initialBascketFavorite: BascketFavorite = {
@@ -11,6 +12,9 @@ const initialBascketFavorite: BascketFavorite = {
     ? JSON.parse(localStorage.getItem('favorites') as string).length
     : 0,
   countBascket: localStorage.getItem('allProduct') ? Number(localStorage.getItem('allProduct')) : 0,
+  bascketLS: localStorage.getItem('bascket')
+    ? JSON.parse(localStorage.getItem('bascket') as string)
+    : {},
 };
 
 export const bascketFavorite = createSlice({
@@ -24,11 +28,14 @@ export const bascketFavorite = createSlice({
       state.countBascket = action.payload;
       setLocalStorage('allProduct', JSON.stringify(state.countBascket));
     },
+    setBascketLS: (state: BascketFavorite, action) => {
+      state.bascketLS = action.payload;
+    },
   },
 });
 
 const { actions, reducer: BascketFavoriteReducer } = bascketFavorite;
 
-export const { changeFavorite, addBascket } = actions;
+export const { changeFavorite, addBascket, setBascketLS } = actions;
 
 export default BascketFavoriteReducer;
