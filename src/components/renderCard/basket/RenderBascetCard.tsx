@@ -19,7 +19,7 @@ export const RenderBascetCard: FC = () => {
               <p>Цена</p>
               <p></p>
               <p>
-                <span>159</span> сом/шт.
+                <span>14500</span> сом/шт.
               </p>
             </div>
             <div className="product-card__count">
@@ -61,7 +61,7 @@ export const RenderBascetCard: FC = () => {
             </div>
             <div className="product-card__pay">
               <p>
-                <span>159</span> сом/шт.
+                <span>14500</span> сом/шт.
               </p>
             </div>
           </div>
