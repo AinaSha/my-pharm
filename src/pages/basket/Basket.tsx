@@ -52,63 +52,67 @@ export const Basket: FC = () => {
   return (
     <>
       <div className="container">
-        <div className="basket-wrapper">
-          <div className="basket-info">
-            <p className="basket-info__count">
-              Корзина: <span>{countBascket}</span> товара
-            </p>
-            <button onClick={clear} className="basket-info__delete-btn">
-              Очистить корзину
-            </button>
-          </div>
-          <div className="basket-card-block">
-            <div className="basket-cards-gallery">{renderCardItems()}</div>
-            <div className="order-info">
-              <div className="order-info__inner">
-                <div className="basket-pay">
-                  <div className="basket-pay__inner">
-                    <h3>Информация о заказе:</h3>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Товары</td>
-                          <td></td>
-                          <td>
-                            <span>{countBascket}</span> шт
-                          </td>
-                        </tr>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <td>Итог</td>
-                          <td></td>
-                          <td>
-                            <span>{countProductsSum}</span>
-                            сом
-                          </td>
-                        </tr>
-                      </tfoot>
-                    </table>
+        {countBascket && (
+          <div className="basket-wrapper">
+            <div className="basket-info">
+              <p className="basket-info__count">
+                Корзина: <span>{countBascket}</span> товара
+              </p>
+              <button onClick={clear} className="basket-info__delete-btn">
+                Очистить корзину
+              </button>
+            </div>
+            <div className="basket-card-block">
+              <div className="basket-cards-gallery">{renderCardItems()}</div>
+              <div className="order-info">
+                <div className="order-info__inner">
+                  <div className="basket-pay">
+                    <div className="basket-pay__inner">
+                      <h3>Информация о заказе:</h3>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Товары</td>
+                            <td></td>
+                            <td>
+                              <span>{countBascket}</span> шт
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>Итог</td>
+                            <td></td>
+                            <td>
+                              <span>{countProductsSum}</span>
+                              сом
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
                   </div>
-                </div>
-                <div className="basket-pay__btn">
-                  <button className="basket-pay__btn-order">Заказать</button>
-                  <button className="basket-pay__btn-pay">Способ оплаты</button>
+                  <div className="basket-pay__btn">
+                    <button className="basket-pay__btn-order">Заказать</button>
+                    <button className="basket-pay__btn-pay">Способ оплаты</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="empty-basket">
-          <UserNavList />
-          <div className="empty-basket__info">
-            <h2>Ваша корзина пуста</h2>
-            <p>Начните поиск и добавьте товар в корзину.</p>
-            <a className="empty-basket__info-btn" href="#">
-              На главную страницу
-            </a>
+        )}
+        {!countBascket && (
+          <div className="empty-basket">
+            <UserNavList />
+            <div className="empty-basket__info">
+              <h2>Ваша корзина пуста</h2>
+              <p>Начните поиск и добавьте товар в корзину.</p>
+              <a className="empty-basket__info-btn" href="#">
+                На главную страницу
+              </a>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
