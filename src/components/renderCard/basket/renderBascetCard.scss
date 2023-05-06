@@ -1,11 +1,12 @@
 @import '../../../variables.scss';
 
 .product-card {
-  width: 75%;
+  width: 100%;
   background: #F9F9F9;
   border: 1px solid #8B8989;
   border-radius: 6px;
   position: relative;
+
 
   &__inner {
     display: flex;
@@ -33,6 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
 
   .price-for-one {
@@ -48,12 +50,10 @@
 
   &__count {
     @extend %btn0choose-count;
-    width: 95px;
   }
 
   &__pay {
-    width: 95px;
-    @extend %display;
+     @extend %display;
     justify-content: end;
     font-weight: 700;
 
@@ -67,6 +67,10 @@
     right: 4%;
     top: 9%;
   }
+}
+
+.product-card + .product-card {
+  margin-top: 30px;
 }
 
 @media (max-width: 1170px) {
@@ -83,7 +87,6 @@
 
     .price-for-one p:nth-child(2) {
       border-bottom: 1px dashed $grey;
-      // width: 400px;
     }
 
   }
@@ -94,7 +97,10 @@
     &__info {
       width: 70%;
     }
-  
+
+    &__pay {
+      width: 30%;
+    }
     .price-for-one {
       width: 100%;
     }

@@ -3,10 +3,13 @@ import { setLocalStorage } from '../utils/utilsForm';
 import { IProduct } from '../types/Types';
 import { api } from '../api/api';
 
+type Tobj = {
+  [key: string]: number;
+};
 export interface BascketFavorite {
   countFavorite: number;
   countBascket: number;
-  bascketLS: string[];
+  bascketLS: Tobj;
   bascketProducts: IProduct[];
 }
 

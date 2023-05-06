@@ -27,6 +27,10 @@
   align-items: flex-start;
 }
 
+.basket-cards-gallery {
+  width: 75%;
+}
+
 .order-info {
   background-color:  #F9F9F9;
   border: 1px solid #8B8989;
@@ -112,6 +116,10 @@
   .basket-card-block {
     flex-direction: column;
     row-gap: 30px;
+  }
+
+  .basket-cards-gallery {
+    width: 100%;
   }
 
   .basket-pay {

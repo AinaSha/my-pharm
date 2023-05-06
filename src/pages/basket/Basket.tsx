@@ -1,35 +1,29 @@
 import { FC, useEffect } from 'react';
 import { RenderBascetCard } from '../../components/renderCard/basket/RenderBascetCard';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
-import { GetProductsPart } from '../../store/BascketFavoriteReducer';
+import { GetProductsPart, addBascket, setBascketLS } from '../../store/BascketFavoriteReducer';
 import { RootState, store } from '../../store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './basket.scss';
 import { IProduct } from '../../types/Types';
 
 export const Basket: FC = () => {
-  const { bascketLS, bascketProducts } = useSelector(
+  const { bascketLS, bascketProducts, countBascket } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
+  const dispatch = useDispatch();
 
   const productsID = Object.keys(bascketLS).join();
+  let countProductsSum = 0;
 
   useEffect(() => {
     store.dispatch(GetProductsPart(productsID));
-  }, []);
-
-  console.log(bascketProducts);
-  const show = {
-    basket: false,
-    favorites: true,
-    delivery: true,
-    exit: false,
-    window: false,
-  };
+  }, [countBascket]);
 
   const renderCardItems = () => {
     return bascketProducts.map((el: IProduct) => {
-      if (el.in_stock) {
+      if (el.in_stock && countBascket) {
+        if (bascketLS[el.id]) countProductsSum += Number(bascketLS[el.id]) * el.price;
         return (
           <RenderBascetCard
             key={el.id}
@@ -49,19 +43,26 @@ export const Basket: FC = () => {
     });
   };
 
+  const clear = () => {
+    localStorage.removeItem('bascket');
+    dispatch(addBascket(0));
+    dispatch(setBascketLS({}));
+  };
+
   return (
     <>
       <div className="container">
         <div className="basket-wrapper">
           <div className="basket-info">
             <p className="basket-info__count">
-              Корзина: <span>3</span> товара
+              Корзина: <span>{countBascket}</span> товара
             </p>
-            <button className="basket-info__delete-btn">Очистить корзину</button>
+            <button onClick={clear} className="basket-info__delete-btn">
+              Очистить корзину
+            </button>
           </div>
           <div className="basket-card-block">
-            {/* <RenderBascetCard /> */}
-            {renderCardItems()}
+            <div className="basket-cards-gallery">{renderCardItems()}</div>
             <div className="order-info">
               <div className="order-info__inner">
                 <div className="basket-pay">
@@ -73,7 +74,7 @@ export const Basket: FC = () => {
                           <td>Товары</td>
                           <td></td>
                           <td>
-                            <span>3</span> шт
+                            <span>{countBascket}</span> шт
                           </td>
                         </tr>
                       </tbody>
@@ -82,7 +83,7 @@ export const Basket: FC = () => {
                           <td>Итог</td>
                           <td></td>
                           <td>
-                            <span>1896</span>
+                            <span>{countProductsSum}</span>
                             сом
                           </td>
                         </tr>

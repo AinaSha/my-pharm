@@ -306,7 +306,6 @@ export const api = {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         return data;
       } else {
         return await Promise.reject(new Error(response.statusText));
