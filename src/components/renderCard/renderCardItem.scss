@@ -59,6 +59,7 @@
 
     &__text {
         h6 {
+            min-height: 45px;
             @extend %sub-title-text;
             margin-bottom: 1rem;
         }
