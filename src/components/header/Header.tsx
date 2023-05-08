@@ -61,7 +61,7 @@ export const Header: FC = () => {
             </div>
             <SearchForm />
             <div className="user-btns">
-              <Link to="/" className="bookmark-btn">
+              <Link to="/favorites" className="bookmark-btn">
                 <img src={bookmark} alt="bookmark icon" />
                 <span className="user-btns-index bookmark-index">{countFavorite}</span>
               </Link>
