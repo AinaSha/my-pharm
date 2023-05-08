@@ -1,33 +1,30 @@
 import { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
-import lec22 from '../../assets/imeges/lec22.png';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import { setLocalStorage, getFromLocalStorage } from '../../utils/utilsForm';
+import { addBascket, changeFavorite, setBascketLS } from '../../store/BascketFavoriteReducer';
 import './renderCardItem.scss';
-
-// interface Card {
-//   id: string;
-//   image: string;
-//   title: string;
-//   manufacturer: string;
-//   price: string;
-//   vendorСode: string;
-//   recipe: boolean;
-//   favorites: boolean;
-// }
 
 export const RenderCardItem: FC<IProduct> = ({
   id,
-  thumbnail,
-  title,
+  name,
   manufacturer,
   price,
-  is_req_prescription,
   favorites,
+  page,
+  discount_price,
+  image,
+  rating,
+  characteristics,
 }: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const [chooseCard, setChooseCard] = useState(false);
+  const { bascketLS } = useSelector((state: RootState) => state.BascketFavoriteReducer);
+  const dispatch = useDispatch();
+
+  const [chooseCard, setChooseCard] = useState(favorites);
+  const [change, setChange] = useState(bascketLS ? bascketLS.hasOwnProperty(id) : false);
+  const [countProduct, setCountProduct] = useState(change ? Number(bascketLS[Number(id)]) : 0);
 
   const handleChooseCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const targetCard = e.currentTarget as HTMLElement;
@@ -41,12 +38,15 @@ export const RenderCardItem: FC<IProduct> = ({
       const favArr = JSON.parse(favoritesArr!);
       if (favArr.indexOf(idCard) === -1) {
         setLocalStorage('favorites', JSON.stringify([...favArr, idCard]));
+        dispatch(changeFavorite(favArr.length + 1));
       } else {
         favArr.splice(favArr.indexOf(idCard), 1);
         setLocalStorage('favorites', JSON.stringify(favArr));
+        dispatch(changeFavorite(favArr.length));
       }
     } else {
       setLocalStorage('favorites', JSON.stringify([idCard]));
+      dispatch(changeFavorite(1));
     }
   };
 
@@ -54,10 +54,43 @@ export const RenderCardItem: FC<IProduct> = ({
     console.log('deleted', e);
   };
 
+  const handleAddBascket = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const targetCard = e.currentTarget as HTMLElement;
+    const idCard = targetCard.parentElement?.dataset.id as string;
+
+    if (countProduct === 0) setCountProduct(1);
+    const count = countProduct === 0 ? 1 : countProduct;
+    if (bascketLS) {
+      const obj = { ...bascketLS, [idCard]: count };
+      setLocalStorage('bascket', JSON.stringify(obj));
+      const objKeys = Object.keys(bascketLS);
+      let allProducts = count;
+      objKeys.forEach((el: string) => {
+        if (!(el === idCard)) allProducts += Number(bascketLS[Number(el)]);
+      });
+      dispatch(addBascket(allProducts));
+      dispatch(setBascketLS(obj));
+    } else {
+      const obj = { [idCard]: count };
+      setLocalStorage('bascket', JSON.stringify(obj));
+      dispatch(addBascket(count));
+      dispatch(setBascketLS(obj));
+    }
+    setChange(true);
+  };
+
+  const handleCountProductMin = () => {
+    if (countProduct > 1) setCountProduct(countProduct - 1);
+  };
+
+  const handleCountProductPlus = () => {
+    if (countProduct < 10) setCountProduct(countProduct + 1);
+  };
+
   return (
     <div id={String(id)} className="card">
       <div className="card__header">
-        <div className={is_req_prescription ? 'recipe' : 'recipe opacity'}>
+        <div className={characteristics?.on_prescription === 'true' ? 'recipe' : 'recipe opacity'}>
           <svg
             width="21"
             height="21"
@@ -75,7 +108,7 @@ export const RenderCardItem: FC<IProduct> = ({
           </svg>
           <p>{translate.prescription}</p>
         </div>
-        {!favorites && (
+        {page !== 'favorite' && (
           <div onClick={handleChooseCard} className={chooseCard ? 'choose card-like' : 'card-like'}>
             <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -88,7 +121,7 @@ export const RenderCardItem: FC<IProduct> = ({
             </svg>
           </div>
         )}
-        {favorites && (
+        {page === 'favorite' && (
           <div onClick={handleChooseCardDelete} className="delete">
             <svg
               enableBackground="new 0 0 40 40"
@@ -118,22 +151,22 @@ export const RenderCardItem: FC<IProduct> = ({
         )}
       </div>
       <div className="card__img">
-        <img src={lec22} alt={thumbnail} />
+        <img src={image} alt={name} />
       </div>
       <div className="card__text">
-        <h6>{title}</h6>
+        <h6>{name.length > 70 ? name.slice(0, 70).padEnd(73, '...') : name}</h6>
         <div className="card__manufacturer">
           <p>{translate.manifacturer}:</p>
-          <span>{manufacturer}</span>
+          <span>{manufacturer?.name}</span>
         </div>
-        <p className="card__vendorСode">{id}</p>
         <h6>
-          {translate.price} {price} сом.
+          {translate.price} <span className={discount_price && 'line-through'}>{price}</span>{' '}
+          <span className={discount_price && 'sell'}>{discount_price}</span> сом.
         </h6>
       </div>
-      <div className="card__btns">
+      <div data-id={id} className="card__btns">
         <div className="card__btns__choose">
-          <button>
+          <button onClick={handleCountProductMin}>
             <svg
               width="24"
               height="24"
@@ -150,8 +183,8 @@ export const RenderCardItem: FC<IProduct> = ({
               />
             </svg>
           </button>
-          <span>1</span>
-          <button>
+          <span>{countProduct}</span>
+          <button onClick={handleCountProductPlus}>
             <svg
               width="24"
               height="24"
@@ -169,7 +202,9 @@ export const RenderCardItem: FC<IProduct> = ({
             </svg>
           </button>
         </div>
-        <button className="add-basket">{translate.basket}</button>
+        <button onClick={handleAddBascket} className="add-basket">
+          {change ? 'изменить' : translate.basket}
+        </button>
       </div>
     </div>
   );

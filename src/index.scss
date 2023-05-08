@@ -47,6 +47,10 @@ h2 {
   display: none;
 }
 
+.opacity {
+  opacity: 0;
+}
+
 .link-buttons {
   width: 152px;
   height: 64px;
@@ -95,6 +99,16 @@ h2 {
 
 button {
     cursor: pointer;
+}
+
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: red;
+  color: $grey;
+}
+
+.sell {
+  color: $delete;
 }
 
 @media (max-width: 1240px) {

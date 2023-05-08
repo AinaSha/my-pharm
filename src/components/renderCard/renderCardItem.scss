@@ -80,12 +80,6 @@
         }
     }
 
-    &__vendorСode {
-        @extend %text; 
-        color: #8B8989;
-        margin-bottom: 1rem;
-    }
-
     &__btns {
         @extend %display;
         

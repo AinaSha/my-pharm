@@ -1,29 +1,96 @@
-import { FC } from 'react';
-import lec22 from '../../../assets/imeges/lec22.png';
+import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { addBascket, setBascketLS } from '../../../store/BascketFavoriteReducer';
+import { IProduct } from '../../../types/Types';
+import { setLocalStorage } from '../../../utils/utilsForm';
 import './renderBascetCard.scss';
 
-export const RenderBascetCard: FC = () => {
+export const RenderBascetCard: FC<IProduct> = ({
+  id,
+  name,
+  manufacturer,
+  price,
+  favorites,
+  page,
+  discount_price,
+  image,
+  rating,
+  characteristics,
+}) => {
+  const { bascketLS, countBascket } = useSelector(
+    (state: RootState) => state.BascketFavoriteReducer
+  );
+  const dispatch = useDispatch();
+
+  const [countProduct, setCountProduct] = useState(Number(bascketLS[id]));
+  const [productPrices, setProductPrices] = useState(countProduct * price);
+
+  const changeProductCount = (idCard: string, count: number) => {
+    const obj = { ...bascketLS, [idCard]: count };
+    setLocalStorage('bascket', JSON.stringify(obj));
+    const objKeys = Object.keys(bascketLS);
+    let allProducts = count;
+    objKeys.forEach((el: string) => {
+      if (!(el === idCard) && bascketLS[el]) allProducts += Number(bascketLS[el]);
+    });
+    dispatch(addBascket(allProducts));
+    dispatch(setBascketLS(obj));
+  };
+
+  const handleCountProductMin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const targetCard = e.currentTarget as HTMLElement;
+    const idCard = targetCard.parentElement?.dataset.id as string;
+    if (countProduct > 1) {
+      setCountProduct(countProduct - 1);
+      changeProductCount(idCard, countProduct - 1);
+    }
+  };
+
+  const handleCountProductPlus = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const targetCard = e.currentTarget as HTMLElement;
+    const idCard = targetCard.parentElement?.dataset.id as string;
+    if (countProduct < 10) {
+      setCountProduct(countProduct + 1);
+      changeProductCount(idCard, countProduct + 1);
+    }
+  };
+
+  useEffect(() => {
+    setProductPrices(countProduct * price);
+  }, [countProduct, countBascket]);
+
+  const deleteProduct = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const targetCard = e.currentTarget as HTMLElement;
+    const idCard = targetCard.dataset.id as string;
+
+    dispatch(addBascket(countBascket - bascketLS[idCard]));
+    const { [idCard]: foo, ...rest } = bascketLS;
+    setLocalStorage('bascket', JSON.stringify(rest));
+    dispatch(setBascketLS(rest));
+  };
+
   return (
     <div className="product-card">
       <div className="product-card__inner">
         <div className="product-card__img">
-          <img src={lec22} alt="" />
+          <img src={image} alt={id} />
         </div>
         <div className="product-card__info">
           <div className="product-card__text">
-            <h3>Алмагель, суспензия для приема внутрь 170 мл</h3>
+            <h3>{name}</h3>
             <p>Аптека НЭМАН</p>
           </div>
           <div className="product-card__price-block">
             <div className="price-for-one">
-              <p>Цена</p>
+              <p>{id}</p>
               <p></p>
               <p>
-                <span>14500</span> сом/шт.
+                <span>{price}</span> сом/шт.
               </p>
             </div>
-            <div className="product-card__count">
-              <button>
+            <div data-id={id} className="product-card__count">
+              <button onClick={handleCountProductMin}>
                 <svg
                   width="24"
                   height="24"
@@ -40,8 +107,8 @@ export const RenderBascetCard: FC = () => {
                   />
                 </svg>
               </button>
-              <span>1</span>
-              <button>
+              <span>{countProduct}</span>
+              <button onClick={handleCountProductPlus}>
                 <svg
                   width="24"
                   height="24"
@@ -61,12 +128,12 @@ export const RenderBascetCard: FC = () => {
             </div>
             <div className="product-card__pay">
               <p>
-                <span>14500</span> сом/шт.
+                <span>{productPrices}</span> сом/шт.
               </p>
             </div>
           </div>
         </div>
-        <div className="product-card__delete">
+        <div data-id={id} className="product-card__delete" onClick={deleteProduct}>
           <svg
             width="24"
             height="26"

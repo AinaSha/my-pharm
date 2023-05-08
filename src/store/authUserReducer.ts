@@ -1,18 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
 import { DecodedToken, IToken, TAuthUser } from '../types/apiTypes';
-import { IcreateUser, ILogInform } from '../types/Types';
+import { IcreateUser, IInitialAuth, ILogInform } from '../types/Types';
 import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
-
-export interface IInitialAuth {
-  dataUser: IcreateUser;
-  successReg: boolean;
-  isLoading: boolean;
-  siginIn: boolean;
-  isAuth: boolean;
-  registration: boolean;
-  exp: number;
-}
 
 const initialAuth = {
   dataUser: {

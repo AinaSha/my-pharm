@@ -1,13 +1,11 @@
-export const apiPath = 'http://api.med-service.online/api/v1';
+export const apiPath = 'https://mypharm.fly.dev';
 export const apiEndpoints = {
   signin: '/auth/token/',
   signup: '/users/',
   refresh: '/auth/token/refresh/',
   getMe: '/users/me/',
-  catalogs: '/catalogs/',
-  catigoriesChildren: '/categories/children/',
-  companies: '/companies/',
-  pharmacies: '/pharmacies/',
+  catalogs: '/categories/',
+  manufacturers: '/manufacturers/',
   products: '/products/',
 };
 export const enum METHODS {

@@ -23,16 +23,13 @@ export const Favorites: FC = () => {
       return (
         <RenderCardItem
           key={id}
-          id={el.id}
-          title={el.title}
-          thumbnail={el.thumbnail}
-          manufacturer="{el.manufacturer}"
+          id={el.name}
+          name={el.name}
+          manufacturer={el.manufacturer}
           price={el.price}
-          is_req_prescription={el.is_req_prescription}
-          favorites="false"
-          catalog={0}
-          discount_price={''}
-          sale={''}
+          favorites={false}
+          discount_price={el.discount_price}
+          image={el.image}
         />
       );
     });
