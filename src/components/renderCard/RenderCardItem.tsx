@@ -154,13 +154,14 @@ export const RenderCardItem: FC<IProduct> = ({
         <img src={image} alt={name} />
       </div>
       <div className="card__text">
-        <h6>{name}</h6>
+        <h6>{name.length > 70 ? name.slice(0, 70).padEnd(73, '...') : name}</h6>
         <div className="card__manufacturer">
           <p>{translate.manifacturer}:</p>
           <span>{manufacturer?.name}</span>
         </div>
         <h6>
-          {translate.price} {price} {discount_price} сом.
+          {translate.price} <span className={discount_price && 'line-through'}>{price}</span>{' '}
+          <span className={discount_price && 'sell'}>{discount_price}</span> сом.
         </h6>
       </div>
       <div data-id={id} className="card__btns">

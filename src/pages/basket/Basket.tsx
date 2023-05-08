@@ -23,14 +23,17 @@ export const Basket: FC = () => {
   const renderCardItems = () => {
     return bascketProducts.map((el: IProduct) => {
       if (el.in_stock && countBascket) {
-        if (bascketLS[el.id]) countProductsSum += Number(bascketLS[el.id]) * el.price;
+        if (bascketLS[el.id])
+          countProductsSum += el.discount_price
+            ? Number(bascketLS[el.id]) * Number(el.discount_price)
+            : Number(bascketLS[el.id]) * el.price;
         return (
           <RenderBascetCard
             key={el.id}
             id={el.id}
             name={el.name}
             manufacturer={el.manufacturer}
-            price={el.price}
+            price={el.discount_price ? Number(el.discount_price) : el.price}
             favorites={false}
             page=""
             discount_price={el.discount_price}

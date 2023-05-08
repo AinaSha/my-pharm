@@ -101,6 +101,16 @@ button {
     cursor: pointer;
 }
 
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: red;
+  color: $grey;
+}
+
+.sell {
+  color: $delete;
+}
+
 @media (max-width: 1240px) {
   .container {
     width: 95%;
