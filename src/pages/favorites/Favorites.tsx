@@ -1,37 +1,42 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
-import { RootState } from '../../store';
+import { RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import './favorites.scss';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
+import { Link } from 'react-router-dom';
+import { GetProductsPart } from '../../store/BascketFavoriteReducer';
 
 export const Favorites: FC = () => {
-  const show = {
-    basket: true,
-    favorites: false,
-    delivery: true,
-    exit: false,
-    window: false,
-  };
+  const { countFavorite, favoritesLS, bascketProducts } = useSelector(
+    (state: RootState) => state.BascketFavoriteReducer
+  );
 
-  const { products } = useSelector((state: RootState) => state.ProductsReducer);
+  useEffect(() => {
+    store.dispatch(GetProductsPart(favoritesLS));
+  }, [countFavorite, favoritesLS]);
 
   const renderCardItems = () => {
-    return products.map((el: IProduct, id: number) => {
-      return (
-        <RenderCardItem
-          key={id}
-          id={el.name}
-          name={el.name}
-          manufacturer={el.manufacturer}
-          price={el.price}
-          favorites={false}
-          discount_price={el.discount_price}
-          image={el.image}
-        />
-      );
+    return bascketProducts.map((el: IProduct) => {
+      if (el.in_stock && countFavorite) {
+        return (
+          <RenderCardItem
+            key={el.id}
+            id={el.id}
+            name={el.name}
+            manufacturer={el.manufacturer}
+            price={el.discount_price ? Number(el.discount_price) : el.price}
+            discount_price={el.discount_price}
+            image={el.image}
+            rating={el.rating}
+            characteristics={el.characteristics}
+            page="favorite"
+            favorites={true}
+          />
+        );
+      }
     });
   };
 
@@ -43,20 +48,15 @@ export const Favorites: FC = () => {
           <UserNavList />
           <div className="favorite__info-block">
             <h3>Избранное</h3>
-            <div className="cards-block-favorite">
-              {renderCardItems()}
-              {renderCardItems()}
-              {renderCardItems()}
-              {renderCardItems()}
-              {renderCardItems()}
-              {renderCardItems()}
-            </div>
-            <div className="empty-basket__info">
-              <p>На данный момент вы еще не добавили товаров</p>
-              <a className="empty-basket__info-btn" href="#">
-                На главную страницу
-              </a>
-            </div>
+            {countFavorite && <div className="cards-block-favorite">{renderCardItems()}</div>}
+            {!countFavorite && (
+              <div className="empty-basket__info">
+                <p>На данный момент вы еще не добавили товаров</p>
+                <Link className="empty-basket__info-btn" to="/">
+                  На главную страницу
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

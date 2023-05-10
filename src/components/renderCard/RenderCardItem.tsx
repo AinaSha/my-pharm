@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import { setLocalStorage, getFromLocalStorage } from '../../utils/utilsForm';
-import { addBascket, changeFavorite, setBascketLS } from '../../store/BascketFavoriteReducer';
+import {
+  addBascket,
+  changeFavorite,
+  setBascketLS,
+  setFavoritesLS,
+} from '../../store/BascketFavoriteReducer';
 import './renderCardItem.scss';
 
 export const RenderCardItem: FC<IProduct> = ({
@@ -19,7 +24,9 @@ export const RenderCardItem: FC<IProduct> = ({
   characteristics,
 }: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const { bascketLS } = useSelector((state: RootState) => state.BascketFavoriteReducer);
+  const { bascketLS, favoritesLS } = useSelector(
+    (state: RootState) => state.BascketFavoriteReducer
+  );
   const dispatch = useDispatch();
 
   const [chooseCard, setChooseCard] = useState(favorites);
@@ -39,10 +46,12 @@ export const RenderCardItem: FC<IProduct> = ({
       if (favArr.indexOf(idCard) === -1) {
         setLocalStorage('favorites', JSON.stringify([...favArr, idCard]));
         dispatch(changeFavorite(favArr.length + 1));
+        dispatch(setFavoritesLS([...favArr, idCard].join()));
       } else {
         favArr.splice(favArr.indexOf(idCard), 1);
         setLocalStorage('favorites', JSON.stringify(favArr));
         dispatch(changeFavorite(favArr.length));
+        dispatch(setFavoritesLS(favArr.join()));
       }
     } else {
       setLocalStorage('favorites', JSON.stringify([idCard]));
@@ -51,7 +60,15 @@ export const RenderCardItem: FC<IProduct> = ({
   };
 
   const handleChooseCardDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log('deleted', e);
+    const idCard = (e.currentTarget as HTMLElement).dataset.id as string;
+    const arr = favoritesLS.split(',');
+    const index = arr.indexOf(idCard);
+    if (index !== -1) {
+      arr.splice(index, 1);
+      dispatch(setFavoritesLS(arr.join()));
+      dispatch(changeFavorite(arr.length));
+      setLocalStorage('favorites', JSON.stringify(arr));
+    }
   };
 
   const handleAddBascket = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -122,7 +139,7 @@ export const RenderCardItem: FC<IProduct> = ({
           </div>
         )}
         {page === 'favorite' && (
-          <div onClick={handleChooseCardDelete} className="delete">
+          <div data-id={id} onClick={handleChooseCardDelete} className="delete">
             <svg
               enableBackground="new 0 0 40 40"
               version="1.1"

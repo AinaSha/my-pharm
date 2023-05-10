@@ -6,6 +6,7 @@ import { RootState, store } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import './basket.scss';
 import { IProduct } from '../../types/Types';
+import { Link } from 'react-router-dom';
 
 export const Basket: FC = () => {
   const { bascketLS, bascketProducts, countBascket } = useSelector(
@@ -110,9 +111,9 @@ export const Basket: FC = () => {
             <div className="empty-basket__info">
               <h2>Ваша корзина пуста</h2>
               <p>Начните поиск и добавьте товар в корзину.</p>
-              <a className="empty-basket__info-btn" href="#">
+              <Link className="empty-basket__info-btn" to="/">
                 На главную страницу
-              </a>
+              </Link>
             </div>
           </div>
         )}
