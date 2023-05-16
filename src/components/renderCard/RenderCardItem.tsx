@@ -105,12 +105,6 @@ export const RenderCardItem: FC<IProduct> = ({
     if (countProduct < 10) setCountProduct(countProduct + 1);
   };
 
-  const handleCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const targetCard = e.currentTarget as HTMLElement;
-    const idCard = targetCard.parentElement?.id as string;
-    console.log(idCard);
-  };
-
   return (
     <div id={String(id)} className="card">
       <div className="card__header">

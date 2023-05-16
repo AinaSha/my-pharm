@@ -152,7 +152,8 @@ export const ProductCards: FC = () => {
           </div>
           <div className="main-info__choose">
             <p>
-              Цена: <span>{product.price} сом</span>
+              Цена:{' '}
+              <span>{product.discount_price ? product.discount_price : product.price} сом</span>
             </p>
             <div className="card__btns__choose">
               <button onClick={handleCountProductMin}>

@@ -297,7 +297,7 @@ export const api = {
   },
   async GetProductsPart(ids: string): Promise<IProduct[] | null> {
     try {
-      const response = await fetch(`https://mypharm.fly.dev/products/list-by-ids/${ids}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.products}list-by-ids/${ids}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',

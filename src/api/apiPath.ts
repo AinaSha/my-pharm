@@ -1,4 +1,5 @@
-export const apiPath = 'https://mypharm.fly.dev';
+// export const apiPath = 'https://mypharm.fly.dev';
+export const apiPath = 'http://95.163.237.113:8000/';
 export const apiEndpoints = {
   signin: '/auth/token/',
   signup: '/users/',
@@ -6,7 +7,7 @@ export const apiEndpoints = {
   getMe: '/users/me/',
   catalogs: '/categories/',
   manufacturers: '/manufacturers/',
-  products: '/products/',
+  products: 'products/',
 };
 export const enum METHODS {
   get = 'GET',
