@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import sell5 from '../../assets/imeges/sell5.jpg';
+import sell5 from '../../assets/images/sell5.jpg';
 import { RootState } from '../../store';
 import './sellSlide.scss';
 

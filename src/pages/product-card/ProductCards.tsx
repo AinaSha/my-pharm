@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import lec1 from '../../assets/imeges/lec1.png';
+import lec1 from '../../assets/images/lec1.png';
 import './productCards.scss';
 
 export const ProductCards: FC = () => {
