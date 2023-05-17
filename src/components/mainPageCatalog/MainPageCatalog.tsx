@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 export const MainPageCatalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { products } = useSelector((state: RootState) => state.ProductsReducer);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const favirutesProduct = localStorage.getItem('favorites')
     ? JSON.parse(localStorage.getItem('favorites') as string)
     : [];

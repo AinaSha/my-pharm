@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { AppDispatch, RootState, store } from '../../store';
+import { AppDispatch, RootState } from '../../store';
 import { ISearchMainInput } from '../../types/Types';
 import {
-  getProductFilter,
   setAppointment,
   setCatalog,
   setCountry,
@@ -19,7 +18,7 @@ export const SearchForm: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { register, handleSubmit, reset } = useForm<ISearchMainInput>();
-  const onSubmit: SubmitHandler<ISearchMainInput> = (data) => {
+  const onSubmit: SubmitHandler<ISearchMainInput> = () => {
     const option = {
       nodLiId: '',
       nodeLiText: '',
@@ -29,13 +28,6 @@ export const SearchForm: FC = () => {
     dispatch(setCountry(option));
     dispatch(setAppointment(option));
     dispatch(setResetFilter(!resetFilter));
-    const titleSearch = {
-      id: '',
-      form: '',
-      appointment: '',
-      title: data.search,
-    };
-    store.dispatch(getProductFilter(titleSearch));
     reset();
   };
 

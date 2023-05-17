@@ -24,7 +24,9 @@ export const ProductCards: FC = () => {
   const [product, setProduct] = useState<IProduct>({
     category: {
       id: 0,
-      name: '',
+      ru: '',
+      kg: '',
+      en: '',
     },
     characteristics: {
       on_prescription: '',

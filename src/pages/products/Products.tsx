@@ -3,11 +3,10 @@ import { Pagination } from '../../components/pagination/Pagination';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState, store } from '../../store';
+import { AppDispatch, RootState } from '../../store';
 import { IProduct } from '../../types/Types';
 import './products.scss';
 import {
-  getProductFilter,
   setAppointment,
   setCatalog,
   setCountry,
@@ -16,17 +15,9 @@ import {
 } from '../../store/productsReducer';
 
 export const Products: FC = () => {
-  const {
-    products,
-    catalog,
-    catalogId,
-    showCategore,
-    formText,
-    form,
-    appointmentId,
-    appointmentText,
-    resetFilter,
-  } = useSelector((state: RootState) => state.ProductsReducer);
+  const { products, catalog, catalogId, countryId, showCategore, form, resetFilter } = useSelector(
+    (state: RootState) => state.ProductsReducer
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [showForm, setShowForm] = useState(false);
   const [textForm, setTextForm] = useState('');
@@ -46,24 +37,64 @@ export const Products: FC = () => {
     setTextForm('');
   };
 
+  const renderCard = (el: IProduct) => {
+    return (
+      <RenderCardItem
+        key={el.id}
+        id={el.id}
+        name={el.name}
+        manufacturer={el.manufacturer}
+        price={el.price}
+        favorites={favirutesProduct.includes(String(el.id))}
+        page="main"
+        discount_price={el.discount_price}
+        image={el.image}
+        rating={el.rating}
+        characteristics={el.characteristics}
+      />
+    );
+  };
+
   const renderCardItems = () => {
     return products.map((el: IProduct) => {
-      if (el.in_stock) {
-        return (
-          <RenderCardItem
-            key={el.id}
-            id={el.id}
-            name={el.name}
-            manufacturer={el.manufacturer}
-            price={el.price}
-            favorites={favirutesProduct.includes(String(el.id))}
-            page="main"
-            discount_price={el.discount_price}
-            image={el.image}
-            rating={el.rating}
-            characteristics={el.characteristics}
-          />
-        );
+      if (catalogId && el.in_stock) {
+        if (textForm && countryId) {
+          if (
+            el.manufacturer?.id === countryId &&
+            el.category?.id === Number(catalogId) &&
+            form === el.form_type
+          ) {
+            return renderCard(el);
+          }
+        } else if (textForm) {
+          if (el.category?.id === Number(catalogId) && form === el.form_type) {
+            return renderCard(el);
+          }
+        } else if (countryId) {
+          if (el.category?.id === Number(catalogId) && el.manufacturer?.id === countryId) {
+            return renderCard(el);
+          }
+        } else if (catalogId) {
+          if (el.category?.id === Number(catalogId)) {
+            return renderCard(el);
+          }
+        }
+      } else if (el.in_stock) {
+        if (textForm && countryId) {
+          if (el.manufacturer?.id === countryId && form === el.form_type) {
+            return renderCard(el);
+          }
+        } else if (textForm) {
+          if (form === el.form_type) {
+            return renderCard(el);
+          }
+        } else if (countryId) {
+          if (el.manufacturer?.id === countryId) {
+            return renderCard(el);
+          }
+        } else {
+          return renderCard(el);
+        }
       }
     });
   };
@@ -74,13 +105,6 @@ export const Products: FC = () => {
       const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
       setTextForm(nodeLiText);
       setShowForm(false);
-      const option = {
-        id: catalogId,
-        form: nodeLiId,
-        appointment: appointmentId,
-        title: '',
-      };
-      store.dispatch(getProductFilter(option));
       dispatch(setFormText({ nodeLiText, nodeLiId }));
     }
   };
@@ -90,32 +114,17 @@ export const Products: FC = () => {
       const nodeLiId = (e.target as HTMLLinkElement).id;
       const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
       setshowAppointments(false);
-      const option = {
-        id: catalogId,
-        form: form,
-        appointment: nodeLiId,
-        title: '',
-      };
       setTextAppointments(nodeLiText);
-      store.dispatch(getProductFilter(option));
       dispatch(setAppointment({ nodeLiId, nodeLiText }));
     }
   };
 
   const handleCountry = (e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
-      const nodeLiId = (e.target as HTMLLinkElement).id;
+      const nodeLiId = (e.target as HTMLLinkElement).id.split('_')[1];
       const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
       setshowСountry(false);
       setTextСountry(nodeLiText);
-      const option = {
-        id: catalogId,
-        form: form,
-        appointment: appointmentId,
-        country: nodeLiId,
-        title: '',
-      };
-      store.dispatch(getProductFilter(option));
       dispatch(setCountry({ nodeLiId, nodeLiText }));
     }
   };
@@ -197,11 +206,11 @@ export const Products: FC = () => {
                 {showForm && (
                   <ul className="parant-ul" onClick={handleForm}>
                     <li id="other">другой</li>
-                    <li id="tablet">таблетки</li>
-                    <li id="capsule">порошок</li>
-                    <li id="powder">капсула</li>
-                    <li id="ampoule">сироп</li>
-                    <li id="syrup">ампула</li>
+                    <li id="tablets">таблетки</li>
+                    <li id="powder">порошок</li>
+                    <li id="capsule">капсула</li>
+                    <li id="syrup">сироп</li>
+                    <li id="ampoule">ампула</li>
                     <li id="spray">спрей</li>
                     <li id="ointment">мазь</li>
                   </ul>
@@ -270,11 +279,15 @@ export const Products: FC = () => {
               <div>
                 {showСountry && (
                   <ul className="parant-ul" onClick={handleCountry}>
-                    <li id="russia">Россия</li>
-                    <li id="kyrgystan">Кыргызстан</li>
-                    <li id="germany">Германия</li>
-                    <li id="france">Франция</li>
-                    <li id="india">Индия</li>
+                    <li id="russia_1">Россия</li>
+                    <li id="kyrgystan_7">Кыргызстан</li>
+                    <li id="germany_5">Германия</li>
+                    <li id="france_4">Франция</li>
+                    <li id="kz_6">Казакстан</li>
+                    <li id="izrail_8">Израиль</li>
+                    <li id="koreya_9">Корея</li>
+                    <li id="usa_2">США</li>
+                    <li id="india_3">Индия</li>
                   </ul>
                 )}
               </div>

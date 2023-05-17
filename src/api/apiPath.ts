@@ -5,7 +5,7 @@ export const apiEndpoints = {
   signup: '/users/',
   refresh: '/auth/token/refresh/',
   getMe: '/users/me/',
-  catalogs: '/categories/',
+  catalogs: 'categories/',
   manufacturers: '/manufacturers/',
   products: 'products/',
 };

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { IProduct, Options } from '../types/Types';
+import { IProduct } from '../types/Types';
 
 interface IProductsState {
   products: IProduct[];
@@ -10,11 +10,12 @@ interface IProductsState {
   form: string;
   appointmentId: string;
   appointmentText: string;
-  countryId: string;
+  countryId: number | null;
   countryText: string;
   showCategore: boolean;
   isLoading: boolean;
   resetFilter: boolean;
+  favorites: boolean;
 }
 
 const initialProductsState: IProductsState = {
@@ -22,7 +23,9 @@ const initialProductsState: IProductsState = {
     {
       category: {
         id: 0,
-        name: '',
+        ru: '',
+        kg: '',
+        en: '',
       },
       characteristics: {
         on_prescription: '',
@@ -44,7 +47,8 @@ const initialProductsState: IProductsState = {
       price: 0,
       rating: 0,
       id: '',
-      favorites: false,
+      appointment: '',
+      form_type: '',
     },
   ],
   catalog: '',
@@ -53,11 +57,12 @@ const initialProductsState: IProductsState = {
   form: '',
   appointmentId: '',
   appointmentText: '',
-  countryId: '',
+  countryId: null,
   countryText: '',
   showCategore: false,
   isLoading: false,
   resetFilter: false,
+  favorites: false,
 };
 
 export const getProduct = createAsyncThunk('Products/getProduct', async () => {
@@ -65,21 +70,13 @@ export const getProduct = createAsyncThunk('Products/getProduct', async () => {
   return data;
 });
 
-export const getProductFilter = createAsyncThunk(
-  'Products/getProductFilter',
-  async ({ id, form, appointment, title }: Options) => {
-    const data = await api.GetFilterProducts(id, form, appointment, title);
-    return data;
-  }
-);
-
 export const productsSlice = createSlice({
   name: 'Products',
   initialState: initialProductsState,
   reducers: {
     setCatalog: (state: IProductsState, action) => {
       state.catalog = action.payload.nodeLiText;
-      state.catalogId = action.payload.nodeLiId;
+      state.catalogId = action.payload.nodLiId;
     },
     setShowCategore: (state: IProductsState, action: PayloadAction<boolean>) => {
       state.showCategore = action.payload;
@@ -94,7 +91,7 @@ export const productsSlice = createSlice({
     },
     setCountry: (state: IProductsState, action) => {
       state.countryText = action.payload.nodeLiText;
-      state.countryId = action.payload.nodeLiId;
+      state.countryId = Number(action.payload.nodeLiId);
     },
     setResetFilter: (state: IProductsState, action) => {
       state.resetFilter = action.payload;
@@ -105,14 +102,6 @@ export const productsSlice = createSlice({
       state.isLoading = true;
     }),
       builder.addCase(getProduct.fulfilled, (state, actions) => {
-        if (actions.payload) {
-          state.products = actions.payload;
-        }
-      }),
-      builder.addCase(getProductFilter.pending, (state) => {
-        state.isLoading = true;
-      }),
-      builder.addCase(getProductFilter.fulfilled, (state, actions) => {
         if (actions.payload) {
           state.products = actions.payload;
         }

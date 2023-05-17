@@ -4,7 +4,6 @@ import { RootState, store } from '../../store';
 import { GetUserMe, RefreshToken } from '../../store/authUserReducer';
 import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
 import { siginin, exit } from '../../store/authUserReducer';
-import { api } from '../../api/api';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Contact: FC = () => {
@@ -27,23 +26,6 @@ export const Contact: FC = () => {
       }, 700);
     }
     store.dispatch(GetUserMe());
-  };
-
-  const getCatalog = async () => {
-    console.log('click getCatalog');
-    // const data = await api.GetCatalogs();
-    // const data6 = await api.GetCatalogProducts('2');
-    // const data3 = await api.GetCompanies();
-    // const data4 = await api.GetCompaniesPharmacies();
-    // const data2 = await api.GetPharmacies();
-    // const data5 = await api.GetProducts();
-    // console.log(data);
-    // console.log(data3);
-    // console.log(data4);
-    // console.log(data2);
-    // console.log(data5);
-    // console.log(data2);
-    // console.log(data6);
   };
 
   return (

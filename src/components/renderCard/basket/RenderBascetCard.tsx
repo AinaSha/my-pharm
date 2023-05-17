@@ -6,18 +6,7 @@ import { IProduct } from '../../../types/Types';
 import { setLocalStorage } from '../../../utils/utilsForm';
 import './renderBascetCard.scss';
 
-export const RenderBascetCard: FC<IProduct> = ({
-  id,
-  name,
-  manufacturer,
-  price,
-  favorites,
-  page,
-  discount_price,
-  image,
-  rating,
-  characteristics,
-}) => {
+export const RenderBascetCard: FC<IProduct> = ({ id, name, price, image }) => {
   const { bascketLS, countBascket } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );

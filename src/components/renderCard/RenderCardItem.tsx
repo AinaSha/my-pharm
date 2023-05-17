@@ -21,7 +21,6 @@ export const RenderCardItem: FC<IProduct> = ({
   page,
   discount_price,
   image,
-  rating,
   characteristics,
 }: IProduct) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
