@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-import neman from '../../assets/imeges/neman.png';
-import bimed from '../../assets/imeges/bimed.png';
-import lekar from '../../assets/imeges/lekar.png';
-import pharmService from '../../assets/imeges/farm-service.png';
+import neman from '../../assets/images/neman.png';
+import bimed from '../../assets/images/bimed.png';
+import lekar from '../../assets/images/lekar.png';
+import pharmService from '../../assets/images/farm-service.png';
 
 import './Pharmacies.scss';
 

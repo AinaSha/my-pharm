@@ -64,3 +64,34 @@
     color: $white;
     transition: .5s;
 }
+
+@media (max-width: 425px) {
+    .left-btn,
+    .right-btn {
+        width: 25px;
+        height: 25px;
+        margin: 0 .7rem;
+        @extend %display;
+        justify-content: center;
+        background-color: $white;
+        border: 1px solid $green;
+        border-radius: 100%;
+        position: relative;
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        span {
+            width: 35px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.458);
+            border: 1px solid rgba(0, 0, 0, 0.458);
+            border-radius: 100%;
+            position: absolute;
+            // left: 0;
+            // top: 0;
+        }
+    }
+}
