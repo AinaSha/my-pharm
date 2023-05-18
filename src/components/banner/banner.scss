@@ -22,11 +22,11 @@
     }
     &__slide-1 {
         @extend %banner-slide;
-        background-image: url("../../assets/imeges/image1.jpg");
+        background-image: url("../../assets/images/image1.jpg");
        }
     &__slide-3 {
         @extend %banner-slide;
-        background-image: url("../../assets/imeges/image3.jpg");
+        background-image: url("../../assets/images/image3.jpg");
     }
 
     .show_slide {

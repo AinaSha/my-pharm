@@ -1,0 +1,53 @@
+@import '../../variables.scss';
+
+.promotion-gallery {
+    &__inner {
+        display: grid;
+        grid-template-columns: repeat(4, 23.5%);
+        gap:  45px 24px;
+    }
+
+    .promotion-date {
+        font-size: 1rem;
+        color: $grey;
+    }
+
+    &__card {
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .promotion-gallery {
+        &__inner {
+            display: grid;
+            grid-template-columns: repeat(3, 31%);
+            gap:  45px 24px;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .promotion-gallery {
+        &__inner {
+            display: grid;
+            grid-template-columns: repeat(2, 48%);
+            gap:  45px 24px;
+        }
+    }
+}
+
+@media (max-width: 525px) {
+    .promotion-gallery {
+        &__inner {
+            width: 80%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(1, 100%);
+            gap:  45px 24px;
+        }
+    }
+}

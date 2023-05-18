@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Logo from '../../assets/imeges/Logo.png';
+import Logo from '../../assets/images/Logo.png';
 import { RootState } from '../../store';
 import './footer.scss';
 

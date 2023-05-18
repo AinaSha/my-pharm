@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import lec1 from '../../assets/imeges/lec1.png';
 import './productCards.scss';
 import { getFromLocalStorage, setLocalStorage } from '../../utils/utilsForm';
 import {
@@ -132,7 +131,7 @@ export const ProductCards: FC = () => {
               />
             </svg>
           </button>
-          <img src={lec1} alt="" />
+          <img src={product.image} alt="" />
         </div>
         <div className="main-info__short">
           <div>
