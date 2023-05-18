@@ -4,6 +4,7 @@ import { IProduct } from '../types/Types';
 
 interface IProductsState {
   products: IProduct[];
+  searchName: string;
   catalog: string;
   catalogId: string;
   formText: string;
@@ -51,6 +52,7 @@ const initialProductsState: IProductsState = {
       form_type: '',
     },
   ],
+  searchName: '',
   catalog: '',
   catalogId: '',
   formText: '',
@@ -96,6 +98,9 @@ export const productsSlice = createSlice({
     setResetFilter: (state: IProductsState, action) => {
       state.resetFilter = action.payload;
     },
+    setSearchName: (state: IProductsState, action) => {
+      state.searchName = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProduct.pending, (state) => {
@@ -118,6 +123,7 @@ export const {
   setAppointment,
   setCountry,
   setResetFilter,
+  setSearchName,
 } = actions;
 
 export default ProductsReducer;

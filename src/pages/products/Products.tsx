@@ -15,9 +15,8 @@ import {
 } from '../../store/productsReducer';
 
 export const Products: FC = () => {
-  const { products, catalog, catalogId, countryId, showCategore, form, resetFilter } = useSelector(
-    (state: RootState) => state.ProductsReducer
-  );
+  const { products, searchName, catalog, catalogId, countryId, showCategore, form, resetFilter } =
+    useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [showForm, setShowForm] = useState(false);
   const [textForm, setTextForm] = useState('');
@@ -78,6 +77,10 @@ export const Products: FC = () => {
           if (el.category?.id === Number(catalogId)) {
             return renderCard(el);
           }
+        }
+      } else if (searchName && el.in_stock) {
+        if (el.name.indexOf(searchName) !== -1) {
+          return renderCard(el);
         }
       } else if (el.in_stock) {
         if (textForm && countryId) {
