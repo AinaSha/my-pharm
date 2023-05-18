@@ -53,7 +53,9 @@ export const SearchForm: FC = () => {
       </svg>
       <input type="text" placeholder={translate.placeholder} ref={inputRef} />
       <button type="submit" onClick={handleSearch}>
-        <Link to="/products">{translate.search}</Link>
+        <Link to="/products" style={{ color: 'white' }}>
+          {translate.search}
+        </Link>
       </button>
     </div>
   );

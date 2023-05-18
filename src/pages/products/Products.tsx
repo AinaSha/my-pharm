@@ -15,8 +15,17 @@ import {
 } from '../../store/productsReducer';
 
 export const Products: FC = () => {
-  const { products, searchName, catalog, catalogId, countryId, showCategore, form, resetFilter } =
-    useSelector((state: RootState) => state.ProductsReducer);
+  const {
+    appointmentId,
+    products,
+    searchName,
+    catalog,
+    catalogId,
+    countryId,
+    showCategore,
+    form,
+    resetFilter,
+  } = useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [showForm, setShowForm] = useState(false);
   const [textForm, setTextForm] = useState('');
@@ -57,12 +66,41 @@ export const Products: FC = () => {
   const renderCardItems = () => {
     return products.map((el: IProduct) => {
       if (catalogId && el.in_stock) {
-        if (textForm && countryId) {
+        if (appointmentId && textForm && countryId) {
+          if (
+            form === el.form_type &&
+            el.manufacturer?.id === countryId &&
+            el.category?.id === Number(catalogId) &&
+            appointmentId === el.appointment
+          ) {
+            return renderCard(el);
+          }
+        } else if (appointmentId && textForm) {
+          if (
+            form === el.form_type &&
+            el.category?.id === Number(catalogId) &&
+            appointmentId === el.appointment
+          ) {
+            return renderCard(el);
+          }
+        } else if (appointmentId && countryId) {
+          if (
+            el.manufacturer?.id === countryId &&
+            el.category?.id === Number(catalogId) &&
+            appointmentId === el.appointment
+          ) {
+            return renderCard(el);
+          }
+        } else if (textForm && countryId) {
           if (
             el.manufacturer?.id === countryId &&
             el.category?.id === Number(catalogId) &&
             form === el.form_type
           ) {
+            return renderCard(el);
+          }
+        } else if (appointmentId) {
+          if (el.category?.id === Number(catalogId) && appointmentId === el.appointment) {
             return renderCard(el);
           }
         } else if (textForm) {
@@ -83,8 +121,28 @@ export const Products: FC = () => {
           return renderCard(el);
         }
       } else if (el.in_stock) {
-        if (textForm && countryId) {
+        if (textForm && countryId && appointmentId) {
+          if (
+            el.manufacturer?.id === countryId &&
+            form === el.form_type &&
+            appointmentId === el.appointment
+          ) {
+            return renderCard(el);
+          }
+        } else if (appointmentId && countryId) {
+          if (el.manufacturer?.id === countryId && appointmentId === el.appointment) {
+            return renderCard(el);
+          }
+        } else if (appointmentId && textForm) {
+          if (form === el.form_type && appointmentId === el.appointment) {
+            return renderCard(el);
+          }
+        } else if (textForm && countryId) {
           if (el.manufacturer?.id === countryId && form === el.form_type) {
+            return renderCard(el);
+          }
+        } else if (appointmentId) {
+          if (appointmentId === el.appointment) {
             return renderCard(el);
           }
         } else if (textForm) {
@@ -247,11 +305,10 @@ export const Products: FC = () => {
               <div>
                 {showAppointments && (
                   <ul className="parant-ul" onClick={handleAppointment}>
-                    <li id="other">другой</li>
-                    <li id="for_adults">взрослый</li>
-                    <li id="for_children">детский</li>
-                    <li id="for_nursing">уход</li>
-                    <li id="for_pregnant_women">Беременным и кормящим</li>
+                    <li id="all">все</li>
+                    <li id="adult">взрослый</li>
+                    <li id="child">детский</li>
+                    <li id="pregnant">Беременным и кормящим</li>
                   </ul>
                 )}
               </div>
