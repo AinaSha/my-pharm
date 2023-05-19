@@ -17,6 +17,7 @@ import { MyOrdering } from './pages/myOrdering/MyOrdering';
 import { PersonalArea } from './pages/personalArea/PersonalArea';
 
 import './index.scss';
+import { ProductCards } from './pages/product-card/ProductCards';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/profileData" element={<ProfileData />} />
             <Route path="/orderPage" element={<OrderPage />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductCards />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/myOrdering" element={<MyOrdering />} />

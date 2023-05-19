@@ -1,15 +1,14 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { AppDispatch, RootState, store } from '../../store';
-import { ISearchMainInput } from '../../types/Types';
+import { AppDispatch, RootState } from '../../store';
+import { Link } from 'react-router-dom';
 import {
-  getProductFilter,
   setAppointment,
   setCatalog,
   setCountry,
   setFormText,
   setResetFilter,
+  setSearchName,
 } from '../../store/productsReducer';
 import './SearchForm.scss';
 
@@ -18,29 +17,25 @@ export const SearchForm: FC = () => {
   const { resetFilter } = useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
 
-  const { register, handleSubmit, reset } = useForm<ISearchMainInput>();
-  const onSubmit: SubmitHandler<ISearchMainInput> = (data) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearch = () => {
+    const text = inputRef.current?.value;
     const option = {
       nodLiId: '',
       nodeLiText: '',
     };
+    dispatch(setSearchName(text));
     dispatch(setCatalog(option));
     dispatch(setFormText(option));
     dispatch(setCountry(option));
     dispatch(setAppointment(option));
     dispatch(setResetFilter(!resetFilter));
-    const titleSearch = {
-      id: '',
-      form: '',
-      appointment: '',
-      title: data.search,
-    };
-    store.dispatch(getProductFilter(titleSearch));
-    reset();
+    (inputRef.current as HTMLInputElement).value = '';
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="search-input">
+    <div className="search-input">
       <svg
         width="32"
         height="32"
@@ -56,8 +51,12 @@ export const SearchForm: FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      <input type="text" placeholder={translate.placeholder} {...register('search')} />
-      <button type="submit">{translate.search}</button>
-    </form>
+      <input type="text" placeholder={translate.placeholder} ref={inputRef} />
+      <button type="submit" onClick={handleSearch}>
+        <Link to="/products" style={{ color: 'white' }}>
+          {translate.search}
+        </Link>
+      </button>
+    </div>
   );
 };
