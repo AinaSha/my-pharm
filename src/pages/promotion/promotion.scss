@@ -12,6 +12,24 @@
         color: $grey;
     }
 
+    .promotion-price {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: red;
+
+        span {
+            margin-left: 15px;
+            font-weight: 400;
+            color: $black;
+            text-decoration: line-through;
+        }
+    }
+
+    .promotion-desc {
+        font-size: 1.125rem;
+        color: $black;
+    }
+
     &__card {
         img {
             width: 100%;

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 import { Pagination } from '../../components/pagination/Pagination';
 import { Pharmacies } from '../../components/pharmacies/Pharmacies';
@@ -15,70 +16,94 @@ export const Promotion: FC = () => {
         <h3>Акции и предложения</h3>
         <div className="promotion-gallery">
           <div className="promotion-gallery__inner">
-            <div className="promotion-gallery__card">
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg1} alt="" />
                 <p className="promotion-date">до 31 мая</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">
                   Скидка до 15% на товары для диагностики и лечения диабета
                 </p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg2} alt="" />
                 <p className="promotion-date">01 мая 2023 - 15 мая 2023</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">
                   Специальные цены на новую линейку средств по уходу за телом BIO от NATURA SIBERICA
                 </p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg1} alt="" />
                 <p className="promotion-date">С 1 по 31 мая</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">Специальная цена на хиты для ухода ICON SKIN</p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg2} alt="" />
                 <p className="promotion-date">С 1 по 31 мая</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">Специальная цена на хиты для ухода ICON SKIN</p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg1} alt="" />
                 <p className="promotion-date">до 31 мая</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">
                   Скидка до 15% на товары для диагностики и лечения диабета
                 </p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg2} alt="" />
                 <p className="promotion-date">01 мая 2023 - 15 мая 2023</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">
                   Специальные цены на новую линейку средств по уходу за телом BIO от NATURA SIBERICA
                 </p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg1} alt="" />
                 <p className="promotion-date">С 1 по 31 мая</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">Специальная цена на хиты для ухода ICON SKIN</p>
               </div>
-            </div>
-            <div className="promotion-gallery__card">
+            </Link>
+            <Link to={''} className="promotion-gallery__card">
               <div className="promotion-gallery__card-inner">
                 <img src={promoImg2} alt="" />
                 <p className="promotion-date">С 1 по 31 мая</p>
+                <p className="promotion-price">
+                  1116 сом<span>1256 сом</span>
+                </p>
                 <p className="promotion-desc">Специальная цена на хиты для ухода ICON SKIN</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         <Pagination />
