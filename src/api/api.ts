@@ -183,33 +183,6 @@ export const api = {
       throw new Error('Get Catigories failed');
     }
   },
-  async GetFilterProducts(
-    id: string,
-    form: string,
-    appointment: string,
-    title: string
-  ): Promise<IProduct[] | null> {
-    try {
-      const response = await fetch(
-        `${apiPath}${apiEndpoints.products}?catalog=${id}&release_form=${form}&appointment=${appointment}&search=${title}`,
-        {
-          method: METHODS.get,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Get Catigories failed');
-    }
-  },
   async GetCompanies(): Promise<ICatigories | number | null> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.manufacturers}`, {
@@ -297,7 +270,7 @@ export const api = {
   },
   async GetProductsPart(ids: string): Promise<IProduct[] | null> {
     try {
-      const response = await fetch(`https://mypharm.fly.dev/products/list-by-ids/${ids}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.products}list-by-ids/${ids}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',

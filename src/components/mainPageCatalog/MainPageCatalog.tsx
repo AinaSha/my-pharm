@@ -1,7 +1,7 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { RenderCardItem } from '../renderCard/RenderCardItem';
 import './mainPageCatalog.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 import { getProduct } from '../../store/productsReducer';
@@ -11,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 export const MainPageCatalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { products } = useSelector((state: RootState) => state.ProductsReducer);
+  // const dispatch = useDispatch();
   const favirutesProduct = localStorage.getItem('favorites')
     ? JSON.parse(localStorage.getItem('favorites') as string)
     : [];

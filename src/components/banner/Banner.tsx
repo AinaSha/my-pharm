@@ -31,7 +31,9 @@ export const Banner: FC = () => {
         <p>{translate.heroSubTitle}</p>
         <button>
           <p>
-            <NavLink to="/products">{translate.catalog}</NavLink>
+            <NavLink to="/products" style={{ color: 'white' }}>
+              {translate.catalog}
+            </NavLink>
           </p>
         </button>
       </div>

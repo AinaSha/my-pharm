@@ -45,7 +45,9 @@ export interface ICatigories {
 export interface IProduct {
   category?: {
     id: number;
-    name: string;
+    ru: string;
+    kg: string;
+    en: string;
   };
   characteristics?: {
     on_prescription?: string;
@@ -67,6 +69,8 @@ export interface IProduct {
   price: number;
   rating?: number;
   id: string;
+  appointment?: string;
+  form_type?: string;
   favorites?: boolean;
   page?: string;
 }
@@ -90,4 +94,8 @@ export interface IInitialAuth {
   isAuth: boolean;
   registration: boolean;
   exp: number;
+}
+
+export interface CatalogListProps {
+  prop: string;
 }
