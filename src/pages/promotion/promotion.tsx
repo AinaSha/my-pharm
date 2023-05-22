@@ -81,7 +81,7 @@ export const Promotion: FC = () => {
             </div>
           </div>
         </div>
-        <Pagination />
+        {/* <Pagination /> */}
         <Pharmacies />
       </div>
     </div>

@@ -117,6 +117,10 @@ button {
   color: $delete;
 }
 
+.active-btn {
+  background-color: $green;
+}
+
 @media (max-width: 1240px) {
   .container {
     width: 95%;

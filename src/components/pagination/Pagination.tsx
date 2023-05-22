@@ -1,10 +1,70 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { IPagination } from '../../types/Types';
 import './paginations.scss';
 
-export const Pagination: FC = () => {
+export const Pagination: FC<IPagination> = ({
+  allPageNumbers,
+  paginate,
+  curentPage,
+}: IPagination) => {
+  const [disBtnLeft, setDisBtnLeft] = useState(true);
+  const [disBtnRight, setDisBtnRight] = useState(false);
+  const pages: number[] = [];
+
+  for (let i = 0; i < allPageNumbers; i++) {
+    pages.push(i);
+  }
+
+  const handlePagination = (
+    num: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    btnChilde: ChildNode | null | undefined
+  ) => {
+    paginate(num, e, btnChilde);
+    if (num === allPageNumbers) {
+      setDisBtnRight(true);
+      setDisBtnLeft(false);
+    }
+    if (num === 1) {
+      setDisBtnRight(false);
+      setDisBtnLeft(true);
+    }
+    if (num !== allPageNumbers) {
+      setDisBtnRight(false);
+    }
+    if (num !== 1) {
+      setDisBtnLeft(false);
+    }
+  };
+
+  const handleClickRight = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const elem = e.currentTarget.previousElementSibling as HTMLButtonElement;
+    if (Number(curentPage) === 1) {
+      elem.disabled = false;
+      setDisBtnLeft(false);
+    }
+    if (Number(curentPage) === allPageNumbers - 1) {
+      elem.disabled = true;
+    }
+    if (Number(curentPage) < allPageNumbers) handlePagination(Number(curentPage) + 1, null, elem);
+  };
+
+  const handleClickLeft = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const elem = e.currentTarget.nextElementSibling as HTMLButtonElement;
+    if (Number(curentPage) === allPageNumbers) {
+      elem.disabled = false;
+      setDisBtnRight(false);
+    }
+
+    if (Number(curentPage) === 2) {
+      setDisBtnLeft(true);
+    }
+    if (Number(curentPage) > 1) handlePagination(Number(curentPage) - 1, null, elem);
+  };
+
   return (
     <div className="paginations">
-      <button className="left-btn">
+      <button className="left-btn" onClick={(e) => handleClickLeft(e)}>
         <svg
           width="13"
           height="23"
@@ -20,30 +80,36 @@ export const Pagination: FC = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <span className="hiden"></span>
+        {disBtnLeft && <span></span>}
       </button>
-      <button className="pagination-btn pagination-btn-active " id="1">
-        1
-      </button>
-      <button className="pagination-btn" id="2">
-        2
-      </button>
-      <button className="pagination-btn" id="3">
-        3
-      </button>
-      <button className="pagination-btn" id="4">
-        4
-      </button>
-      <button className="pagination-btn" id="5">
-        5
-      </button>
-      <button className="pagination-btn" id="6">
-        6
-      </button>
-      <button className="pagination-btn" id="7">
-        7
-      </button>
-      <button className="right-btn">
+      <div>
+        {pages.map((num: number) => {
+          if (num === 0) {
+            return (
+              <button
+                key={num}
+                className="pagination-btn active-btn"
+                id={`${num + 1}`}
+                onClick={(e) => handlePagination(num + 1, e, null)}
+              >
+                {num + 1}
+              </button>
+            );
+          } else {
+            return (
+              <button
+                key={num}
+                id={`${num + 1}`}
+                className="pagination-btn"
+                onClick={(e) => handlePagination(num + 1, e, null)}
+              >
+                {num + 1}
+              </button>
+            );
+          }
+        })}
+      </div>
+      <button className="right-btn" onClick={(e) => handleClickRight(e)}>
         <svg
           width="13"
           height="21"
@@ -59,7 +125,7 @@ export const Pagination: FC = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <span className="hiden"></span>
+        {disBtnRight && <span></span>}
       </button>
     </div>
   );
