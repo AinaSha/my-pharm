@@ -43,7 +43,7 @@ export const Promotion: FC = () => {
         <div className="promotion-gallery">
           <div className="promotion-gallery__inner">{renderCardItems()}</div>
         </div>
-        <Pagination />
+        {/* <Pagination /> */}
         <Pharmacies />
       </div>
     </div>

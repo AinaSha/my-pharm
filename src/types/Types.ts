@@ -99,3 +99,13 @@ export interface IInitialAuth {
 export interface CatalogListProps {
   prop: string;
 }
+
+export interface IPagination {
+  allPageNumbers: number;
+  paginate: (
+    pageNumber: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    btnChilde: ChildNode | null | undefined
+  ) => void;
+  curentPage: string;
+}

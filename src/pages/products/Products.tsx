@@ -3,27 +3,29 @@ import { Pagination } from '../../components/pagination/Pagination';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
+import { AppDispatch, RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import './products.scss';
 import {
+  getProduct,
   setAppointment,
   setCatalog,
   setCountry,
   setFormText,
+  setSearchName,
   setShowCategore,
 } from '../../store/productsReducer';
 
 export const Products: FC = () => {
   const {
-    appointmentId,
     products,
+    appointmentId,
     searchName,
     catalog,
     catalogId,
     countryId,
-    showCategore,
     form,
+    showCategore,
     resetFilter,
   } = useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
@@ -35,9 +37,17 @@ export const Products: FC = () => {
   const [showСountry, setshowСountry] = useState(false);
   const [textСountry, setTextСountry] = useState('');
 
+  const cardsOnPage = 4;
+  const [allCards, setAllCards] = useState<IProduct[]>([]);
+  const [curentPage, setCurentPage] = useState('1');
+  const allPageNumbers = Math.ceil(allCards.length / cardsOnPage);
+  const [cards, setCards] = useState<IProduct[]>(allCards.slice(0, cardsOnPage));
+
   const favirutesProduct = localStorage.getItem('favorites')
     ? JSON.parse(localStorage.getItem('favorites') as string)
     : [];
+
+  if (!products[0].name) store.dispatch(getProduct());
 
   const resetSets = () => {
     setTextСountry('');
@@ -63,8 +73,9 @@ export const Products: FC = () => {
     );
   };
 
-  const renderCardItems = () => {
-    return products.map((el: IProduct) => {
+  useEffect(() => {
+    const allCard: IProduct[] = [];
+    products.map((el: IProduct) => {
       if (catalogId && el.in_stock) {
         if (appointmentId && textForm && countryId) {
           if (
@@ -73,7 +84,7 @@ export const Products: FC = () => {
             el.category?.id === Number(catalogId) &&
             appointmentId === el.appointment
           ) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (appointmentId && textForm) {
           if (
@@ -81,7 +92,7 @@ export const Products: FC = () => {
             el.category?.id === Number(catalogId) &&
             appointmentId === el.appointment
           ) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (appointmentId && countryId) {
           if (
@@ -89,7 +100,7 @@ export const Products: FC = () => {
             el.category?.id === Number(catalogId) &&
             appointmentId === el.appointment
           ) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (textForm && countryId) {
           if (
@@ -97,28 +108,28 @@ export const Products: FC = () => {
             el.category?.id === Number(catalogId) &&
             form === el.form_type
           ) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (appointmentId) {
           if (el.category?.id === Number(catalogId) && appointmentId === el.appointment) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (textForm) {
           if (el.category?.id === Number(catalogId) && form === el.form_type) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (countryId) {
           if (el.category?.id === Number(catalogId) && el.manufacturer?.id === countryId) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (catalogId) {
           if (el.category?.id === Number(catalogId)) {
-            return renderCard(el);
+            allCard.push(el);
           }
         }
       } else if (searchName && el.in_stock) {
-        if (el.name.indexOf(searchName) !== -1) {
-          return renderCard(el);
+        if (el.name.toLocaleLowerCase().indexOf(searchName.toLocaleLowerCase()) !== -1) {
+          allCard.push(el);
         }
       } else if (el.in_stock) {
         if (textForm && countryId && appointmentId) {
@@ -127,38 +138,40 @@ export const Products: FC = () => {
             form === el.form_type &&
             appointmentId === el.appointment
           ) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (appointmentId && countryId) {
           if (el.manufacturer?.id === countryId && appointmentId === el.appointment) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (appointmentId && textForm) {
           if (form === el.form_type && appointmentId === el.appointment) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (textForm && countryId) {
           if (el.manufacturer?.id === countryId && form === el.form_type) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (appointmentId) {
           if (appointmentId === el.appointment) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (textForm) {
           if (form === el.form_type) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else if (countryId) {
           if (el.manufacturer?.id === countryId) {
-            return renderCard(el);
+            allCard.push(el);
           }
         } else {
-          return renderCard(el);
+          allCard.push(el);
         }
       }
     });
-  };
+    setAllCards(allCard);
+    setCards(allCard.slice(0, cardsOnPage));
+  }, [appointmentId, searchName, catalog, catalogId, countryId, form, resetFilter, products]);
 
   const handleForm = (e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
@@ -206,6 +219,31 @@ export const Products: FC = () => {
     dispatch(setFormText(option));
     dispatch(setCountry(option));
     dispatch(setAppointment(option));
+    dispatch(setSearchName(''));
+  };
+
+  const paginate = (
+    pageNumber: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    btnChilde: ChildNode | null | undefined
+  ) => {
+    let btn: HTMLButtonElement;
+    if (!!e) btn = e.currentTarget as HTMLButtonElement;
+    const buttons: ChildNode | NodeListOf<ChildNode> | undefined = btnChilde
+      ? btnChilde.childNodes
+      : btn!.parentElement?.childNodes;
+    if (!buttons) return;
+    buttons.forEach((el: ChildNode) => {
+      const btn = el as HTMLButtonElement;
+      btn.classList.remove('active-btn');
+
+      if (btn.textContent === String(pageNumber)) btn.classList.add('active-btn');
+    });
+
+    const start = (pageNumber - 1) * cardsOnPage;
+    const end = start + cardsOnPage;
+    setCurentPage(String(pageNumber));
+    setCards(allCards.slice(start, end));
   };
 
   return (
@@ -357,9 +395,15 @@ export const Products: FC = () => {
             </label>
           </div>
         </div>
-        <div className="catalog-page">{renderCardItems()}</div>
+        <div className="catalog-page">
+          {cards.map((el) => {
+            return renderCard(el);
+          })}
+        </div>
       </div>
-      <Pagination />
+      {allPageNumbers > 1 && (
+        <Pagination allPageNumbers={allPageNumbers} paginate={paginate} curentPage={curentPage} />
+      )}
     </div>
   );
 };
