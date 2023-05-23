@@ -8,7 +8,7 @@ export interface IlanguageState {
 }
 
 const initiallanguageState: IlanguageState = {
-  language: localStorage.getItem('language') ? localStorage.getItem('language') : 'RU',
+  language: localStorage.getItem('language') ? localStorage.getItem('language') : 'KG',
   translate:
     localStorage.getItem('language') === 'RU'
       ? translateLang3.RU

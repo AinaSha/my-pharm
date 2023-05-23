@@ -6,6 +6,8 @@ import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
 import { siginin, exit } from '../../store/authUserReducer';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
+import './contact.scss';
+
 export const Contact: FC = () => {
   const { exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
@@ -30,10 +32,60 @@ export const Contact: FC = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className="contacts container">
         <Breadcrumbs homeLabel="Home" />
-        <h1>Contact page!</h1>
-        <button onClick={getUserMe}>get Catalog</button>
+        <h3>Контакты</h3>
+        <div className="contacts__inner">
+          <div className="contacts__info">
+            <p>
+              Связаться с нами:
+              <span>
+                По вопросам связанным с оформлением, исполнение заказа вы можете обратиться:
+              </span>
+            </p>
+            <p>
+              Телефон: <span>+996 777 22 22 22</span>
+            </p>
+            <p>
+              E-mail: <span>info@mypharm.kg</span>
+            </p>
+          </div>
+          <div className="contacts__form">
+            <div className="contacts__form-inner">
+              <p>
+                Обратная связь
+                <span>
+                  Если у Вас есть вопросы и пожелания по работе сайта, контакт-центра или службы
+                  доставки, воспользуйтесь формой обратной связи:
+                </span>
+              </p>
+              <form className="feedback-form">
+                <div className="feedback-form__item">
+                  <label>Имя</label>
+                  <input type="text" placeholder="Ваше имя" />
+                </div>
+                <div className="feedback-contact-forms">
+                  <div className="feedback-form__item mail-input">
+                    <label>E-mail</label>
+                    <input type="text" placeholder="E-mail" />
+                  </div>
+                  <div className="feedback-form__item phone-input">
+                    <label>Номер телефона</label>
+                    <input type="text" placeholder="Телефон" />
+                  </div>
+                </div>
+                <div className="feedback-form__item">
+                  <label htmlFor="">Сообщение</label>
+                  <textarea name="" id="" placeholder="Сообщение"></textarea>
+                </div>
+                <button className="feedback-form__btn" type="submit">
+                  Отправить
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {/* <button onClick={getUserMe}>get Catalog</button> */}
       </div>
     </div>
   );
