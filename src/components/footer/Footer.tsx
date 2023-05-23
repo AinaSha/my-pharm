@@ -62,12 +62,12 @@ export const Footer: FC = () => {
               <li>
                 <a href="№">{translate.aboutUs}</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="">{translate.license}</a>
               </li>
               <li>
                 <a href="">{translate.purveryor}</a>
-              </li>
+              </li> */}
             </ul>
           </ul>
           <ul>
@@ -97,18 +97,18 @@ export const Footer: FC = () => {
               <li>
                 <a href="№">{translate.catalog}</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="">{translate.termsOfUse}</a>
               </li>
               <li>
                 <a href="">{translate.privacyPolicy}</a>
-              </li>
+              </li> */}
               <li>
                 <a href="">{translate.sectionTitle_1}</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="">{translate.comment}</a>
-              </li>
+              </li> */}
             </ul>
           </ul>
           <ul>
@@ -138,18 +138,18 @@ export const Footer: FC = () => {
               <li>
                 <a href="№">{translate.FAQ}</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="">{translate.order}</a>
-              </li>
+              </li> */}
               <li>
                 <a href="">{translate.feedback}</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="">{translate.delivery}</a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="">{translate.payment}</a>
-              </li>
+              </li> */}
             </ul>
           </ul>
           <ul className="footer__contact">
@@ -225,7 +225,7 @@ export const Footer: FC = () => {
             <p>{translate.copyright} MyPharm 2022</p>
             <p>{translate.copyrightText}</p>
           </div>
-          <div className="sub-footer__links">
+          {/* <div className="sub-footer__links">
             <div className="">
               <a href="">
                 <svg
@@ -286,7 +286,7 @@ export const Footer: FC = () => {
                 </svg>
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
