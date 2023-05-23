@@ -1,17 +1,16 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { RenderCardItem } from '../renderCard/RenderCardItem';
-import './mainPageCatalog.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 import { getProduct } from '../../store/productsReducer';
 import { IProduct } from '../../types/Types';
 import { NavLink } from 'react-router-dom';
+import './mainPageCatalog.scss';
 
 export const MainPageCatalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { products } = useSelector((state: RootState) => state.ProductsReducer);
-  // const dispatch = useDispatch();
   const favirutesProduct = localStorage.getItem('favorites')
     ? JSON.parse(localStorage.getItem('favorites') as string)
     : [];
@@ -20,8 +19,8 @@ export const MainPageCatalog: FC = () => {
   }, []);
 
   const renderCardItems = () => {
-    return products.map((el: IProduct) => {
-      if (el.in_stock) {
+    return products.map((el: IProduct, id: number) => {
+      if (el.in_stock && id < 9) {
         return (
           <RenderCardItem
             key={el.id}
