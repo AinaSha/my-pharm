@@ -3,14 +3,16 @@ import { Pagination } from '../../components/pagination/Pagination';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
 import { CatalogList } from '../../ui-kit/catalog/CatalogList';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
+import { AppDispatch, RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import './products.scss';
 import {
+  getProduct,
   setAppointment,
   setCatalog,
   setCountry,
   setFormText,
+  setSearchName,
   setShowCategore,
 } from '../../store/productsReducer';
 
@@ -45,6 +47,8 @@ export const Products: FC = () => {
     ? JSON.parse(localStorage.getItem('favorites') as string)
     : [];
 
+  if (!products[0].name) store.dispatch(getProduct());
+
   const resetSets = () => {
     setTextСountry('');
     setTextAppointments('');
@@ -68,109 +72,6 @@ export const Products: FC = () => {
       />
     );
   };
-
-  // const renderCardItems = () => {
-  // setAllCards([]);
-  // products.map((el: IProduct) => {
-  //   if (catalogId && el.in_stock) {
-  //     if (appointmentId && textForm && countryId) {
-  //       if (
-  //         form === el.form_type &&
-  //         el.manufacturer?.id === countryId &&
-  //         el.category?.id === Number(catalogId) &&
-  //         appointmentId === el.appointment
-  //       ) {
-  //         // return renderCard(el);
-  //         setAllCards([...allCards, el]);
-  //       }
-  //     } else if (appointmentId && textForm) {
-  //       if (
-  //         form === el.form_type &&
-  //         el.category?.id === Number(catalogId) &&
-  //         appointmentId === el.appointment
-  //       ) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (appointmentId && countryId) {
-  //       if (
-  //         el.manufacturer?.id === countryId &&
-  //         el.category?.id === Number(catalogId) &&
-  //         appointmentId === el.appointment
-  //       ) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (textForm && countryId) {
-  //       if (
-  //         el.manufacturer?.id === countryId &&
-  //         el.category?.id === Number(catalogId) &&
-  //         form === el.form_type
-  //       ) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (appointmentId) {
-  //       if (el.category?.id === Number(catalogId) && appointmentId === el.appointment) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (textForm) {
-  //       if (el.category?.id === Number(catalogId) && form === el.form_type) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (countryId) {
-  //       if (el.category?.id === Number(catalogId) && el.manufacturer?.id === countryId) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (catalogId) {
-  //       if (el.category?.id === Number(catalogId)) {
-  //         return renderCard(el);
-  //       }
-  //     }
-  //   } else if (searchName && el.in_stock) {
-  //     if (el.name.indexOf(searchName) !== -1) {
-  //       return renderCard(el);
-  //     }
-  //   } else if (el.in_stock) {
-  //     if (textForm && countryId && appointmentId) {
-  //       if (
-  //         el.manufacturer?.id === countryId &&
-  //         form === el.form_type &&
-  //         appointmentId === el.appointment
-  //       ) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (appointmentId && countryId) {
-  //       if (el.manufacturer?.id === countryId && appointmentId === el.appointment) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (appointmentId && textForm) {
-  //       if (form === el.form_type && appointmentId === el.appointment) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (textForm && countryId) {
-  //       if (el.manufacturer?.id === countryId && form === el.form_type) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (appointmentId) {
-  //       if (appointmentId === el.appointment) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (textForm) {
-  //       if (form === el.form_type) {
-  //         return renderCard(el);
-  //       }
-  //     } else if (countryId) {
-  //       if (el.manufacturer?.id === countryId) {
-  //         return renderCard(el);
-  //       }
-  //     } else {
-  //       return renderCard(el);
-  //     }
-  //   }
-  // });
-  // setCards(allCards.slice(0, cardsOnPage));
-  // return cards.map((el) => {
-  //   return renderCard(el);
-  // });
-  // };
 
   useEffect(() => {
     const allCard: IProduct[] = [];
@@ -227,7 +128,7 @@ export const Products: FC = () => {
           }
         }
       } else if (searchName && el.in_stock) {
-        if (el.name.indexOf(searchName) !== -1) {
+        if (el.name.toLocaleLowerCase().indexOf(searchName.toLocaleLowerCase()) !== -1) {
           allCard.push(el);
         }
       } else if (el.in_stock) {
@@ -270,7 +171,7 @@ export const Products: FC = () => {
     });
     setAllCards(allCard);
     setCards(allCard.slice(0, cardsOnPage));
-  }, [appointmentId, searchName, catalog, catalogId, countryId, form, resetFilter]);
+  }, [appointmentId, searchName, catalog, catalogId, countryId, form, resetFilter, products]);
 
   const handleForm = (e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
@@ -318,6 +219,7 @@ export const Products: FC = () => {
     dispatch(setFormText(option));
     dispatch(setCountry(option));
     dispatch(setAppointment(option));
+    dispatch(setSearchName(''));
   };
 
   const paginate = (
