@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -16,6 +16,7 @@ export const Promotion: FC = () => {
   const [curentPage, setCurentPage] = useState('1');
   const allPageNumbers = Math.ceil(allCards.length / cardsOnPage);
   const [cards, setCards] = useState<IProduct[]>(allCards.slice(0, cardsOnPage));
+  console.log(products);
 
   const renderCard = (el: IProduct) => {
     return (
@@ -36,7 +37,7 @@ export const Promotion: FC = () => {
     const allCard: IProduct[] = [];
     products.map((el: IProduct) => {
       if (el.in_stock && el.discount_price) {
-        allCards.push(el);
+        allCard.push(el);
       }
     });
     setAllCards(allCard);
