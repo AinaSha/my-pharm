@@ -41,7 +41,7 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
       })}
       {prop.prop === 'catalog_list' ? (
         <li key="Все продукты" className={prop.prop + '__item'} onClick={handleCatalog}>
-          <NavLink to="/products">Все продукты</NavLink>
+          <NavLink to="/products">{translate.allProducts}</NavLink>
         </li>
       ) : (
         ''

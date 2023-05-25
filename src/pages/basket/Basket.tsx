@@ -6,9 +6,10 @@ import { RootState, store } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import './basket.scss';
 import { IProduct } from '../../types/Types';
-import { Link } from 'react-router-dom';
+import { Empty } from '../../components/empty/Empty';
 
 export const Basket: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { bascketLS, bascketProducts, countBascket } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
@@ -60,10 +61,10 @@ export const Basket: FC = () => {
           <div className="basket-wrapper">
             <div className="basket-info">
               <p className="basket-info__count">
-                Корзина: <span>{countBascket}</span> товара
+                {translate.basketOne}: <span>{countBascket}</span> {translate.goods}
               </p>
               <button onClick={clear} className="basket-info__delete-btn">
-                Очистить корзину
+                {translate.emptyTrash}
               </button>
             </div>
             <div className="basket-card-block">
@@ -72,11 +73,11 @@ export const Basket: FC = () => {
                 <div className="order-info__inner">
                   <div className="basket-pay">
                     <div className="basket-pay__inner">
-                      <h3>Информация о заказе:</h3>
+                      <h3>{translate.informationOrder}:</h3>
                       <table>
                         <tbody>
                           <tr>
-                            <td>Товары</td>
+                            <td>{translate.goods2}</td>
                             <td></td>
                             <td>
                               <span>{countBascket}</span> шт
@@ -85,7 +86,7 @@ export const Basket: FC = () => {
                         </tbody>
                         <tfoot>
                           <tr>
-                            <td>Итог</td>
+                            <td>{translate.outcome}</td>
                             <td></td>
                             <td>
                               <span>{countProductsSum}</span>
@@ -97,8 +98,8 @@ export const Basket: FC = () => {
                     </div>
                   </div>
                   <div className="basket-pay__btn">
-                    <button className="basket-pay__btn-order">Заказать</button>
-                    <button className="basket-pay__btn-pay">Способ оплаты</button>
+                    <button className="basket-pay__btn-order">{translate.orderProducts}</button>
+                    <button className="basket-pay__btn-pay">{translate.paymentMethod}</button>
                   </div>
                 </div>
               </div>
@@ -108,13 +109,7 @@ export const Basket: FC = () => {
         {!countBascket && (
           <div className="empty-basket">
             <UserNavList />
-            <div className="empty-basket__info">
-              <h2>Ваша корзина пуста</h2>
-              <p>Начните поиск и добавьте товар в корзину.</p>
-              <Link className="empty-basket__info-btn" to="/">
-                На главную страницу
-              </Link>
-            </div>
+            <Empty prop={translate.basketEmpty} />
           </div>
         )}
       </div>

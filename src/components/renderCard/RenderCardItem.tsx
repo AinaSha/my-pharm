@@ -222,7 +222,7 @@ export const RenderCardItem: FC<IProduct> = ({
           </button>
         </div>
         <button onClick={handleAddBascket} className="add-basket">
-          {change ? 'изменить' : translate.basket}
+          {change ? translate.change : translate.basket}
         </button>
       </div>
     </div>

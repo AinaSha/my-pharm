@@ -2,25 +2,28 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './UserNavList.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export const UserNavList: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   return (
     <>
       <ul className="aside-nav-list">
         <li className="aside-nav-list-item">
-          <NavLink to="/myOrdering">Мои заказы</NavLink>
+          <NavLink to="/myOrdering">{translate.myOrders}</NavLink>
         </li>
         <li className="aside-nav-list-item">
-          <NavLink to="/profileData">Личные данные</NavLink>
+          <NavLink to="/profileData">{translate.personalData}</NavLink>
         </li>
         <li className="aside-nav-list-item">
-          <NavLink to="/favorites">Избранное</NavLink>
+          <NavLink to="/favorites">{translate.favorites}</NavLink>
         </li>
         <li className="aside-nav-list-item active">
-          <NavLink to="/basket">Корзина</NavLink>
+          <NavLink to="/basket">{translate.basketOne}</NavLink>
         </li>
         <li className="aside-nav-list-item">
-          <NavLink to="/">Выйти</NavLink>
+          <NavLink to="/">{translate.exit}</NavLink>
         </li>
       </ul>
     </>
