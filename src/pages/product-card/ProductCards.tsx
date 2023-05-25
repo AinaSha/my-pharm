@@ -136,24 +136,24 @@ export const ProductCards: FC = () => {
         <div className="main-info__short">
           <div>
             <p>
-              <span>Производитель</span> {product.characteristics?.release_form}
+              <span>{translate.manifacturer}</span> {product.characteristics?.release_form}
             </p>
             <p>
-              <span>Форма выпуска:</span> {product.characteristics?.package}
+              <span>{translate.accordingReleaseForm}:</span> {product.characteristics?.package}
             </p>
             <p>
-              <span>Страна:</span> {product.in_stock}
+              <span>{translate.country.toLocaleUpperCase()}:</span> {product.in_stock}
             </p>
             <p>
-              <span>Порядок отпуска:</span> {product.characteristics?.package}
+              <span>{translate.vacationOrder}:</span> {product.characteristics?.package}
             </p>
             <p>
-              <span>Артикуль:</span> {product.characteristics?.package}
+              <span>{translate.article}:</span> {product.characteristics?.package}
             </p>
           </div>
           <div className="main-info__choose">
             <p>
-              Цена:{' '}
+              {translate.price}:{' '}
               <span>{product.discount_price ? product.discount_price : product.price} сом</span>
             </p>
             <div className="card__btns__choose">
@@ -194,11 +194,11 @@ export const ProductCards: FC = () => {
               </button>
             </div>
             <button onClick={handleAddBascket} className="main-info__pay">
-              {change ? 'изменить' : translate.basket}
+              {change ? translate.change : translate.basket}
             </button>
-            <button className="main-info__pay white-btn">Купить сейчас</button>
+            <button className="main-info__pay white-btn">{translate.buyNow}</button>
           </div>
-          <p>Название аптеки</p>
+          <p>{translate.pharmacyName}</p>
         </div>
       </div>
       <div className="instruction">
@@ -308,7 +308,7 @@ export const ProductCards: FC = () => {
         </ul>
       </div>
       <div className="similar-products">
-        <p>Похожие товары</p>
+        <p>{translate.similarProducts}</p>
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ import {
 } from '../../store/productsReducer';
 
 export const Products: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const {
     products,
     appointmentId,
@@ -252,7 +253,7 @@ export const Products: FC = () => {
         <label className="select-ctigory" htmlFor="">
           <input
             type="text"
-            placeholder="Категории товаров"
+            placeholder={translate.productСategories}
             defaultValue={textCatalog ? textCatalog : ''}
           />
           <button onClick={() => dispatch(setShowCategore(!showCategore))}>
@@ -281,7 +282,7 @@ export const Products: FC = () => {
             <label className="select-pharmacies" htmlFor="">
               <input
                 type="text"
-                placeholder="По форма выпуска"
+                placeholder={translate.accordingReleaseForm}
                 defaultValue={textForm ? textForm : ''}
               />
               <button onClick={() => setShowForm(!showForm)}>
@@ -304,14 +305,14 @@ export const Products: FC = () => {
               <div>
                 {showForm && (
                   <ul className="parant-ul" onClick={handleForm}>
-                    <li id="other">другой</li>
-                    <li id="tablets">таблетки</li>
-                    <li id="powder">порошок</li>
-                    <li id="capsule">капсула</li>
-                    <li id="syrup">сироп</li>
-                    <li id="ampoule">ампула</li>
-                    <li id="spray">спрей</li>
-                    <li id="ointment">мазь</li>
+                    <li id="other">{translate.another}</li>
+                    <li id="tablets">{translate.pills}</li>
+                    <li id="powder">{translate.powder}</li>
+                    <li id="capsule">{translate.capsule}</li>
+                    <li id="syrup">{translate.syrup}</li>
+                    <li id="ampoule">{translate.ampoule}</li>
+                    <li id="spray">{translate.spray}</li>
+                    <li id="ointment">{translate.ointment}</li>
                   </ul>
                 )}
               </div>
@@ -319,7 +320,7 @@ export const Products: FC = () => {
             <label className="select-pharmacies" htmlFor="">
               <input
                 type="text"
-                placeholder="Назначения"
+                placeholder={translate.appointments}
                 defaultValue={textAppointments ? textAppointments : ''}
               />
               <button onClick={() => setshowAppointments(!showAppointments)}>
@@ -343,10 +344,10 @@ export const Products: FC = () => {
               <div>
                 {showAppointments && (
                   <ul className="parant-ul" onClick={handleAppointment}>
-                    <li id="all">все</li>
-                    <li id="adult">взрослый</li>
-                    <li id="child">детский</li>
-                    <li id="pregnant">Беременным и кормящим</li>
+                    <li id="all">{translate.another}</li>
+                    <li id="adult">{translate.adult}</li>
+                    <li id="child">{translate.child}</li>
+                    <li id="pregnant">{translate.pregnant}</li>
                   </ul>
                 )}
               </div>
@@ -377,21 +378,26 @@ export const Products: FC = () => {
               <div>
                 {showСountry && (
                   <ul className="parant-ul" onClick={handleCountry}>
-                    <li id="russia_1">Россия</li>
-                    <li id="kyrgystan_7">Кыргызстан</li>
-                    <li id="germany_5">Германия</li>
-                    <li id="france_4">Франция</li>
-                    <li id="kz_6">Казакстан</li>
-                    <li id="izrail_8">Израиль</li>
-                    <li id="koreya_9">Корея</li>
-                    <li id="usa_2">США</li>
-                    <li id="india_3">Индия</li>
+                    <li id="russia_1">{translate.russia}</li>
+                    <li id="kyrgystan_7">{translate.kyrgystan}</li>
+                    <li id="germany_5">{translate.germany}</li>
+                    <li id="france_4">{translate.france}</li>
+                    <li id="kz_6">{translate.kz}</li>
+                    <li id="izrail_8">{translate.izrail}</li>
+                    <li id="koreya_9">{translate.koreya}</li>
+                    <li id="usa_2">{translate.usa}</li>
+                    <li id="india_3">{translate.india}</li>
                   </ul>
                 )}
               </div>
             </label>
             <label className="reset-btn">
-              <input onClick={resetFilters} type="button" placeholder="Страна" value="очистить" />
+              <input
+                onClick={resetFilters}
+                type="button"
+                placeholder={translate.country}
+                value={translate.clear}
+              />
             </label>
           </div>
         </div>

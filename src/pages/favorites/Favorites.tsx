@@ -6,10 +6,11 @@ import { IProduct } from '../../types/Types';
 import './favorites.scss';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
-import { Link } from 'react-router-dom';
 import { GetProductsPart } from '../../store/BascketFavoriteReducer';
+import { Empty } from '../../components/empty/Empty';
 
 export const Favorites: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { countFavorite, favoritesLS, bascketProducts } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
@@ -47,16 +48,9 @@ export const Favorites: FC = () => {
         <div className="favorite__inner">
           <UserNavList />
           <div className="favorite__info-block">
-            <h3>Избранное</h3>
+            <h3>{translate.favorites}</h3>
             {countFavorite && <div className="cards-block-favorite">{renderCardItems()}</div>}
-            {!countFavorite && (
-              <div className="empty-basket__info">
-                <p>На данный момент вы еще не добавили товаров</p>
-                <Link className="empty-basket__info-btn" to="/">
-                  На главную страницу
-                </Link>
-              </div>
-            )}
+            {!countFavorite && <Empty prop={translate.notAddedMail} />}
           </div>
         </div>
       </div>
