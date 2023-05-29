@@ -1,50 +1,25 @@
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, store } from '../../store';
-import { GetUserMe, RefreshToken } from '../../store/authUserReducer';
-import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
-import { siginin, exit } from '../../store/authUserReducer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 import './contact.scss';
 
 export const Contact: FC = () => {
-  const { exp } = useSelector((state: RootState) => state.AuthReducer);
-  const dispatch = useDispatch();
-  const getUserMe = () => {
-    const curentTime = Math.ceil(new Date().getTime() / 1000) >= exp;
-    if (curentTime && localStorage.getItem('__userIsAuth')) {
-      const refresh = getCookiFile('refreshToken');
-      if (!refresh) {
-        removeLocalStorage('__token');
-        removeLocalStorage('__userIsAuth');
-        removeLocalStorage('__userId');
-        dispatch(exit());
-        dispatch(siginin());
-      }
-      store.dispatch(RefreshToken(refresh!));
-      setTimeout(() => {
-        store.dispatch(GetUserMe());
-      }, 700);
-    }
-    store.dispatch(GetUserMe());
-  };
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
 
   return (
     <div>
       <div className="contacts container">
         <Breadcrumbs homeLabel="Home" />
-        <h3>Контакты</h3>
+        <h3>{translate.contacts}</h3>
         <div className="contacts__inner">
           <div className="contacts__info">
             <p>
-              Связаться с нами:
-              <span>
-                По вопросам связанным с оформлением, исполнение заказа вы можете обратиться:
-              </span>
+              {translate.connectWithUs}:<span>{translate.questionsRelated}:</span>
             </p>
             <p>
-              Телефон: <span>+996 777 22 22 22</span>
+              {translate.telephone}: <span>+996 777 22 22 22</span>
             </p>
             <p>
               E-mail: <span>info@mypharm.kg</span>
@@ -53,16 +28,13 @@ export const Contact: FC = () => {
           <div className="contacts__form">
             <div className="contacts__form-inner">
               <p>
-                Обратная связь
-                <span>
-                  Если у Вас есть вопросы и пожелания по работе сайта, контакт-центра или службы
-                  доставки, воспользуйтесь формой обратной связи:
-                </span>
+                {translate.feedback}
+                <span>{translate.anyQuestions}</span>
               </p>
               <form className="feedback-form">
                 <div className="feedback-form__item">
-                  <label>Имя</label>
-                  <input type="text" placeholder="Ваше имя" />
+                  <label>{translate.name}</label>
+                  <input type="text" placeholder={translate.yourName} />
                 </div>
                 <div className="feedback-contact-forms">
                   <div className="feedback-form__item mail-input">
@@ -70,16 +42,16 @@ export const Contact: FC = () => {
                     <input type="text" placeholder="E-mail" />
                   </div>
                   <div className="feedback-form__item phone-input">
-                    <label>Номер телефона</label>
-                    <input type="text" placeholder="Телефон" />
+                    <label>{translate.phoneNumber}</label>
+                    <input type="text" placeholder={translate.telephone} />
                   </div>
                 </div>
                 <div className="feedback-form__item">
-                  <label htmlFor="">Сообщение</label>
-                  <textarea name="" id="" placeholder="Сообщение"></textarea>
+                  <label htmlFor="">{translate.mail}</label>
+                  <textarea name="" id="" placeholder={translate.mail}></textarea>
                 </div>
                 <button className="feedback-form__btn" type="submit">
-                  Отправить
+                  {translate.send}
                 </button>
               </form>
             </div>
