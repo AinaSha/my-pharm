@@ -14,6 +14,7 @@ import { Basket } from './pages/basket/Basket';
 import { Favorites } from './pages/favorites/Favorites';
 import { MyOrdering } from './pages/myOrdering/MyOrdering';
 import { PersonalArea } from './pages/personalArea/PersonalArea';
+import { PaymentMethods } from './pages/paymentMethods/PaymentMethods';
 
 import './index.scss';
 import { ProductCards } from './pages/product-card/ProductCards';
@@ -38,8 +39,7 @@ function App() {
             <Route path="/basket" element={<Basket />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/myOrdering" element={<MyOrdering />} />
-            {/* <Route path="/personalArea" element={<PersonalArea />} />
-            <Route path="/userData" element={<UserData />} /> */}
+            <Route path="/payment" element={<PaymentMethods />} />
           </Routes>
         </main>
         <Footer />
