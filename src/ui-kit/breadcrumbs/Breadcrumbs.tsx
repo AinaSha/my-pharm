@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Breadcrumbs.scss';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,8 @@ import { BreadcrumbLink, BreadcrumbsProps } from '../../types/Types';
 export const Breadcrumbs: FC<BreadcrumbsProps> = ({ homeLabel, name }) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { pathname } = useLocation();
+  const [width, setWidth] = useState(window.innerWidth);
+
   const pathSegments = pathname.split('/').filter((segment) => segment !== '');
 
   const links: BreadcrumbLink[] = [{ label: translate.path[homeLabel as keyof Path], url: '/' }];
@@ -21,6 +23,15 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ homeLabel, name }) => {
     });
   });
 
+  const updateWidthAndHeight = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidthAndHeight);
+    return () => window.removeEventListener('resize', updateWidthAndHeight);
+  });
+
   return (
     <nav aria-label="breadcrumb">
       <ol className="breadcrumb">
@@ -30,7 +41,17 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ homeLabel, name }) => {
             className={`breadcrumb-item${index === links.length - 1 ? ' active' : ''}`}
           >
             {index === links.length - 1 ? (
-              <span>{link.label}</span>
+              <span>
+                {width < 769 && width > 450
+                  ? link.label.length > 50
+                    ? link.label.slice(0, 50).padEnd(53, '...')
+                    : link.label
+                  : width < 450
+                  ? link.label.length > 20
+                    ? link.label.slice(0, 10).padEnd(13, '...')
+                    : link.label
+                  : link.label}
+              </span>
             ) : (
               <Link to={link.url} className="breadcrubs-link">
                 {link.label}
