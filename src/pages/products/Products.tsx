@@ -15,6 +15,7 @@ import {
   setSearchName,
   setShowCategore,
 } from '../../store/productsReducer';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Products: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -249,6 +250,7 @@ export const Products: FC = () => {
 
   return (
     <div className="container">
+      <Breadcrumbs homeLabel="home" name="" />
       <div className="filter-input">
         <label className="select-ctigory" htmlFor="">
           <input

@@ -44,7 +44,7 @@ export const Favorites: FC = () => {
   return (
     <>
       <div className="favorite container">
-        <Breadcrumbs homeLabel="Home" />
+        <Breadcrumbs homeLabel="home" name="" />
         <div className="favorite__inner">
           <UserNavList />
           <div className="favorite__info-block">

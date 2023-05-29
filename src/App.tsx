@@ -8,7 +8,6 @@ import { Contact } from './pages/contact/Contact';
 import { Registration } from './pages/registration/registration';
 import { Confidentiality } from './pages/confidentiality/Confidentiality';
 import { ForgottenPassword } from './pages/forgottenPassword/ForgottenPassword';
-import { ProfileData } from './pages/profileData/ProfileData';
 import { OrderPage } from './pages/orderPage/OrderPage';
 import { Products } from './pages/products/Products';
 import { Basket } from './pages/basket/Basket';
@@ -19,6 +18,7 @@ import { PaymentMethods } from './pages/paymentMethods/PaymentMethods';
 
 import './index.scss';
 import { ProductCards } from './pages/product-card/ProductCards';
+import { UserData } from './components/userData/UserData';
 
 function App() {
   return (
@@ -33,7 +33,6 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/confidentiality" element={<Confidentiality />} />
             <Route path="/forgottenPassword" element={<ForgottenPassword />} />
-            <Route path="/profileData" element={<ProfileData />} />
             <Route path="/orderPage" element={<OrderPage />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductCards />} />

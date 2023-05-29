@@ -1,15 +1,7 @@
 import { FC } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import './orderingForm.scss';
 
 export const OrderingForm: FC = () => {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   watch,
-  //   formState: { errors },
-  // } = useForm();
   return (
     <div className="form-side">
       <h3>Оплата и доставка</h3>

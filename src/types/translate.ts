@@ -4,6 +4,15 @@ type ListsT = {
   id: string;
 };
 
+export type Path = {
+  promotion: string;
+  home: string;
+  contact: string;
+  products: string;
+  favorites: string;
+  basket: string;
+};
+
 export interface ITtranslate {
   search: string;
   catigoryLists: ListsT[];
@@ -105,4 +114,5 @@ export interface ITtranslate {
   phoneNumber: string;
   mail: string;
   send: string;
+  path: Path;
 }

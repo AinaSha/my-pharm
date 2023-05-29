@@ -1,26 +1,26 @@
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Breadcrumbs.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { Path } from '../../types/translate';
+import { BreadcrumbLink, BreadcrumbsProps } from '../../types/Types';
 
-type BreadcrumbLink = {
-  label: string;
-  url: string;
-};
-
-type BreadcrumbsProps = {
-  homeLabel: string;
-};
-
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({ homeLabel }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = ({ homeLabel, name }) => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { pathname } = useLocation();
   const pathSegments = pathname.split('/').filter((segment) => segment !== '');
 
-  const links: BreadcrumbLink[] = [{ label: homeLabel, url: '/' }];
+  const links: BreadcrumbLink[] = [{ label: translate.path[homeLabel as keyof Path], url: '/' }];
   let currentUrl = '/';
   pathSegments.forEach((segment) => {
     currentUrl += `${segment}/`;
-    links.push({ label: segment, url: currentUrl });
+    links.push({
+      label: translate.path[segment as keyof Path] ? translate.path[segment as keyof Path] : name,
+      url: currentUrl,
+    });
   });
+
   return (
     <nav aria-label="breadcrumb">
       <ol className="breadcrumb">

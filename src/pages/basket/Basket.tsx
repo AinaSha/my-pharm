@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './basket.scss';
 import { IProduct } from '../../types/Types';
 import { Empty } from '../../components/empty/Empty';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Basket: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -57,6 +58,7 @@ export const Basket: FC = () => {
   return (
     <>
       <div className="container">
+        <Breadcrumbs homeLabel="home" name="" />
         {countBascket && (
           <div className="basket-wrapper">
             <div className="basket-info">

@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { IProduct } from '../../types/Types';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const ProductCards: FC = () => {
   const id = window.location.pathname.split('__')[1];
@@ -114,6 +115,7 @@ export const ProductCards: FC = () => {
 
   return (
     <div className="container">
+      <Breadcrumbs homeLabel="home" name={product.name} />
       <h2 className="product-cards-title">{product.name}</h2>
       <div className="main-info">
         <div className="image">

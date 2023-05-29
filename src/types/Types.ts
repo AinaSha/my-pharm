@@ -109,3 +109,13 @@ export interface IPagination {
   ) => void;
   curentPage: string;
 }
+
+export type BreadcrumbLink = {
+  label: string;
+  url: string;
+};
+
+export type BreadcrumbsProps = {
+  homeLabel: string;
+  name: string;
+};

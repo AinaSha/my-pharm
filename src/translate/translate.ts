@@ -111,6 +111,14 @@ export const translateLang3 = {
     phoneNumber: 'Номер телефона',
     mail: 'Сообщение',
     send: 'Отправить',
+    path: {
+      promotion: 'Акция',
+      home: 'Главная страница',
+      contact: 'Контакты',
+      products: 'Продукты',
+      favorites: 'Избранные',
+      basket: 'Корзина',
+    },
   },
   EN: {
     catigoryLists: [
@@ -227,6 +235,14 @@ export const translateLang3 = {
     phoneNumber: 'Phone number',
     mail: 'Mail',
     send: 'Send',
+    path: {
+      promotion: 'Promotion',
+      home: 'Home',
+      contact: 'Contact',
+      products: 'Products',
+      favorites: 'Favorites',
+      basket: 'Basket',
+    },
   },
   KG: {
     catigoryLists: [
@@ -342,5 +358,13 @@ export const translateLang3 = {
     phoneNumber: 'Телефон номуру',
     mail: 'Кат',
     send: 'Жонотуу',
+    path: {
+      promotion: 'Акциялар',
+      home: 'Башкы бет',
+      contact: 'Байланыш баракча',
+      products: 'Табарлар',
+      favorites: 'Тандалгандар',
+      basket: 'Корзина',
+    },
   },
 };
