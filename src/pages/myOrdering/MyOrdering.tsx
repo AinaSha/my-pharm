@@ -7,7 +7,7 @@ import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 export const MyOrdering: FC = () => {
   return (
     <div className="my-ordering container">
-      <Breadcrumbs homeLabel="Home" />
+      <Breadcrumbs homeLabel="home" name="" />
       <div className="my-ordering__inner">
         <UserNavList />
         <div className="list-order-side">

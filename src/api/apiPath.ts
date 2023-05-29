@@ -1,4 +1,4 @@
-export const apiPath = 'http://95.163.237.113/';
+export const apiPath = 'http://95.163.237.113/api/';
 export const apiEndpoints = {
   signin: '/auth/token/',
   signup: '/users/',
