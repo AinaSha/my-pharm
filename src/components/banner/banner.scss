@@ -76,7 +76,8 @@
 
             p {
                 margin: 0;
-                @extend %sub-title-text;
+                @extend %title-text;
+                font-size: 1.4rem;
                 color: #ffffff;
                 cursor: pointer;
             }
