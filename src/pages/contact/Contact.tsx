@@ -11,7 +11,7 @@ export const Contact: FC = () => {
   return (
     <div>
       <div className="contacts container">
-        <Breadcrumbs homeLabel="Home" />
+        <Breadcrumbs homeLabel="home" name="" />
         <h3>{translate.contacts}</h3>
         <div className="contacts__inner">
           <div className="contacts__info">

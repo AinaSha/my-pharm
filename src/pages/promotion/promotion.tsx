@@ -16,7 +16,7 @@ export const Promotion: FC = () => {
   const [curentPage, setCurentPage] = useState('1');
   const allPageNumbers = Math.ceil(allCards.length / cardsOnPage);
   const [cards, setCards] = useState<IProduct[]>(allCards.slice(0, cardsOnPage));
-  console.log(products);
+  // console.log(products);
 
   const renderCard = (el: IProduct) => {
     return (
@@ -71,7 +71,7 @@ export const Promotion: FC = () => {
   return (
     <div>
       <div className="container">
-        <Breadcrumbs homeLabel="Home" />
+        <Breadcrumbs homeLabel="home" name="" />
         <h3>Акции и предложения</h3>
         <div className="promotion-gallery">
           <div className="promotion-gallery__inner">
