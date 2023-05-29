@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 import { Pagination } from '../../components/pagination/Pagination';
 import { Pharmacies } from '../../components/pharmacies/Pharmacies';
-
+import { getProduct } from '../../store/productsReducer';
 import './promotion.scss';
 
 export const Promotion: FC = () => {
@@ -16,7 +16,8 @@ export const Promotion: FC = () => {
   const [curentPage, setCurentPage] = useState('1');
   const allPageNumbers = Math.ceil(allCards.length / cardsOnPage);
   const [cards, setCards] = useState<IProduct[]>(allCards.slice(0, cardsOnPage));
-  // console.log(products);
+
+  if (!products[0].name) store.dispatch(getProduct());
 
   const renderCard = (el: IProduct) => {
     return (
