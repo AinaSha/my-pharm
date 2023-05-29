@@ -1,5 +1,5 @@
 import { FC } from 'react';
-
+import { Link } from 'react-router-dom';
 import mbank from '../../assets/images/mbank-logo.svg';
 import megapay from '../../assets/images/logo-megapay.svg';
 import elsom from '../../assets/images/logo-Elsom.png';
@@ -17,12 +17,12 @@ export const PaymentMethods: FC = () => {
         <div className="payment-gallery">
           <div className="payment-gallery__card">
             <div className="card-inner">
-              <a className="">
+              <Link to="https://wa.me/996777222222">
                 <div className="whatsapp-img-block">
                   <img src={whatsApp} alt="Whatsapp logo" />
                 </div>
                 <p className="payment-descr">Обсудить по Watsapp</p>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="payment-gallery__card">
