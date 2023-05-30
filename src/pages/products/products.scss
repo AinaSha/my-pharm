@@ -1,5 +1,10 @@
 @import '../../variables.scss';
 
+.up {
+    transform: rotate(-180deg);
+    transition: .5s;
+}
+
 .filter-input {
     input {
         width: 350px;
