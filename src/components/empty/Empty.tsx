@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../store';
 
+import './empty.scss';
+
 interface IMail {
   prop: string;
 }
