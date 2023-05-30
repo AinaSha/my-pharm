@@ -264,6 +264,7 @@ export const Products: FC = () => {
               height="32"
               viewBox="0 0 32 32"
               fill="none"
+              className={showCategore ? ' up' : ''}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -293,6 +294,7 @@ export const Products: FC = () => {
                   height="32"
                   viewBox="0 0 32 32"
                   fill="none"
+                  className={showForm ? ' up' : ''}
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -366,6 +368,7 @@ export const Products: FC = () => {
                   height="32"
                   viewBox="0 0 32 32"
                   fill="none"
+                  className={showСountry ? ' up' : ''}
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
