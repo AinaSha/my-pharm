@@ -9,6 +9,7 @@ import { PhoneContact } from '../../ui-kit/pnoneContact/PhoneContact';
 import { Location } from '../../ui-kit/location/Location';
 import { SearchForm } from '../../ui-kit/searchForm/SearchForm';
 import { SignIn } from '../../ui-kit/signIn/SignIn';
+import { EnterForm } from '../enterForm/EnterForm';
 import './Header.scss';
 
 import logo from '../../assets/icones/Logo.svg';
@@ -19,12 +20,19 @@ import { setActiveBurger } from '../../store/burgerStyleReducer';
 import { Modal } from '../modal/Modal';
 import { RootState } from '../../store';
 
+export type Props = {
+  isActive: boolean;
+  toggle: () => void;
+  children: React.ReactNode;
+};
+
 export const Header: FC = () => {
   const { countFavorite, countBascket } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
   const dispatch = useDispatch();
   const [isActive, setActive] = useState(false);
+  const [modalActive, setModalActive] = useState(true);
 
   const handleToggle = () => {
     dispatch(setActiveBurger(true));
@@ -32,9 +40,16 @@ export const Header: FC = () => {
     document.body.classList.toggle('lock');
   };
 
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
   return (
     <>
-      <Modal />
+      {/* <Modal /> */}
+      <Modal active={modalActive} setActive={closeModal}>
+        <EnterForm />
+      </Modal>
       <div className="header">
         <div className="header-inner">
           <div className="top-header">

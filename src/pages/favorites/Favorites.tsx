@@ -50,7 +50,8 @@ export const Favorites: FC = () => {
           <div className="favorite__info-block">
             <h3>{translate.favorites}</h3>
             {countFavorite && <div className="cards-block-favorite">{renderCardItems()}</div>}
-            {!countFavorite && <Empty prop={translate.notAddedMail} />}
+            <Empty prop={''} />
+            {/* {!countFavorite && <Empty prop={translate.notAddedMail} />} */}
           </div>
         </div>
       </div>
