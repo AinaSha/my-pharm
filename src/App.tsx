@@ -40,6 +40,8 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/myOrdering" element={<MyOrdering />} />
             <Route path="/payment" element={<PaymentMethods />} />
+            <Route path="/personalArea" element={<PersonalArea />} />
+            <Route path="/userData" element={<UserData />} />
           </Routes>
         </main>
         <Footer />
