@@ -1,10 +1,10 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './Breadcrumbs.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { Path } from '../../types/translate';
 import { BreadcrumbLink, BreadcrumbsProps } from '../../types/Types';
+import './Breadcrumbs.scss';
 
 export const Breadcrumbs: FC<BreadcrumbsProps> = ({ homeLabel, name }) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);

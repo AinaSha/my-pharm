@@ -1,12 +1,9 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
 import { CreateUser, SiginInUser } from '../../store/authUserReducer';
 import { ILogInform } from '../../types/Types';
-
-// import './LogIn.scss';
 
 export const UserDataForm: FC = () => {
   const { registration } = useSelector((state: RootState) => state.AuthReducer);
@@ -18,6 +15,7 @@ export const UserDataForm: FC = () => {
     formState: { errors },
   } = useForm<ILogInform>();
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
+    console.log(data);
     store.dispatch(CreateUser(data));
     reset();
     store.dispatch(SiginInUser({ email: data.email, password: data.password }));

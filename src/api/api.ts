@@ -31,7 +31,7 @@ export const api = {
   },
   async CreateUser(options: ILogInform): Promise<IcreateUser> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signup}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -64,7 +64,7 @@ export const api = {
   },
   async RefreshToken(refresh: string): Promise<IToken | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.refresh}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -88,7 +88,7 @@ export const api = {
   },
   async getUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
@@ -110,7 +110,7 @@ export const api = {
   },
   async DeleteUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.delete,
         headers: {
           Accept: 'application/json',
@@ -132,7 +132,7 @@ export const api = {
   },
   async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.patch,
         headers: {
           Accept: 'application/json',

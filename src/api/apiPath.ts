@@ -1,9 +1,10 @@
 export const apiPath = 'http://95.163.237.113/api/';
 export const apiEndpoints = {
-  signin: '/auth/token/',
-  signup: '/users/',
-  refresh: '/auth/token/refresh/',
-  getMe: '/users/me/',
+  auth: 'auth/',
+  signin: 'registration/', // при регистрации (создание юзера)
+  resend_email: 'resend-email/', // создать электронную почту
+  verify_email: 'verify-email/', // проверка подлинности почты
+  // ===
   catalogs: 'categories/',
   manufacturers: '/manufacturers/',
   products: 'products/',
