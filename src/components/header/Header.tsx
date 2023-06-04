@@ -9,7 +9,6 @@ import { PhoneContact } from '../../ui-kit/pnoneContact/PhoneContact';
 import { Location } from '../../ui-kit/location/Location';
 import { SearchForm } from '../../ui-kit/searchForm/SearchForm';
 import { SignIn } from '../../ui-kit/signIn/SignIn';
-import { EnterForm } from '../enterForm/EnterForm';
 import './Header.scss';
 
 import logo from '../../assets/icones/Logo.svg';
@@ -17,7 +16,6 @@ import bookmark from '../../assets/icones/bookmark.svg';
 import shopingCard from '../../assets/icones/shopping-cart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveBurger } from '../../store/burgerStyleReducer';
-import { Modal } from '../modal/Modal';
 import { RootState } from '../../store';
 
 export type Props = {
@@ -32,7 +30,6 @@ export const Header: FC = () => {
   );
   const dispatch = useDispatch();
   const [isActive, setActive] = useState(false);
-  const [modalActive, setModalActive] = useState(true);
 
   const handleToggle = () => {
     dispatch(setActiveBurger(true));
@@ -40,16 +37,8 @@ export const Header: FC = () => {
     document.body.classList.toggle('lock');
   };
 
-  const closeModal = () => {
-    setModalActive(false);
-  };
-
   return (
     <>
-      {/* <Modal /> */}
-      <Modal active={modalActive} setActive={closeModal}>
-        <EnterForm />
-      </Modal>
       <div className="header">
         <div className="header-inner">
           <div className="top-header">

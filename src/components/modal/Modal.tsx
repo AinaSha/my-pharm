@@ -1,18 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
 import { GetUserMe, SiginInUser } from '../../store/authUserReducer';
-import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 
 import './modal.scss';
+import ReactDOM from 'react-dom';
 
 export type Props = {
+  children?: ReactNode;
   active: boolean;
-  setActive: any;
-  children: React.ReactNode;
+  setActive: () => void;
 };
 
 interface ISignInform {
@@ -20,8 +18,7 @@ interface ISignInform {
   password: string;
 }
 
-export const Modal: FC<Props> = ({ children }) => {
-  const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
+export const Modal: FC<Props> = (props: Props) => {
   const { exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const {
@@ -39,14 +36,10 @@ export const Modal: FC<Props> = ({ children }) => {
     store.dispatch(GetUserMe());
   }, [exp]);
 
-  const handleModalClick = () => {
-    dispatch(setActiveModalSiginIn(false));
-  };
-
-  return (
-    <div className={activeSiginIn ? 'modal active' : 'modal'} onClick={handleModalClick}>
+  return ReactDOM.createPortal(
+    <div className={props.active ? 'modal active' : 'modal'} onClick={props.setActive}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
-        {children}
+        {props.children}
         {/* <h2>Вход в личный кабинет</h2>
         <form className="modal__content-form" onSubmit={handleSubmit(onSubmit)}>
           <label>
@@ -96,7 +89,8 @@ export const Modal: FC<Props> = ({ children }) => {
           Зарегистрироваться
         </Link> */}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

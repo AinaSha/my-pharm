@@ -4,6 +4,7 @@ import { Modal } from '../modal/Modal';
 import { UserDataForm } from '../userDataForm/UserDataForm';
 import './userData.scss';
 import userAvatar from '../../assets/images/Avatar-icon.png';
+import useModal from '../userHook/useModal';
 
 export type Props = {
   active: boolean;
@@ -12,19 +13,15 @@ export type Props = {
 };
 
 export const UserData: FC = () => {
-  const [modalActive, setModalActive] = useState(true);
-
-  const closeModal = () => {
-    setModalActive(false);
-  };
+  const { modalActive, setActive } = useModal();
 
   const handleEditeForm = () => {
-    setModalActive(true);
+    setActive();
   };
 
   return (
     <>
-      <Modal active={modalActive} setActive={closeModal}>
+      <Modal active={modalActive} setActive={setActive}>
         <UserDataForm />
       </Modal>
       <div className="user-data container">

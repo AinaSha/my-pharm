@@ -2,13 +2,17 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { exit } from '../../store/authUserReducer';
-import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 import { deleteCookie, removeLocalStorage } from '../../utils/utilsForm';
 import './SignIn.scss';
+import { Modal } from '../../components/modal/Modal';
+import { EnterForm } from '../../components/enterForm/EnterForm';
+import useModal from '../../components/userHook/useModal';
+import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 
 export const SignIn: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { isAuth, siginIn, dataUser } = useSelector((state: RootState) => state.AuthReducer);
+  const { modalActive, setActive } = useModal();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,13 +31,13 @@ export const SignIn: FC = () => {
     deleteCookie('refreshToken');
   };
 
-  const handleModalClick = () => {
-    dispatch(setActiveModalSiginIn(true));
-  };
-
+  console.log(modalActive, 'SignIn');
   return (
     <>
-      <button className={isAuth ? 'sign-btn hiden' : 'sign-btn'} onClick={handleModalClick}>
+      <Modal active={modalActive} setActive={setActive}>
+        <EnterForm />
+      </Modal>
+      <button className={isAuth ? 'sign-btn hiden' : 'sign-btn'} onClick={setActive}>
         <svg
           width="32"
           height="32"
