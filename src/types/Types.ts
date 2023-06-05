@@ -10,13 +10,6 @@ export interface CatalogItemProps {
 export interface ILogInform {
   email: string;
   first_name: string;
-  last_name: string;
-  sur_name: string;
-  gender: string;
-  phone: number;
-  address: string;
-  is_pensioner: boolean;
-  is_beneficiaries: boolean;
   password: string;
   password_confirm: string;
 }

@@ -31,7 +31,24 @@ export const api = {
   },
   async CreateUser(options: ILogInform): Promise<IcreateUser> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
+      console.log(`${apiPath}${apiEndpoints.auth}${apiEndpoints.signin}`);
+      console.log(
+        JSON.stringify({
+          email: options.email,
+          first_name: options.first_name,
+          password: options.password,
+          password_confirm: options.password_confirm,
+        })
+      );
+      console.log(
+        typeof JSON.stringify({
+          email: options.email,
+          first_name: options.first_name,
+          password: options.password,
+          password_confirm: options.password_confirm,
+        })
+      );
+      const response = await fetch(`${apiPath}${apiEndpoints.auth}${apiEndpoints.signin}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -40,17 +57,11 @@ export const api = {
         body: JSON.stringify({
           email: options.email,
           first_name: options.first_name,
-          last_name: options.last_name,
-          sur_name: options.sur_name,
-          gender: options.gender,
-          phone: options.phone,
-          address: options.address,
-          is_pensioner: options.is_pensioner,
-          is_beneficiaries: options.is_beneficiaries,
           password: options.password,
           password_confirm: options.password_confirm,
         }),
       });
+      console.log(response.status);
       if (response.status === 201) {
         const data = await response.json();
         console.log(data);
@@ -141,13 +152,13 @@ export const api = {
         },
         body: JSON.stringify({
           first_name: options.first_name,
-          last_name: options.last_name,
-          sur_name: options.sur_name,
-          gender: options.gender,
-          phone: options.phone,
-          address: options.address,
-          is_pensioner: options.is_pensioner,
-          is_beneficiaries: options.is_beneficiaries,
+          // last_name: options.last_name,
+          // sur_name: options.sur_name,
+          // gender: options.gender,
+          // phone: options.phone,
+          // address: options.address,
+          // is_pensioner: options.is_pensioner,
+          // is_beneficiaries: options.is_beneficiaries,
         }),
       });
       if (response.status === 200) {

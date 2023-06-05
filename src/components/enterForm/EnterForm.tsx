@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
 import { GetUserMe, SiginInUser } from '../../store/authUserReducer';
 import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
+import useModal from '../userHook/useModal';
 
 export type Props = {
   active: boolean;
@@ -21,6 +23,7 @@ export const EnterForm: FC = () => {
   const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
   const { exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
+  const { modalActive, setActive } = useModal();
   const {
     register,
     handleSubmit,
@@ -37,7 +40,8 @@ export const EnterForm: FC = () => {
   }, [exp]);
 
   const handleModalClick = () => {
-    dispatch(setActiveModalSiginIn(false));
+    setActive();
+    // console.log('==');
   };
 
   return (
@@ -83,7 +87,7 @@ export const EnterForm: FC = () => {
             Забыли пароль?
           </Link>
         </div>
-        <button className="submit" type="submit">
+        <button className="submit" type="submit" onClick={setActive}>
           Войти
         </button>
       </form>

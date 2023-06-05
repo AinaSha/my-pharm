@@ -29,30 +29,30 @@ export const PersonalArea: FC = () => {
       shouldValidate: true,
       shouldDirty: true,
     });
-    setValue('last_name', `${dataUser.last_name}`, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-    setValue('sur_name', `${dataUser.sur_name}`, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-    setValue('email', `${dataUser.email}`, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-    setValue('phone', Number(dataUser.phone), {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-    setValue('address', `${dataUser.address}`, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-    setValue('gender', `${dataUser.gender}`, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
+    // setValue('last_name', `${dataUser.last_name}`, {
+    //   shouldValidate: true,
+    //   shouldDirty: true,
+    // });
+    // setValue('sur_name', `${dataUser.sur_name}`, {
+    //   shouldValidate: true,
+    //   shouldDirty: true,
+    // });
+    // setValue('email', `${dataUser.email}`, {
+    //   shouldValidate: true,
+    //   shouldDirty: true,
+    // });
+    // setValue('phone', Number(dataUser.phone), {
+    //   shouldValidate: true,
+    //   shouldDirty: true,
+    // });
+    // setValue('address', `${dataUser.address}`, {
+    //   shouldValidate: true,
+    //   shouldDirty: true,
+    // });
+    // setValue('gender', `${dataUser.gender}`, {
+    //   shouldValidate: true,
+    //   shouldDirty: true,
+    // });
   };
 
   const handleChange = () => {
@@ -129,7 +129,7 @@ export const PersonalArea: FC = () => {
           </div>
           <div className="form-item">
             <label>Фамилия:</label>
-            {!change ? (
+            {/* {!change ? (
               <p className={change ? 'hiden' : 'person_data'}>{dataUser.last_name}</p>
             ) : (
               <>
@@ -145,11 +145,11 @@ export const PersonalArea: FC = () => {
                 />
                 <div>{errors?.last_name && <p>{errors?.last_name?.message || 'Error!'}</p>}</div>
               </>
-            )}
+            )} */}
           </div>
           <div className="form-item">
             <label>Отчество:</label>
-            {!change ? (
+            {/* {!change ? (
               <p className={change ? 'hiden' : 'person_data'}>{dataUser.sur_name}</p>
             ) : (
               <>
@@ -165,7 +165,7 @@ export const PersonalArea: FC = () => {
                 />
                 <div>{errors?.sur_name && <p>{errors?.sur_name?.message || 'Error!'}</p>}</div>
               </>
-            )}
+            )} */}
           </div>
           <div className="form-item">
             <label>Адрес эл.почты</label>
@@ -190,7 +190,7 @@ export const PersonalArea: FC = () => {
           </div>
           <div className="form-item">
             <label>Номер телефона:</label>
-            {!change ? (
+            {/* {!change ? (
               <p className={change ? 'hiden' : 'person_data'}>{dataUser.phone}</p>
             ) : (
               <>
@@ -211,11 +211,11 @@ export const PersonalArea: FC = () => {
                 />
                 <div>{errors?.phone && <p>{errors?.phone?.message || 'Error!'}</p>}</div>
               </>
-            )}
+            )} */}
           </div>
           <div className="form-item">
             <label>Адрес:</label>
-            {!change ? (
+            {/* {!change ? (
               <p className={change ? 'hiden' : 'person_data'}>{dataUser.address}</p>
             ) : (
               <>
@@ -230,11 +230,11 @@ export const PersonalArea: FC = () => {
                 />
                 <div>{errors?.address && <p>{errors?.address?.message || 'Error!'}</p>}</div>
               </>
-            )}
+            )} */}
           </div>
           <div className="form-item">
             <label>Выберите пол:</label>
-            {!change ? (
+            {/* {!change ? (
               <p className={change ? 'hiden' : 'person_data'}>{dataUser.gender}</p>
             ) : (
               <>
@@ -244,12 +244,12 @@ export const PersonalArea: FC = () => {
                   <option value="men">men</option>
                 </select>
               </>
-            )}
+            )} */}
           </div>
           <div className="form-item">
             <label>
               Вы пенсионер:
-              {!change ? (
+              {/* {!change ? (
                 <p className={change ? 'hiden' : 'person_data'}>
                   {dataUser.is_pensioner ? 'да' : 'нет'}
                 </p>
@@ -257,11 +257,11 @@ export const PersonalArea: FC = () => {
                 <>
                   <input type="checkbox" {...register('is_pensioner')} />
                 </>
-              )}
+              )} */}
             </label>
             <label>
               Вы beneficiaries:
-              {!change ? (
+              {/* {!change ? (
                 <p className={change ? 'hiden' : 'person_data'}>
                   {dataUser.is_beneficiaries ? 'льготник' : 'не льготник'}
                 </p>
@@ -269,7 +269,7 @@ export const PersonalArea: FC = () => {
                 <>
                   <input type="checkbox" {...register('is_beneficiaries')} />
                 </>
-              )}
+              )} */}
             </label>
           </div>
           {!change ? (

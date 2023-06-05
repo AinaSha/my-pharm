@@ -31,7 +31,7 @@ export const SignIn: FC = () => {
     deleteCookie('refreshToken');
   };
 
-  console.log(modalActive, 'SignIn');
+  // console.log(modalActive, 'SignIn');
   return (
     <>
       <Modal active={modalActive} setActive={setActive}>
