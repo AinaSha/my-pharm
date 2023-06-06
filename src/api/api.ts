@@ -4,9 +4,14 @@ import { getFromLocalStorage } from '../utils/utilsForm';
 import { ICatigories, IcreateUser, ILogInform, IProduct } from '../types/Types';
 
 export const api = {
+  
+  // Правильно будет SignInUser
   async SiginInUser(email: string, password: string): Promise<IToken | number | null> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
+        // во всех fetch одинаковые headers и method 
+        // лучше бы написать обертку чтобы headers application/json по умолчанию было
+        // или просто использовать axios
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -17,20 +22,31 @@ export const api = {
           password: password,
         }),
       });
+
       if (response.status === 200) {
         const data = await response.json();
         return data;
+
       } else if (response.status === 403) {
         return response.status;
+
       } else {
+
+        // корень всех зол. Имея только статус код ничего не узнаешь
+        // просто передайте response целиком
         return await Promise.reject(new Error(response.statusText));
       }
+
     } catch (error) {
+      // Бесполезный вызов ошибки. Лучше console.error(error) сделать чтобы было понятнее
       throw new Error('Authorization failed');
     }
   },
   async CreateUser(options: ILogInform): Promise<IcreateUser> {
     try {
+      // Три огромных консоль log. 
+      // Используйте лучше дебаггер https://learn.javascript.ru/debugging-chrome
+
       console.log(`${apiPath}${apiEndpoints.auth}${apiEndpoints.signin}`);
       console.log(
         JSON.stringify({
@@ -48,12 +64,15 @@ export const api = {
           password_confirm: options.password_confirm,
         })
       );
+
       const response = await fetch(`${apiPath}${apiEndpoints.auth}${apiEndpoints.signin}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
+        // 20 строке этого кода стоит только email и password (там тоже apiEndpoints.signin)
+        // а здесь другие поля добавились
         body: JSON.stringify({
           email: options.email,
           first_name: options.first_name,
@@ -61,12 +80,15 @@ export const api = {
           password_confirm: options.password_confirm,
         }),
       });
+
       console.log(response.status);
       if (response.status === 201) {
         const data = await response.json();
         console.log(data);
         return data;
       } else {
+
+        // тоже самое что и 37 строке
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
@@ -97,9 +119,11 @@ export const api = {
       throw new Error('Authorization failed');
     }
   },
+
   async getUserMe() {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
+        // нельзя, только post
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
