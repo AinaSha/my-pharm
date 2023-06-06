@@ -1,7 +1,8 @@
+import { Registration } from './../pages/registration/registration';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
 import { DecodedToken, IToken, TAuthUser } from '../types/apiTypes';
-import { IcreateUser, IInitialAuth, ILogInform } from '../types/Types';
+import { IcreateUser, IInitialAuth, ILogInform, RegistrationForm, LoginForm } from '../types/Types';
 import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
 const initialAuth = {
@@ -27,20 +28,24 @@ const initialAuth = {
   registration: false,
 };
 
-export const CreateUser = createAsyncThunk('Auth/CreateUser', async (option: ILogInform) => {
-  const data = await api.CreateUser(option);
+export const RegisterUser = createAsyncThunk('Auth/Registration', async (form: RegistrationForm) => {
+  const data = await api.registration(form);
   return data;
 });
 
-export const UpdateUserMe = createAsyncThunk('Auth/UpdateUserMe', async (option: ILogInform) => {
-  const data = await api.UpdateUserMe(option);
+export const LoginUser = createAsyncThunk('Auth/Login', async (form: LoginForm) => {
+  const data = await api.login(form);
   return data;
 });
 
-export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: TAuthUser) => {
-  const data = await api.SiginInUser(option.email, option.password);
-  return data;
-});
+
+
+// export const UpdateUserMe = createAsyncThunk('Auth/UpdateUserMe', async (option: ILogInform) => {
+//   const data = await api.UpdateUserMe(option);
+//   return data;
+// });
+
+
 
 export const GetUserMe = createAsyncThunk('Auth/GetUserMe', async () => {
   const data = await api.getUserMe();
@@ -64,10 +69,10 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(SiginInUser.pending, (state) => {
+    builder.addCase(LoginUser.pending, (state) => {
       state.isLoading = true;
     }),
-      builder.addCase(SiginInUser.fulfilled, (state, action) => {
+      builder.addCase(LoginUser.fulfilled, (state, action) => {
         if (action.payload === 403) {
           state.isAuth = false;
           setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
@@ -82,36 +87,36 @@ export const authSlice = createSlice({
         }
         state.isLoading = true;
       });
-    builder.addCase(CreateUser.pending, (state) => {
+    builder.addCase(RegisterUser.pending, (state) => {
       state.isLoading = true;
     }),
-      builder.addCase(CreateUser.fulfilled, (state, action) => {
-        state.dataUser = {
-          id: String((action.payload as IcreateUser).id),
-          ...(action.payload as IcreateUser),
-          access: '',
-          refresh: '',
-        };
-        setLocalStorage('__token', action.payload.access);
-        createCookiFile('refreshToken', action.payload.refresh, 1);
-        setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
-        const data = updateUserIdFromToken() as DecodedToken;
-        state.exp = data.exp;
-        state.registration = true;
-        state.isAuth = true;
+      builder.addCase(RegisterUser.fulfilled, (state, action) => {
+        // state.dataUser = {
+        //   id: String((action.payload as IcreateUser).id),
+        //   ...(action.payload as IcreateUser),
+        //   access: '',
+        //   refresh: '',
+        // };
+        // setLocalStorage('__token', action.payload.access);
+        // createCookiFile('refreshToken', action.payload.refresh, 1);
+        // setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+        // const data = updateUserIdFromToken() as DecodedToken;
+        // state.exp = data.exp;
+        // state.registration = true;
+        // state.isAuth = true;
       });
-    builder.addCase(UpdateUserMe.pending, (state) => {
-      state.isLoading = true;
-    }),
-      builder.addCase(UpdateUserMe.fulfilled, (state, action) => {
-        if (action.payload === 400) {
-        } else {
-          state.dataUser = {
-            id: state.dataUser.id,
-            ...(action.payload as IcreateUser),
-          };
-        }
-      });
+    // builder.addCase(UpdateUserMe.pending, (state) => {
+    //   state.isLoading = true;
+    // }),
+    //   builder.addCase(UpdateUserMe.fulfilled, (state, action) => {
+    //     if (action.payload === 400) {
+    //     } else {
+    //       state.dataUser = {
+    //         id: state.dataUser.id,
+    //         ...(action.payload as IcreateUser),
+    //       };
+    //     }
+    //   });
     builder.addCase(RefreshToken.pending, () => {}),
       builder.addCase(RefreshToken.fulfilled, (state, action) => {
         if (action.payload === 403) {

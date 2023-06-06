@@ -1,17 +1,52 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
 import { IToken } from '../types/apiTypes';
 import { getFromLocalStorage } from '../utils/utilsForm';
-import { ICatigories, IcreateUser, ILogInform, IProduct } from '../types/Types';
+import { ICatigories, RegistrationForm, LoginForm, IProduct } from '../types/Types';
+
+
+const defaultHeaders = (headers: object) => {
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    ...headers    
+  }
+}
+
+
+async function fetchPost(body: object, endpoint: string, headers: object = {}) {
+  return await fetch(`${apiPath}${endpoint}`, {
+    method: 'POST',
+    headers: defaultHeaders(headers),
+    body: JSON.stringify(body)
+  })
+} 
+
+
+async function fetchGet(endpoint: string, headers: object = {}) {
+  return await fetch(`${apiPath}${endpoint}`, {
+    method: 'GET',
+    headers: defaultHeaders(headers)
+  })
+} 
+
 
 export const api = {
-  
-  // Правильно будет SignInUser
-  async SiginInUser(email: string, password: string): Promise<IToken | number | null> {
+
+  async registration(form: RegistrationForm) {
+    await fetchPost(form, apiEndpoints.registration);
+  }, 
+
+  async login(form: LoginForm) {
+    let response = await fetchPost(form, apiEndpoints.login);
+    let data = await response.json();
+    console.log(data.key);
+    return data.key;
+  },
+
+
+  async SignInUser(email: string, password: string): Promise<IToken | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        // во всех fetch одинаковые headers и method 
-        // лучше бы написать обертку чтобы headers application/json по умолчанию было
-        // или просто использовать axios
+      const response = await fetch(`${apiPath}${apiEndpoints.login}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -31,73 +66,21 @@ export const api = {
         return response.status;
 
       } else {
-
-        // корень всех зол. Имея только статус код ничего не узнаешь
-        // просто передайте response целиком
         return await Promise.reject(new Error(response.statusText));
       }
 
     } catch (error) {
-      // Бесполезный вызов ошибки. Лучше console.error(error) сделать чтобы было понятнее
       throw new Error('Authorization failed');
     }
   },
-  async CreateUser(options: ILogInform): Promise<IcreateUser> {
-    try {
-      // Три огромных консоль log. 
-      // Используйте лучше дебаггер https://learn.javascript.ru/debugging-chrome
 
-      console.log(`${apiPath}${apiEndpoints.auth}${apiEndpoints.signin}`);
-      console.log(
-        JSON.stringify({
-          email: options.email,
-          first_name: options.first_name,
-          password: options.password,
-          password_confirm: options.password_confirm,
-        })
-      );
-      console.log(
-        typeof JSON.stringify({
-          email: options.email,
-          first_name: options.first_name,
-          password: options.password,
-          password_confirm: options.password_confirm,
-        })
-      );
 
-      const response = await fetch(`${apiPath}${apiEndpoints.auth}${apiEndpoints.signin}`, {
-        method: METHODS.post,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        // 20 строке этого кода стоит только email и password (там тоже apiEndpoints.signin)
-        // а здесь другие поля добавились
-        body: JSON.stringify({
-          email: options.email,
-          first_name: options.first_name,
-          password: options.password,
-          password_confirm: options.password_confirm,
-        }),
-      });
 
-      console.log(response.status);
-      if (response.status === 201) {
-        const data = await response.json();
-        console.log(data);
-        return data;
-      } else {
 
-        // тоже самое что и 37 строке
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Registration failed');
-    }
-  },
+
   async RefreshToken(refresh: string): Promise<IToken | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.login}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -122,7 +105,7 @@ export const api = {
 
   async getUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.login}`, {
         // нельзя, только post
         method: METHODS.get,
         headers: {
@@ -145,7 +128,7 @@ export const api = {
   },
   async DeleteUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.login}`, {
         method: METHODS.delete,
         headers: {
           Accept: 'application/json',
@@ -165,38 +148,38 @@ export const api = {
       throw new Error('user deleted...');
     }
   },
-  async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {
-    try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.patch,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${getFromLocalStorage('__token')}`,
-        },
-        body: JSON.stringify({
-          first_name: options.first_name,
-          // last_name: options.last_name,
-          // sur_name: options.sur_name,
-          // gender: options.gender,
-          // phone: options.phone,
-          // address: options.address,
-          // is_pensioner: options.is_pensioner,
-          // is_beneficiaries: options.is_beneficiaries,
-        }),
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 400) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Update user failed');
-    }
-  },
+  // async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {
+  //   try {
+  //     const response = await fetch(`${apiPath}${apiEndpoints.login}`, {
+  //       method: METHODS.patch,
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //         Authorization: `JWT ${getFromLocalStorage('__token')}`,
+  //       },
+  //       body: JSON.stringify({
+  //         first_name: options.first_name,
+  //         // last_name: options.last_name,
+  //         // sur_name: options.sur_name,
+  //         // gender: options.gender,
+  //         // phone: options.phone,
+  //         // address: options.address,
+  //         // is_pensioner: options.is_pensioner,
+  //         // is_beneficiaries: options.is_beneficiaries,
+  //       }),
+  //     });
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       return data;
+  //     } else if (response.status === 400) {
+  //       return response.status;
+  //     } else {
+  //       return await Promise.reject(new Error(response.statusText));
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Update user failed');
+  //   }
+  // },
   async GetCatalogs(): Promise<ICatigories | number | null> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.catalogs}`, {
