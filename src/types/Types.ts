@@ -7,6 +7,23 @@ export interface CatalogItemProps {
   href: string;
 }
 
+
+export type RegistrationForm = {
+  username: string,
+  email: string,
+  password1: string,
+  password2: string,
+}
+
+
+export type LoginForm = {
+  username: string,
+  email: string,
+  password: string,
+}
+
+
+
 export interface ILogInform {
   email: string;
   first_name: string;
