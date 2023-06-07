@@ -113,7 +113,7 @@
   color: $green;
 }
 
-li+ li {
+.aside-nav-list>li+ .aside-nav-list>li {
   margin-top: 10px;
 }
 
@@ -149,7 +149,7 @@ li+ li {
       flex-wrap: wrap;
     }
 
-    li+ li {
+    .aside-nav-list>li+ .aside-nav-list>li {
       margin-top: 0px;
     }
     
