@@ -1,55 +1,63 @@
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, store } from '../../store';
-import { GetUserMe, RefreshToken } from '../../store/authUserReducer';
-import { getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
-import { siginin, exit } from '../../store/authUserReducer';
-import { api } from '../../api/api';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
+
+import './contact.scss';
 
 export const Contact: FC = () => {
-  const { exp } = useSelector((state: RootState) => state.AuthReducer);
-  const dispatch = useDispatch();
-  const getUserMe = () => {
-    const curentTime = Math.ceil(new Date().getTime() / 1000) >= exp;
-    if (curentTime && localStorage.getItem('__userIsAuth')) {
-      const refresh = getCookiFile('refreshToken');
-      if (!refresh) {
-        removeLocalStorage('__token');
-        removeLocalStorage('__userIsAuth');
-        removeLocalStorage('__userId');
-        dispatch(exit());
-        dispatch(siginin());
-      }
-      store.dispatch(RefreshToken(refresh!));
-      setTimeout(() => {
-        store.dispatch(GetUserMe());
-      }, 700);
-    }
-    store.dispatch(GetUserMe());
-  };
-
-  const getCatalog = async () => {
-    console.log('click getCatalog');
-    // const data = await api.GetCatalogs();
-    // const data6 = await api.GetCatalogProducts('2');
-    // const data3 = await api.GetCompanies();
-    // const data4 = await api.GetCompaniesPharmacies();
-    // const data2 = await api.GetPharmacies();
-    // const data5 = await api.GetProducts();
-    // console.log(data);
-    // console.log(data3);
-    // console.log(data4);
-    // console.log(data2);
-    // console.log(data5);
-    // console.log(data2);
-    // console.log(data6);
-  };
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
 
   return (
     <div>
-      <div className="container">
-        <h1>Contact page!</h1>
-        <button onClick={getUserMe}>get Catalog</button>
+      <div className="contacts container">
+        <Breadcrumbs homeLabel="home" name="" />
+        <h3>{translate.contacts}</h3>
+        <div className="contacts__inner">
+          <div className="contacts__info">
+            <p>
+              {translate.connectWithUs}:<span>{translate.questionsRelated}:</span>
+            </p>
+            <p>
+              {translate.telephone}: <span>+996 777 22 22 22</span>
+            </p>
+            <p>
+              E-mail: <span>info@mypharm.kg</span>
+            </p>
+          </div>
+          <div className="contacts__form">
+            <div className="contacts__form-inner">
+              <p>
+                {translate.feedback}
+                <span>{translate.anyQuestions}</span>
+              </p>
+              <form className="feedback-form">
+                <div className="feedback-form__item">
+                  <label>{translate.name}</label>
+                  <input type="text" placeholder={translate.yourName} />
+                </div>
+                <div className="feedback-contact-forms">
+                  <div className="feedback-form__item mail-input">
+                    <label>E-mail</label>
+                    <input type="text" placeholder="E-mail" />
+                  </div>
+                  <div className="feedback-form__item phone-input">
+                    <label>{translate.phoneNumber}</label>
+                    <input type="text" placeholder={translate.telephone} />
+                  </div>
+                </div>
+                <div className="feedback-form__item">
+                  <label htmlFor="">{translate.mail}</label>
+                  <textarea name="" id="" placeholder={translate.mail}></textarea>
+                </div>
+                <button className="feedback-form__btn" type="submit">
+                  {translate.send}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {/* <button onClick={getUserMe}>get Catalog</button> */}
       </div>
     </div>
   );

@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
 import { GetUserMe, SiginInUser } from '../../store/authUserReducer';
-import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 
 import './modal.scss';
+import ReactDOM from 'react-dom';
 
 export type Props = {
+  children?: ReactNode;
   active: boolean;
-  setActive: any;
+  setActive: () => void;
 };
 
 interface ISignInform {
@@ -19,8 +18,7 @@ interface ISignInform {
   password: string;
 }
 
-export const Modal: FC = () => {
-  const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
+export const Modal: FC<Props> = (props: Props) => {
   const { exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const {
@@ -38,14 +36,11 @@ export const Modal: FC = () => {
     store.dispatch(GetUserMe());
   }, [exp]);
 
-  const handleModalClick = () => {
-    dispatch(setActiveModalSiginIn(false));
-  };
-
-  return (
-    <div className={activeSiginIn ? 'modal active' : 'modal'} onClick={handleModalClick}>
+  return ReactDOM.createPortal(
+    <div className={props.active ? 'modal active' : 'modal'} onClick={props.setActive}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
-        <h2>Вход в личный кабинет</h2>
+        {props.children}
+        {/* <h2>Вход в личный кабинет</h2>
         <form className="modal__content-form" onSubmit={handleSubmit(onSubmit)}>
           <label>
             Адрес эл.почты
@@ -92,8 +87,44 @@ export const Modal: FC = () => {
         </form>
         <Link to="/registration" className="registr-link" onClick={handleModalClick}>
           Зарегистрироваться
-        </Link>
+        </Link> */}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
+
+// import { FC, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from '../../store';
+// import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
+
+// import './modal.scss';
+
+// export type Props = {
+//   isActive: boolean;
+//   setActive: () => void;
+//   children: React.ReactNode;
+// };
+
+// export const Modal: FC<Props> = ({ isActive, setActive, children }) => {
+//   const [modalActive, setModalActive] = useState(false);
+//   // const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
+//   // const dispatch = useDispatch();
+//   const closeModal = () => {
+//     setModalActive(!isActive);
+//     setActive();
+//   };
+
+//   if (!modalActive) {
+//     return null;
+//   }
+
+//   return (
+//     <div className={isActive ? 'modal active' : 'modal'}>
+//       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+//         {children}
+//       </div>
+//     </div>
+//   );
+// };

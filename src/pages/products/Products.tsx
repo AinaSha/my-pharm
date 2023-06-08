@@ -7,24 +7,27 @@ import { AppDispatch, RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import './products.scss';
 import {
-  getProductFilter,
+  getProduct,
   setAppointment,
   setCatalog,
   setCountry,
   setFormText,
+  setSearchName,
   setShowCategore,
 } from '../../store/productsReducer';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Products: FC = () => {
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
   const {
     products,
+    appointmentId,
+    searchName,
     catalog,
     catalogId,
-    showCategore,
-    formText,
+    countryId,
     form,
-    appointmentId,
-    appointmentText,
+    showCategore,
     resetFilter,
   } = useSelector((state: RootState) => state.ProductsReducer);
   const dispatch = useDispatch<AppDispatch>();
@@ -36,31 +39,141 @@ export const Products: FC = () => {
   const [showСountry, setshowСountry] = useState(false);
   const [textСountry, setTextСountry] = useState('');
 
+  const cardsOnPage = 4;
+  const [allCards, setAllCards] = useState<IProduct[]>([]);
+  const [curentPage, setCurentPage] = useState('1');
+  const allPageNumbers = Math.ceil(allCards.length / cardsOnPage);
+  const [cards, setCards] = useState<IProduct[]>(allCards.slice(0, cardsOnPage));
+
+  const favirutesProduct = localStorage.getItem('favorites')
+    ? JSON.parse(localStorage.getItem('favorites') as string)
+    : [];
+
+  if (!products[0].name) store.dispatch(getProduct());
+
   const resetSets = () => {
     setTextСountry('');
     setTextAppointments('');
     setTextForm('');
   };
 
-  const renderCardItems = () => {
-    return products.map((el: IProduct, id: number) => {
-      return (
-        <RenderCardItem
-          key={id}
-          id={el.id}
-          title={el.title}
-          thumbnail={el.thumbnail}
-          manufacturer="{el.manufacturer}"
-          price={el.price}
-          is_req_prescription={el.is_req_prescription}
-          favorites="false"
-          catalog={0}
-          discount_price={''}
-          sale={''}
-        />
-      );
-    });
+  const renderCard = (el: IProduct) => {
+    return (
+      <RenderCardItem
+        key={el.id}
+        id={el.id}
+        name={el.name}
+        manufacturer={el.manufacturer}
+        price={el.price}
+        favorites={favirutesProduct.includes(String(el.id))}
+        page="main"
+        discount_price={el.discount_price}
+        image={el.image}
+        rating={el.rating}
+        characteristics={el.characteristics}
+      />
+    );
   };
+
+  useEffect(() => {
+    const allCard: IProduct[] = [];
+    products.map((el: IProduct) => {
+      if (catalogId && el.in_stock) {
+        if (appointmentId && textForm && countryId) {
+          if (
+            form === el.form_type &&
+            el.manufacturer?.id === countryId &&
+            el.category?.id === Number(catalogId) &&
+            appointmentId === el.appointment
+          ) {
+            allCard.push(el);
+          }
+        } else if (appointmentId && textForm) {
+          if (
+            form === el.form_type &&
+            el.category?.id === Number(catalogId) &&
+            appointmentId === el.appointment
+          ) {
+            allCard.push(el);
+          }
+        } else if (appointmentId && countryId) {
+          if (
+            el.manufacturer?.id === countryId &&
+            el.category?.id === Number(catalogId) &&
+            appointmentId === el.appointment
+          ) {
+            allCard.push(el);
+          }
+        } else if (textForm && countryId) {
+          if (
+            el.manufacturer?.id === countryId &&
+            el.category?.id === Number(catalogId) &&
+            form === el.form_type
+          ) {
+            allCard.push(el);
+          }
+        } else if (appointmentId) {
+          if (el.category?.id === Number(catalogId) && appointmentId === el.appointment) {
+            allCard.push(el);
+          }
+        } else if (textForm) {
+          if (el.category?.id === Number(catalogId) && form === el.form_type) {
+            allCard.push(el);
+          }
+        } else if (countryId) {
+          if (el.category?.id === Number(catalogId) && el.manufacturer?.id === countryId) {
+            allCard.push(el);
+          }
+        } else if (catalogId) {
+          if (el.category?.id === Number(catalogId)) {
+            allCard.push(el);
+          }
+        }
+      } else if (searchName && el.in_stock) {
+        if (el.name.toLocaleLowerCase().indexOf(searchName.toLocaleLowerCase()) !== -1) {
+          allCard.push(el);
+        }
+      } else if (el.in_stock) {
+        if (textForm && countryId && appointmentId) {
+          if (
+            el.manufacturer?.id === countryId &&
+            form === el.form_type &&
+            appointmentId === el.appointment
+          ) {
+            allCard.push(el);
+          }
+        } else if (appointmentId && countryId) {
+          if (el.manufacturer?.id === countryId && appointmentId === el.appointment) {
+            allCard.push(el);
+          }
+        } else if (appointmentId && textForm) {
+          if (form === el.form_type && appointmentId === el.appointment) {
+            allCard.push(el);
+          }
+        } else if (textForm && countryId) {
+          if (el.manufacturer?.id === countryId && form === el.form_type) {
+            allCard.push(el);
+          }
+        } else if (appointmentId) {
+          if (appointmentId === el.appointment) {
+            allCard.push(el);
+          }
+        } else if (textForm) {
+          if (form === el.form_type) {
+            allCard.push(el);
+          }
+        } else if (countryId) {
+          if (el.manufacturer?.id === countryId) {
+            allCard.push(el);
+          }
+        } else {
+          allCard.push(el);
+        }
+      }
+    });
+    setAllCards(allCard);
+    setCards(allCard.slice(0, cardsOnPage));
+  }, [appointmentId, searchName, catalog, catalogId, countryId, form, resetFilter, products]);
 
   const handleForm = (e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
@@ -68,13 +181,6 @@ export const Products: FC = () => {
       const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
       setTextForm(nodeLiText);
       setShowForm(false);
-      const option = {
-        id: catalogId,
-        form: nodeLiId,
-        appointment: appointmentId,
-        title: '',
-      };
-      store.dispatch(getProductFilter(option));
       dispatch(setFormText({ nodeLiText, nodeLiId }));
     }
   };
@@ -84,32 +190,17 @@ export const Products: FC = () => {
       const nodeLiId = (e.target as HTMLLinkElement).id;
       const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
       setshowAppointments(false);
-      const option = {
-        id: catalogId,
-        form: form,
-        appointment: nodeLiId,
-        title: '',
-      };
       setTextAppointments(nodeLiText);
-      store.dispatch(getProductFilter(option));
       dispatch(setAppointment({ nodeLiId, nodeLiText }));
     }
   };
 
   const handleCountry = (e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).classList.contains('parant-ul')) {
-      const nodeLiId = (e.target as HTMLLinkElement).id;
+      const nodeLiId = (e.target as HTMLLinkElement).id.split('_')[1];
       const nodeLiText = (e.target as HTMLLinkElement).innerHTML;
       setshowСountry(false);
       setTextСountry(nodeLiText);
-      const option = {
-        id: catalogId,
-        form: form,
-        appointment: appointmentId,
-        country: nodeLiId,
-        title: '',
-      };
-      store.dispatch(getProductFilter(option));
       dispatch(setCountry({ nodeLiId, nodeLiText }));
     }
   };
@@ -130,15 +221,41 @@ export const Products: FC = () => {
     dispatch(setFormText(option));
     dispatch(setCountry(option));
     dispatch(setAppointment(option));
+    dispatch(setSearchName(''));
+  };
+
+  const paginate = (
+    pageNumber: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    btnChilde: ChildNode | null | undefined
+  ) => {
+    let btn: HTMLButtonElement;
+    if (!!e) btn = e.currentTarget as HTMLButtonElement;
+    const buttons: ChildNode | NodeListOf<ChildNode> | undefined = btnChilde
+      ? btnChilde.childNodes
+      : btn!.parentElement?.childNodes;
+    if (!buttons) return;
+    buttons.forEach((el: ChildNode) => {
+      const btn = el as HTMLButtonElement;
+      btn.classList.remove('active-btn');
+
+      if (btn.textContent === String(pageNumber)) btn.classList.add('active-btn');
+    });
+
+    const start = (pageNumber - 1) * cardsOnPage;
+    const end = start + cardsOnPage;
+    setCurentPage(String(pageNumber));
+    setCards(allCards.slice(start, end));
   };
 
   return (
     <div className="container">
+      <Breadcrumbs homeLabel="home" name="" />
       <div className="filter-input">
         <label className="select-ctigory" htmlFor="">
           <input
             type="text"
-            placeholder="Категории товаров"
+            placeholder={translate.productСategories}
             defaultValue={textCatalog ? textCatalog : ''}
           />
           <button onClick={() => dispatch(setShowCategore(!showCategore))}>
@@ -147,6 +264,7 @@ export const Products: FC = () => {
               height="32"
               viewBox="0 0 32 32"
               fill="none"
+              className={showCategore ? ' up' : ''}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -167,7 +285,7 @@ export const Products: FC = () => {
             <label className="select-pharmacies" htmlFor="">
               <input
                 type="text"
-                placeholder="По форма выпуска"
+                placeholder={translate.accordingReleaseForm}
                 defaultValue={textForm ? textForm : ''}
               />
               <button onClick={() => setShowForm(!showForm)}>
@@ -176,6 +294,7 @@ export const Products: FC = () => {
                   height="32"
                   viewBox="0 0 32 32"
                   fill="none"
+                  className={showForm ? ' up' : ''}
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -190,14 +309,14 @@ export const Products: FC = () => {
               <div>
                 {showForm && (
                   <ul className="parant-ul" onClick={handleForm}>
-                    <li id="other">другой</li>
-                    <li id="tablet">таблетки</li>
-                    <li id="capsule">порошок</li>
-                    <li id="powder">капсула</li>
-                    <li id="ampoule">сироп</li>
-                    <li id="syrup">ампула</li>
-                    <li id="spray">спрей</li>
-                    <li id="ointment">мазь</li>
+                    <li id="other">{translate.another}</li>
+                    <li id="tablets">{translate.pills}</li>
+                    <li id="powder">{translate.powder}</li>
+                    <li id="capsule">{translate.capsule}</li>
+                    <li id="syrup">{translate.syrup}</li>
+                    <li id="ampoule">{translate.ampoule}</li>
+                    <li id="spray">{translate.spray}</li>
+                    <li id="ointment">{translate.ointment}</li>
                   </ul>
                 )}
               </div>
@@ -205,7 +324,7 @@ export const Products: FC = () => {
             <label className="select-pharmacies" htmlFor="">
               <input
                 type="text"
-                placeholder="Назначения"
+                placeholder={translate.appointments}
                 defaultValue={textAppointments ? textAppointments : ''}
               />
               <button onClick={() => setshowAppointments(!showAppointments)}>
@@ -229,11 +348,10 @@ export const Products: FC = () => {
               <div>
                 {showAppointments && (
                   <ul className="parant-ul" onClick={handleAppointment}>
-                    <li id="other">другой</li>
-                    <li id="for_adults">взрослый</li>
-                    <li id="for_children">детский</li>
-                    <li id="for_nursing">уход</li>
-                    <li id="for_pregnant_women">Беременным и кормящим</li>
+                    <li id="all">{translate.another}</li>
+                    <li id="adult">{translate.adult}</li>
+                    <li id="child">{translate.child}</li>
+                    <li id="pregnant">{translate.pregnant}</li>
                   </ul>
                 )}
               </div>
@@ -250,6 +368,7 @@ export const Products: FC = () => {
                   height="32"
                   viewBox="0 0 32 32"
                   fill="none"
+                  className={showСountry ? ' up' : ''}
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -264,23 +383,38 @@ export const Products: FC = () => {
               <div>
                 {showСountry && (
                   <ul className="parant-ul" onClick={handleCountry}>
-                    <li id="russia">Россия</li>
-                    <li id="kyrgystan">Кыргызстан</li>
-                    <li id="germany">Германия</li>
-                    <li id="france">Франция</li>
-                    <li id="india">Индия</li>
+                    <li id="russia_1">{translate.russia}</li>
+                    <li id="kyrgystan_7">{translate.kyrgystan}</li>
+                    <li id="germany_5">{translate.germany}</li>
+                    <li id="france_4">{translate.france}</li>
+                    <li id="kz_6">{translate.kz}</li>
+                    <li id="izrail_8">{translate.izrail}</li>
+                    <li id="koreya_9">{translate.koreya}</li>
+                    <li id="usa_2">{translate.usa}</li>
+                    <li id="india_3">{translate.india}</li>
                   </ul>
                 )}
               </div>
             </label>
             <label className="reset-btn">
-              <input onClick={resetFilters} type="button" placeholder="Страна" value="очистить" />
+              <input
+                onClick={resetFilters}
+                type="button"
+                placeholder={translate.country}
+                value={translate.clear}
+              />
             </label>
           </div>
         </div>
-        <div className="catalog-page">{renderCardItems()}</div>
+        <div className="catalog-page">
+          {cards.map((el) => {
+            return renderCard(el);
+          })}
+        </div>
       </div>
-      <Pagination />
+      {allPageNumbers > 1 && (
+        <Pagination allPageNumbers={allPageNumbers} paginate={paginate} curentPage={curentPage} />
+      )}
     </div>
   );
 };

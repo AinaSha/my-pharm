@@ -4,6 +4,7 @@ import BurgerReducer from './burgerStyleReducer';
 import languageReducer from './languageReducer';
 import ProductsReducer from './productsReducer';
 import { windowWidthReducer } from './windowWidthRedux';
+import BascketFavoriteReducer from './BascketFavoriteReducer';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     windowWidthReducer: windowWidthReducer,
     BurgerReducer: BurgerReducer,
     ProductsReducer: ProductsReducer,
+    BascketFavoriteReducer: BascketFavoriteReducer,
   },
 });
 

@@ -27,6 +27,10 @@
   align-items: flex-start;
 }
 
+.basket-cards-gallery {
+  width: 75%;
+}
+
 .order-info {
   background-color:  #F9F9F9;
   border: 1px solid #8B8989;
@@ -86,22 +90,6 @@
 }
 
 
-.empty-basket {
-  display: flex;
-  align-items: center;
-  gap: 140px;
-
-  &__info-btn {
-    @extend %title-text;
-    color: $white;
-    background-color: $green;
-    padding: 11px 33px;
-    border-radius: 6px;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-  }
-}
 
 .aside-nav-list>li a {
   @extend %title-text;
@@ -128,6 +116,10 @@
     row-gap: 30px;
   }
 
+  .basket-cards-gallery {
+    width: 100%;
+  }
+
   .basket-pay {
     table {
       border-spacing: 50px 15px;
@@ -137,11 +129,6 @@
 
 @media (max-width: 768px) {
   .empty-basket {
-    display: flex;
-    flex-direction: column;
-    align-items:flex-start;
-    gap: 0px;
-
     .aside-nav-list {
       display: flex;
       width: 100%;
@@ -155,5 +142,6 @@
     
   } 
 }
+
 
 

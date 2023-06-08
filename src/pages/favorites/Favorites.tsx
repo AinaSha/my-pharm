@@ -1,50 +1,60 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { LinkButtons } from '../../components/linkButtons/LinkButtons';
 import { RenderCardItem } from '../../components/renderCard/RenderCardItem';
-import { RootState } from '../../store';
+import { RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import './favorites.scss';
+import { UserNavList } from '../../ui-kit/userList/UserNavList';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
+import { GetProductsPart } from '../../store/BascketFavoriteReducer';
+import { Empty } from '../../components/empty/Empty';
 
 export const Favorites: FC = () => {
-  const show = {
-    basket: true,
-    favorites: false,
-    delivery: true,
-    exit: false,
-    window: false,
-  };
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const { countFavorite, favoritesLS, bascketProducts } = useSelector(
+    (state: RootState) => state.BascketFavoriteReducer
+  );
 
-  const { products } = useSelector((state: RootState) => state.ProductsReducer);
+  useEffect(() => {
+    store.dispatch(GetProductsPart(favoritesLS));
+  }, [countFavorite, favoritesLS]);
 
   const renderCardItems = () => {
-    return products.map((el: IProduct, id: number) => {
-      return (
-        <RenderCardItem
-          key={id}
-          id={el.id}
-          title={el.title}
-          thumbnail={el.thumbnail}
-          manufacturer="{el.manufacturer}"
-          price={el.price}
-          is_req_prescription={el.is_req_prescription}
-          favorites="false"
-          catalog={0}
-          discount_price={''}
-          sale={''}
-        />
-      );
+    return bascketProducts.map((el: IProduct) => {
+      if (el.in_stock && countFavorite) {
+        return (
+          <RenderCardItem
+            key={el.id}
+            id={el.id}
+            name={el.name}
+            manufacturer={el.manufacturer}
+            price={el.discount_price ? Number(el.discount_price) : el.price}
+            discount_price={el.discount_price}
+            image={el.image}
+            rating={el.rating}
+            characteristics={el.characteristics}
+            page="favorite"
+            favorites={true}
+          />
+        );
+      }
     });
   };
 
   return (
     <>
-      <div className="container">
-        <div className="link-buttons-favorit">
-          <LinkButtons show={show} />
+      <div className="favorite container">
+        <Breadcrumbs homeLabel="home" name="" />
+        <div className="favorite__inner">
+          <UserNavList />
+          <div className="favorite__info-block">
+            <h3>{translate.favorites}</h3>
+            {countFavorite && <div className="cards-block-favorite">{renderCardItems()}</div>}
+            <Empty prop={''} />
+            {/* {!countFavorite && <Empty prop={translate.notAddedMail} />} */}
+          </div>
         </div>
       </div>
-      <div className="container cards-block-favorite">{renderCardItems()}</div>
     </>
   );
 };

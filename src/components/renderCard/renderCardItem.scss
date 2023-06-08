@@ -59,6 +59,7 @@
 
     &__text {
         h6 {
+            min-height: 45px;
             @extend %sub-title-text;
             margin-bottom: 1rem;
         }
@@ -78,12 +79,6 @@
             margin-left: 5px;
             color: #8B8989;
         }
-    }
-
-    &__vendorСode {
-        @extend %text; 
-        color: #8B8989;
-        margin-bottom: 1rem;
     }
 
     &__btns {

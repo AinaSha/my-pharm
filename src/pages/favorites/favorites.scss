@@ -1,3 +1,14 @@
+@import '../../variables.scss';
+
+.favorite {
+
+    &__inner {
+        display: flex;
+        gap: 83px;
+    }
+}
+
+
 .cards-block-favorite {
     margin-top: 2rem;
     display: flex;
@@ -14,6 +25,11 @@
 }
 
 @media (max-width: 768px) {
+.favorite {
+   flex-direction: column;
+   gap: 50px;
+   margin-top: 50px;
+}
     .cards-block-favorite {
         justify-content: space-around;
     }  

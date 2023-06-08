@@ -1,31 +1,165 @@
-import { FC } from 'react';
-import lec1 from '../../assets/imeges/lec1.png';
+import { FC, useEffect, useState } from 'react';
 import './productCards.scss';
+import { getFromLocalStorage, setLocalStorage } from '../../utils/utilsForm';
+import {
+  addBascket,
+  changeFavorite,
+  setBascketLS,
+  setFavoritesLS,
+} from '../../store/BascketFavoriteReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { IProduct } from '../../types/Types';
+import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const ProductCards: FC = () => {
+  const id = window.location.pathname.split('__')[1];
+  const { translate } = useSelector((state: RootState) => state.languageReducer);
+  const { products } = useSelector((state: RootState) => state.ProductsReducer);
+  const { bascketLS, favoritesLS } = useSelector(
+    (state: RootState) => state.BascketFavoriteReducer
+  );
+  const dispatch = useDispatch();
+
+  const [product, setProduct] = useState<IProduct>({
+    category: {
+      id: 0,
+      ru: '',
+      kg: '',
+      en: '',
+    },
+    characteristics: {
+      on_prescription: '',
+      before_date: '',
+      compound: '',
+      package: '',
+      purpose: '',
+      release_form: '',
+    },
+    description: '',
+    discount_price: '',
+    image: '',
+    in_stock: false,
+    manufacturer: {
+      id: 0,
+      name: '',
+    },
+    name: '',
+    price: 0,
+    rating: 0,
+    id: '',
+    favorites: false,
+  });
+  const [chooseCard, setChooseCard] = useState(favoritesLS.indexOf(id) !== -1 ? true : false);
+  const [change, setChange] = useState(bascketLS ? bascketLS.hasOwnProperty(id) : false);
+  const [countProduct, setCountProduct] = useState(change ? Number(bascketLS[Number(id)]) : 0);
+
+  useEffect(() => {
+    products.map((el: IProduct) => {
+      if (String(el.id) === id) setProduct(el);
+    });
+  }, []);
+
+  const handleChooseCard = () => {
+    setChooseCard(!chooseCard);
+
+    const favoritesArr = getFromLocalStorage('favorites');
+
+    if (favoritesArr) {
+      const favArr = JSON.parse(favoritesArr!);
+      if (favArr.indexOf(id) === -1) {
+        setLocalStorage('favorites', JSON.stringify([...favArr, id]));
+        dispatch(changeFavorite(favArr.length + 1));
+        dispatch(setFavoritesLS([...favArr, id].join()));
+      } else {
+        favArr.splice(favArr.indexOf(id), 1);
+        setLocalStorage('favorites', JSON.stringify(favArr));
+        dispatch(changeFavorite(favArr.length));
+        dispatch(setFavoritesLS(favArr.join()));
+      }
+    } else {
+      setLocalStorage('favorites', JSON.stringify([id]));
+      dispatch(changeFavorite(1));
+    }
+  };
+
+  const handleAddBascket = () => {
+    if (countProduct === 0) setCountProduct(1);
+    const count = countProduct === 0 ? 1 : countProduct;
+    if (bascketLS) {
+      const obj = { ...bascketLS, [id]: count };
+      setLocalStorage('bascket', JSON.stringify(obj));
+      const objKeys = Object.keys(bascketLS);
+      let allProducts = count;
+      objKeys.forEach((el: string) => {
+        if (!(el === id)) allProducts += Number(bascketLS[Number(el)]);
+      });
+      dispatch(addBascket(allProducts));
+      dispatch(setBascketLS(obj));
+    } else {
+      const obj = { [id]: count };
+      setLocalStorage('bascket', JSON.stringify(obj));
+      dispatch(addBascket(count));
+      dispatch(setBascketLS(obj));
+    }
+    setChange(true);
+  };
+
+  const handleCountProductMin = () => {
+    if (countProduct > 1) setCountProduct(countProduct - 1);
+  };
+
+  const handleCountProductPlus = () => {
+    if (countProduct < 10) setCountProduct(countProduct + 1);
+  };
+
   return (
     <div className="container">
-      <h2 className="product-cards-title">Алмагель, суспензия для приема внутрь 170 мл </h2>
+      <Breadcrumbs homeLabel="home" name={product.name} />
+      <h2 className="product-cards-title">{product.name}</h2>
       <div className="main-info">
         <div className="image">
-          <img src={lec1} alt="" />
+          <button
+            onClick={handleChooseCard}
+            className={chooseCard ? 'choose favorite' : 'favorite'}
+          >
+            <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M2.4477 1.78105C1.94761 2.28115 1.66666 2.95942 1.66666 3.66667V25L11 20.3333L20.3333 25V3.66667C20.3333 2.95942 20.0524 2.28115 19.5523 1.78105C19.0522 1.28095 18.3739 1 17.6667 1H4.33332C3.62608 1 2.9478 1.28095 2.4477 1.78105Z"
+                stroke=""
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <img src={product.image} alt="" />
         </div>
         <div className="main-info__short">
+          <div>
+            <p>
+              <span>{translate.manifacturer}</span> {product.characteristics?.release_form}
+            </p>
+            <p>
+              <span>{translate.accordingReleaseForm}:</span> {product.characteristics?.package}
+            </p>
+            <p>
+              <span>{translate.country.toLocaleUpperCase()}:</span> {product.in_stock}
+            </p>
+            <p>
+              <span>{translate.vacationOrder}:</span> {product.characteristics?.package}
+            </p>
+            <p>
+              <span>{translate.article}:</span> {product.characteristics?.package}
+            </p>
+          </div>
           <div className="main-info__choose">
-            <span>300 сом</span>
-            <button className="favorite">
-              <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M2.4477 1.78105C1.94761 2.28115 1.66666 2.95942 1.66666 3.66667V25L11 20.3333L20.3333 25V3.66667C20.3333 2.95942 20.0524 2.28115 19.5523 1.78105C19.0522 1.28095 18.3739 1 17.6667 1H4.33332C3.62608 1 2.9478 1.28095 2.4477 1.78105Z"
-                  stroke=""
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+            <p>
+              {translate.price}:{' '}
+              <span>{product.discount_price ? product.discount_price : product.price} сом</span>
+            </p>
             <div className="card__btns__choose">
-              <button>
+              <button onClick={handleCountProductMin}>
                 <svg
                   width="24"
                   height="24"
@@ -42,8 +176,8 @@ export const ProductCards: FC = () => {
                   />
                 </svg>
               </button>
-              <span>1</span>
-              <button>
+              <span>{countProduct}</span>
+              <button onClick={handleCountProductPlus}>
                 <svg
                   width="24"
                   height="24"
@@ -61,129 +195,122 @@ export const ProductCards: FC = () => {
                 </svg>
               </button>
             </div>
-            <button className="main-info__pay">В корзину</button>
-            <button className="main-info__pay white-btn">Купить сейчас</button>
+            <button onClick={handleAddBascket} className="main-info__pay">
+              {change ? translate.change : translate.basket}
+            </button>
+            <button className="main-info__pay white-btn">{translate.buyNow}</button>
           </div>
-          <div>
-            <p>
-              <span>Производитель</span> Балканфарма - Троян АД, Болгария
-            </p>
-            <p>Арт. 205124</p>
-          </div>
-          <p>Название аптеки</p>
+          <p>{translate.pharmacyName}</p>
         </div>
       </div>
       <div className="instruction">
-        <p>Инструкция по медицинскому применению лекарственного препарата</p>
+        <p>Характеристики</p>
         <p className="title">Алмагель, суспензия для приема внутрь 170 мл </p>
         <ul>
           <li>
             <span>Торговое наименование</span>
-            <p>Алмагель</p>
+            <p>{product.name}</p>
           </li>
           <li>
-            <span>Международное непатентованное название</span>
-            <p>Алмагель</p>
+            <span>Лекарственная форма:</span>
+            <p>{product.name}</p>
           </li>
           <li>
-            <span>Лекарственная форма</span>
-            <p>Сироп</p>
-          </li>
-          <li>
-            <span>Описание</span>
-            <p></p>
+            <span>Нозологическая классификация МКБ-10 (название)</span>
+            <p>{product.name}</p>
           </li>
           <li>
             <span>Состав</span>
-            <p></p>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Фармакотерапевтическая группа</span>
-            <p></p>
+            <span>Побочное действие:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Фармакологические свойства</span>
-            <p></p>
+            <span>Способ применения и дозы:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Фармакодинамика</span>
-            <p></p>
-          </li>
-          <li>
-            <span>Фармакокинетика</span>
-            <p></p>
-          </li>
-          <li>
-            <span>Показания к применению</span>
-            <p></p>
+            <span>Передозировка:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
             <span>Противопоказания</span>
-            <p></p>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Рекомендации по применению</span>
-            <p></p>
+            <span>Особые указания:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Режим дозирования</span>
-            <p></p>
+            <span>Применение при беременности и в период лактации:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Метод и путь введения</span>
-            <p></p>
+            <span>Показания к применению:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Частота применения с указанием времени приема</span>
-            <p></p>
+            <span>Фармакокинетика:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Длительность лечения</span>
-            <p></p>
+            <span>Фармакологическое действие:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>
-              Описание нежелательных реакций, которые проявляются при стандартном применении ЛП и
-              меры, которые следует принять в этом случае{' '}
-            </span>
-            <p></p>
+            <span>Описание товара:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Сообщение о нежелательных реакциях</span>
-            <p></p>
+            <span>Срок годности базовый (в месяцах):</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Необходимые меры предосторожности при применении</span>
-            <p></p>
+            <span>Термолабильный препарат:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Меры, которые необходимо принять в случае передозировки</span>
-            <p></p>
+            <span>Условия хранения:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Взаимодействия с другими лекарственными препаратами</span>
-            <p></p>
+            <span>Заболевания:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Срок хранения</span>
-            <p></p>
+            <span>Содержание действующего вещества (мг):</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Условия хранения</span>
-            <p></p>
+            <span>Целевой возраст:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Условия отпуска из аптек</span>
-            <p></p>
+            <span>Показания к применению:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
           <li>
-            <span>Сведения о производителе</span>
-            <p></p>
+            <span>Симптомы:</span>
+            <p>{product.characteristics?.compound}</p>
+          </li>
+          <li>
+            <span>Органы и системы:</span>
+            <p>{product.characteristics?.compound}</p>
+          </li>
+          <li>
+            <span>Производитель:</span>
+            <p>{product.characteristics?.compound}</p>
+          </li>
+          <li>
+            <span>Вид упаковки:</span>
+            <p>{product.characteristics?.compound}</p>
           </li>
         </ul>
       </div>
       <div className="similar-products">
-        <p>Похожие товары</p>
+        <p>{translate.similarProducts}</p>
       </div>
     </div>
   );

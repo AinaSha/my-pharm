@@ -1,12 +1,14 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import sell5 from '../../assets/imeges/sell5.jpg';
 import { RootState } from '../../store';
 import './sellSlide.scss';
+import { IProduct } from '../../types/Types';
+import { Link } from 'react-router-dom';
 
 export const SellSlide: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { windowWidth } = useSelector((state: RootState) => state.windowWidthReducer);
+  const { products } = useSelector((state: RootState) => state.ProductsReducer);
   const containerWidth = useRef<HTMLDivElement>(null);
   const cardWidth = useRef<HTMLDivElement>(null);
   const [widthSlideList, setWidthSlideList] = useState(0);
@@ -15,6 +17,27 @@ export const SellSlide: FC = () => {
   const [clickRight, setClickRight] = useState(true);
   const [clickLeft, setClickLeft] = useState(false);
 
+  const renderCardItems = () => {
+    return products.map((el: IProduct) => {
+      if (el.in_stock && el.discount_price) {
+        return (
+          <div key={el.id} ref={cardWidth} className="sell__slide-item">
+            <Link to={`/products/${el.name}__${el.id}`}>
+              <img src={el.image} alt="discount items" />
+              <div className="sell-info">
+                <p className="title">{el.name}</p>
+                <p>
+                  {el.discount_price} сом
+                  <span className="line-through">{el.price}сом</span>
+                </p>
+              </div>
+            </Link>
+          </div>
+        );
+      }
+    });
+  };
+
   useEffect(() => {
     const widthSlide = containerWidth.current
       ? (windowWidth - containerWidth.current.offsetWidth) / 2 +
@@ -22,7 +45,7 @@ export const SellSlide: FC = () => {
         5
       : 0;
     const cardWidthMar = cardWidth.current
-      ? cardWidth.current.offsetWidth + 16
+      ? cardWidth.current!.offsetWidth + 16
       : cardWidth.current!.offsetWidth + 16;
     setSlideItemWidth(cardWidthMar);
     setWidthSlideList(widthSlide);
@@ -89,36 +112,7 @@ export const SellSlide: FC = () => {
           <div className="sell__slider-block">
             <div style={{ width: `${widthSlideList}px` }} className="sell__slide">
               <div style={{ left: `${moveSlideItem}px` }} className="sell__slide-list">
-                <div ref={cardWidth} className="sell__slide-item">
-                  <a href="#">
-                    <img src={sell5} alt="discount items" />
-                  </a>
-                </div>
-                <div ref={cardWidth} className="sell__slide-item">
-                  <a href="#">
-                    <img src={sell5} alt="discount items" />
-                  </a>
-                </div>
-                <div ref={cardWidth} className="sell__slide-item">
-                  <a href="#">
-                    <img src={sell5} alt="discount items" />
-                  </a>
-                </div>
-                <div ref={cardWidth} className="sell__slide-item">
-                  <a href="#">
-                    <img src={sell5} alt="discount items" />
-                  </a>
-                </div>
-                <div ref={cardWidth} className="sell__slide-item">
-                  <a href="#">
-                    <img src={sell5} alt="discount items" />
-                  </a>
-                </div>
-                <div ref={cardWidth} className="sell__slide-item">
-                  <a href="#">
-                    <img src={sell5} alt="discount items" />
-                  </a>
-                </div>
+                {renderCardItems()}
               </div>
             </div>
           </div>

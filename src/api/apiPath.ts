@@ -1,14 +1,13 @@
-export const apiPath = 'http://api.med-service.online/api/v1';
+export const apiPath = 'http://95.163.237.113/api/';
 export const apiEndpoints = {
-  signin: '/auth/token/',
-  signup: '/users/',
-  refresh: '/auth/token/refresh/',
-  getMe: '/users/me/',
-  catalogs: '/catalogs/',
-  catigoriesChildren: '/categories/children/',
-  companies: '/companies/',
-  pharmacies: '/pharmacies/',
-  products: '/products/',
+  auth: 'auth/',
+  signin: 'registration/', // при регистрации (создание юзера)
+  resend_email: 'resend-email/', // создать электронную почту
+  verify_email: 'verify-email/', // проверка подлинности почты
+  // ===
+  catalogs: 'categories/',
+  manufacturers: '/manufacturers/',
+  products: 'products/',
 };
 export const enum METHODS {
   get = 'GET',

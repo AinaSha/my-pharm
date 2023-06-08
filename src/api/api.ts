@@ -31,7 +31,7 @@ export const api = {
   },
   async CreateUser(options: ILogInform): Promise<IcreateUser> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signup}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -64,7 +64,7 @@ export const api = {
   },
   async RefreshToken(refresh: string): Promise<IToken | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.refresh}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.post,
         headers: {
           Accept: 'application/json',
@@ -88,7 +88,7 @@ export const api = {
   },
   async getUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
@@ -110,7 +110,7 @@ export const api = {
   },
   async DeleteUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.delete,
         headers: {
           Accept: 'application/json',
@@ -132,7 +132,7 @@ export const api = {
   },
   async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.getMe}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: METHODS.patch,
         headers: {
           Accept: 'application/json',
@@ -183,36 +183,9 @@ export const api = {
       throw new Error('Get Catigories failed');
     }
   },
-  async GetFilterProducts(
-    id: string,
-    form: string,
-    appointment: string,
-    title: string
-  ): Promise<IProduct[] | null> {
-    try {
-      const response = await fetch(
-        `${apiPath}${apiEndpoints.products}?catalog=${id}&release_form=${form}&appointment=${appointment}&search=${title}`,
-        {
-          method: METHODS.get,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Get Catigories failed');
-    }
-  },
   async GetCompanies(): Promise<ICatigories | number | null> {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.companies}`, {
+      const response = await fetch(`${apiPath}${apiEndpoints.manufacturers}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',
@@ -231,54 +204,73 @@ export const api = {
       throw new Error('Get Products failed');
     }
   },
-  async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
-    try {
-      const response = await fetch(
-        `${apiPath}${apiEndpoints.companies}1${apiEndpoints.pharmacies}`,
-        {
-          method: METHODS.get,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Get Products failed');
-    }
-  },
-  async GetPharmacies(): Promise<ICatigories | number | null> {
-    try {
-      const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Get Products failed');
-    }
-  },
+  // async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
+  //   try {
+  //     const response = await fetch(
+  //       `${apiPath}${apiEndpoints.manufacturers}1${apiEndpoints.pharmacies}`,
+  //       {
+  //         method: METHODS.get,
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       return data;
+  //     } else if (response.status === 403) {
+  //       return response.status;
+  //     } else {
+  //       return await Promise.reject(new Error(response.statusText));
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Get Products failed');
+  //   }
+  // },
+  // async GetPharmacies(): Promise<ICatigories | number | null> {
+  //   try {
+  //     const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
+  //       method: METHODS.get,
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       return data;
+  //     } else if (response.status === 403) {
+  //       return response.status;
+  //     } else {
+  //       return await Promise.reject(new Error(response.statusText));
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Get Products failed');
+  //   }
+  // },
   async GetProducts(): Promise<IProduct[] | null> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.products}`, {
+        method: METHODS.get,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error('Get Products failed');
+    }
+  },
+  async GetProductsPart(ids: string): Promise<IProduct[] | null> {
+    try {
+      const response = await fetch(`${apiPath}${apiEndpoints.products}list-by-ids/${ids}`, {
         method: METHODS.get,
         headers: {
           Accept: 'application/json',

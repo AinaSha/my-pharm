@@ -1,31 +1,21 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AppDispatch, RootState, store } from '../../store';
-import { getProductFilter, setCatalog, setShowCategore } from '../../store/productsReducer';
+import { AppDispatch, RootState } from '../../store';
+import { setCatalog, setShowCategore } from '../../store/productsReducer';
 import { useDispatch } from 'react-redux';
+import { CatalogListProps } from '../../types/Types';
 import { setActiveBurger } from '../../store/burgerStyleReducer';
-
-interface CatalogListProps {
-  prop: string;
-}
 
 export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const dispatch = useDispatch<AppDispatch>();
 
   const sendcatalog = (linkelement: HTMLLinkElement) => {
-    const data = {
-      id: linkelement.id as string,
-      form: '',
-      appointment: '',
-      title: '',
-    };
     const option = {
       nodLiId: linkelement.id,
       nodeLiText: linkelement.innerHTML,
     };
-    store.dispatch(getProductFilter(data));
     dispatch(setCatalog(option));
     dispatch(setShowCategore(false));
   };
@@ -52,8 +42,8 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
         );
       })}
       {prop.prop === 'catalog_list' ? (
-        <li key="Все продукты" className={prop.prop + '__item'}>
-          <NavLink to="/products">Все продукты</NavLink>
+        <li key="Все продукты" className={prop.prop + '__item'} onClick={handleCatalog}>
+          <NavLink to="/products">{translate.allProducts}</NavLink>
         </li>
       ) : (
         ''
