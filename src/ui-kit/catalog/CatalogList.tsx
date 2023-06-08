@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, RootState, store } from '../../store';
 import { getProductFilter, setCatalog, setShowCategore } from '../../store/productsReducer';
 import { useDispatch } from 'react-redux';
+import { setActiveBurger } from '../../store/burgerStyleReducer';
 
 interface CatalogListProps {
   prop: string;
@@ -36,6 +37,7 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
     } else {
       sendcatalog(linkCatalog);
     }
+    dispatch(setActiveBurger(false));
   };
 
   return (
