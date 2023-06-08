@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from '../../store';
 import { setCatalog, setShowCategore } from '../../store/productsReducer';
 import { useDispatch } from 'react-redux';
 import { CatalogListProps } from '../../types/Types';
+import { setActiveBurger } from '../../store/burgerStyleReducer';
 
 export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -26,6 +27,7 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
     } else {
       sendcatalog(linkCatalog);
     }
+    dispatch(setActiveBurger(false));
   };
 
   return (

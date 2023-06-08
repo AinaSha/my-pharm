@@ -8,8 +8,7 @@ import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 
 export type Props = {
   active: boolean;
-  setActive: boolean;
-  children: Element;
+  setActive: () => void;
 };
 
 interface ISignInform {
@@ -17,9 +16,9 @@ interface ISignInform {
   password: string;
 }
 
-export const EnterForm: FC = () => {
-  const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
-  const { exp } = useSelector((state: RootState) => state.AuthReducer);
+export const EnterForm: FC<Props> = (props: Props) => {
+  // const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
+  // const { exp } = useSelector((state: RootState) => state.AuthReducer);
   const dispatch = useDispatch();
   const {
     register,
@@ -32,9 +31,9 @@ export const EnterForm: FC = () => {
     reset();
   };
 
-  useEffect(() => {
-    store.dispatch(GetUserMe());
-  }, [exp]);
+  // useEffect(() => {
+  //   store.dispatch(GetUserMe());
+  // }, [exp]);
 
   const handleModalClick = () => {
     dispatch(setActiveModalSiginIn(false));
@@ -79,7 +78,7 @@ export const EnterForm: FC = () => {
             <input type="checkbox" />
             Запомнить меня
           </label>
-          <Link className="auth-block__link" to="/forgottenPassword" onClick={handleModalClick}>
+          <Link className="auth-block__link" to="/forgottenPassword" onClick={props.setActive}>
             Забыли пароль?
           </Link>
         </div>
@@ -87,7 +86,7 @@ export const EnterForm: FC = () => {
           Войти
         </button>
       </form>
-      <Link to="/registration" className="registr-link" onClick={handleModalClick}>
+      <Link to="/registration" className="registr-link" onClick={props.setActive}>
         Зарегистрироваться
       </Link>
     </>
