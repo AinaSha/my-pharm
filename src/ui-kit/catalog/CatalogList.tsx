@@ -10,7 +10,6 @@ import { setActiveBurger } from '../../store/burgerStyleReducer';
 export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const dispatch = useDispatch<AppDispatch>();
-
   const sendcatalog = (linkelement: HTMLLinkElement) => {
     const option = {
       nodLiId: linkelement.id,
@@ -31,7 +30,7 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
   };
 
   return (
-    <ul className={prop.prop}>
+    <ul className={prop.prop} onClick={prop.onClick}>
       {translate.catigoryLists.map((item) => {
         return (
           <li onClick={handleCatalog} key={item.href} className={prop.prop + '__item'}>

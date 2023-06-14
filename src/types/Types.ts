@@ -98,6 +98,7 @@ export interface IInitialAuth {
 
 export interface CatalogListProps {
   prop: string;
+  onClick?: () => void;
 }
 
 export interface IPagination {

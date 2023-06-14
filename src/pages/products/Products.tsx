@@ -258,7 +258,7 @@ export const Products: FC = () => {
             placeholder={translate.productСategories}
             defaultValue={textCatalog ? textCatalog : ''}
           />
-          <button onClick={() => dispatch(setShowCategore(!showCategore))}>
+          <button data-id="product-btn" onClick={() => dispatch(setShowCategore(!showCategore))}>
             <svg
               width="32"
               height="32"
