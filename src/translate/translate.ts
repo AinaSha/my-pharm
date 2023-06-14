@@ -344,7 +344,7 @@ export const translateLang3 = {
     orderProducts: 'Заказ',
     paymentMethod: 'Төлөө ыкмасы',
     notAddedMail: 'Учурда эч кандай өнүм кошкон жоксуз',
-    favorites: 'Сүйүктүүлөр',
+    favorites: 'Тандалгандар',
     myOrders: 'Менин заказдарым',
     personalData: 'Жеке маалыматтар',
     connectWithUs: 'Биз менен байланышуу',
