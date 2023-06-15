@@ -5,11 +5,11 @@ import { AppDispatch, RootState } from '../../store';
 import { setCatalog, setShowCategore } from '../../store/productsReducer';
 import { useDispatch } from 'react-redux';
 import { CatalogListProps } from '../../types/Types';
+import { setActiveBurger } from '../../store/burgerStyleReducer';
 
 export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const dispatch = useDispatch<AppDispatch>();
-
   const sendcatalog = (linkelement: HTMLLinkElement) => {
     const option = {
       nodLiId: linkelement.id,
@@ -26,10 +26,11 @@ export const CatalogList: FC<CatalogListProps> = (prop: CatalogListProps) => {
     } else {
       sendcatalog(linkCatalog);
     }
+    dispatch(setActiveBurger(false));
   };
 
   return (
-    <ul className={prop.prop}>
+    <ul className={prop.prop} onClick={prop.onClick}>
       {translate.catigoryLists.map((item) => {
         return (
           <li onClick={handleCatalog} key={item.href} className={prop.prop + '__item'}>

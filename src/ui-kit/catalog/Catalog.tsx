@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { CatalogList } from './CatalogList';
 import { RootState } from '../../store';
 import { useSelector } from 'react-redux';
@@ -7,22 +7,14 @@ import './Catalog.scss';
 export const Catalog: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const [open, setOpen] = useState<boolean>(false);
-  const dropDownRef = useRef<HTMLDivElement>(null);
-  const handleClickOutsideDropDown = (e: MouseEvent) => {
-    if (open && !dropDownRef.current?.contains(e.target as Node)) {
-      setOpen(false);
-    }
+
+  const handleOptionClick = () => {
+    setOpen(false);
   };
-  useEffect(() => {
-    window.addEventListener('click', handleClickOutsideDropDown);
-    return () => {
-      window.removeEventListener('click', handleClickOutsideDropDown);
-    };
-  });
 
   return (
     <>
-      <div className="catalog-block" ref={dropDownRef}>
+      <div className="catalog-block">
         <button className="catalog-btn" onClick={() => setOpen(!open)}>
           <svg
             width="17"
@@ -54,7 +46,7 @@ export const Catalog: FC = () => {
             />
           </svg>
         </button>
-        {open && <CatalogList prop="catalog-menu" />}
+        {open && <CatalogList prop="catalog-menu" onClick={handleOptionClick} />}
       </div>
     </>
   );
