@@ -1,13 +1,11 @@
 export const apiPath = 'http://95.163.237.113/api/';
 export const apiEndpoints = {
-  auth: 'auth/',
-  signin: 'registration/', // при регистрации (создание юзера)
-  resend_email: 'resend-email/', // создать электронную почту
-  verify_email: 'verify-email/', // проверка подлинности почты
-  // ===
+  login: 'auth/login/',
+  registration: 'auth/registration/',
   catalogs: 'categories/',
   manufacturers: '/manufacturers/',
   products: 'products/',
+  productsInPharmacies: 'available_pharmacies/',
 };
 export const enum METHODS {
   get = 'GET',

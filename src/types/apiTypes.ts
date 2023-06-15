@@ -15,3 +15,16 @@ export type DecodedToken = {
   token_type: string;
   user_id: number;
 };
+
+export type RegistrationForm = {
+  username: string;
+  email: string;
+  password1: string;
+  password2: string;
+};
+
+export type LoginForm = {
+  username: string;
+  email: string;
+  password: string;
+};
