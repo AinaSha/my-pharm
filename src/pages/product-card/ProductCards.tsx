@@ -218,7 +218,7 @@ export const ProductCards: FC = () => {
           <p>{translate.pharmacyName}</p>
         </div>
       </div>
-      <section>
+      <section className="map">
         <MapYandex />
         <ListCoordinat />
       </section>
