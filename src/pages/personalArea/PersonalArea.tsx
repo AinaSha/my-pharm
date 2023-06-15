@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../api/api';
 import { RootState, store } from '../../store';
-import { exit, GetUserMe, RefreshToken, siginin, UpdateUserMe } from '../../store/authUserReducer';
+import { exit, GetUserMe, RefreshToken, siginin } from '../../store/authUserReducer';
 import { ILogInform } from '../../types/Types';
 import { deleteCookie, getCookiFile, removeLocalStorage } from '../../utils/utilsForm';
 import './personalArea.scss';
@@ -20,7 +20,7 @@ export const PersonalArea: FC = () => {
   } = useForm<ILogInform>();
 
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
-    store.dispatch(UpdateUserMe(data));
+    // store.dispatch(UpdateUserMe(data));
     setChange(!change);
   };
 

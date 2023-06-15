@@ -8,14 +8,17 @@ import {
   setFavoritesLS,
 } from '../../store/BascketFavoriteReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, store } from '../../store';
 import { IProduct } from '../../types/Types';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
+import { getProductsInPharmacies, setActiveCoordinate } from '../../store/productsReducer';
+import MapYandex from '../../ui-kit/mapYandex/MapYandex';
+import ListCoordinat from '../../ui-kit/mapYandex/ListCoordinat';
 
 export const ProductCards: FC = () => {
   const id = window.location.pathname.split('__')[1];
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const { products } = useSelector((state: RootState) => state.ProductsReducer);
+  const { products, inPharmacies } = useSelector((state: RootState) => state.ProductsReducer);
   const { bascketLS, favoritesLS } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
@@ -56,9 +59,21 @@ export const ProductCards: FC = () => {
 
   useEffect(() => {
     products.map((el: IProduct) => {
-      if (String(el.id) === id) setProduct(el);
+      if (String(el.id) === id) {
+        setProduct(el);
+        if (!inPharmacies[0].name) store.dispatch(getProductsInPharmacies(id));
+      }
     });
   }, []);
+
+  useEffect(() => {
+    const arr = [];
+    if (!inPharmacies[0].name) {
+      arr.push(Number(inPharmacies[0].latitude));
+      arr.push(Number(inPharmacies[0].longitude));
+      dispatch(setActiveCoordinate(arr));
+    }
+  }, [inPharmacies]);
 
   const handleChooseCard = () => {
     setChooseCard(!chooseCard);
@@ -203,6 +218,10 @@ export const ProductCards: FC = () => {
           <p>{translate.pharmacyName}</p>
         </div>
       </div>
+      <section>
+        <MapYandex />
+        <ListCoordinat />
+      </section>
       <div className="instruction">
         <p>Характеристики</p>
         <p className="title">Алмагель, суспензия для приема внутрь 170 мл </p>

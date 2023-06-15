@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
-import { CreateUser, SiginInUser } from '../../store/authUserReducer';
+// import { CreateUser, SiginInUser } from '../../store/authUserReducer';
 import { ILogInform } from '../../types/Types';
 
 export const UserDataForm: FC = () => {
@@ -16,9 +16,9 @@ export const UserDataForm: FC = () => {
   } = useForm<ILogInform>();
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
     console.log(data);
-    store.dispatch(CreateUser(data));
+    // store.dispatch(CreateUser(data));
     reset();
-    store.dispatch(SiginInUser({ email: data.email, password: data.password }));
+    // store.dispatch(SiginInUser({ email: data.email, password: data.password }));
   };
 
   return (

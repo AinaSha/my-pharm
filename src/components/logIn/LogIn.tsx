@@ -3,10 +3,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
-import { CreateUser, SiginInUser } from '../../store/authUserReducer';
+import { RegisterUser, LoginUser, GetUserMe } from '../../store/authUserReducer';
 import { ILogInform } from '../../types/Types';
 
 import './LogIn.scss';
+import { RegistrationForm } from '../../types/apiTypes';
 
 export const LogIn: FC = () => {
   const { registration } = useSelector((state: RootState) => state.AuthReducer);
@@ -16,13 +17,21 @@ export const LogIn: FC = () => {
     reset,
     watch,
     formState: { errors },
-  } = useForm<ILogInform>();
-  const onSubmit: SubmitHandler<ILogInform> = (data) => {
+  } = useForm<RegistrationForm>();
+
+  const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
     console.log(data);
-    store.dispatch(CreateUser(data));
+    store.dispatch(RegisterUser(data));
+    store.dispatch(
+      LoginUser({ email: data.email, username: data.username, password: data.password1 })
+    );
     reset();
-    store.dispatch(SiginInUser({ email: data.email, password: data.password }));
   };
+
+  useEffect(() => {
+    console.log('call GetUserMe');
+    store.dispatch(GetUserMe());
+  }, [registration]);
 
   return (
     <form className="content-form" onSubmit={handleSubmit(onSubmit)}>
@@ -30,7 +39,7 @@ export const LogIn: FC = () => {
         <label>Имя:</label>
         <input
           type="text"
-          {...register('first_name', {
+          {...register('username', {
             required: '* Поле обьязательно к заполнению',
             minLength: {
               value: 4,
@@ -38,7 +47,7 @@ export const LogIn: FC = () => {
             },
           })}
         />
-        <div>{errors?.first_name && <p>{errors?.first_name?.message || 'Error!'}</p>}</div>
+        <div>{errors?.username && <p>{errors?.username?.message || 'Error!'}</p>}</div>
       </div>
       {/* <div className="form-item">
         <label>Фамилия:</label>
@@ -137,7 +146,7 @@ export const LogIn: FC = () => {
         <label>Пароль</label>
         <input
           type="password"
-          {...register('password', {
+          {...register('password1', {
             required: 'Вы должны указать пароль',
             minLength: {
               value: 8,
@@ -145,24 +154,22 @@ export const LogIn: FC = () => {
             },
           })}
         />
-        <div>{errors?.password && <p>{errors?.password?.message || 'Error!'}</p>}</div>
+        <div>{errors?.password1 && <p>{errors?.password1?.message || 'Error!'}</p>}</div>
       </div>
       <div className="form-item">
         <label>Повторите пароль</label>
         <input
           type="password"
-          {...register('password_confirm', {
+          {...register('password2', {
             required: 'Повторите пароль',
             validate: (val: string) => {
-              if (watch('password') !== val) {
+              if (watch('password2') !== val) {
                 return 'Пароли не совпадают';
               }
             },
           })}
         />
-        <div>
-          {errors?.password_confirm && <p>{errors?.password_confirm?.message || 'Error!'}</p>}
-        </div>
+        <div>{errors?.password2 && <p>{errors?.password2?.message || 'Error!'}</p>}</div>
       </div>
       <div className="confidentiality">
         <input type="checkbox" />

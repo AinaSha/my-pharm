@@ -4,9 +4,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
-import { GetUserMe, SiginInUser } from '../../store/authUserReducer';
+import { GetUserMe, RegisterUser } from '../../store/authUserReducer';
 import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 import useModal from '../userHook/useModal';
+import { RegistrationForm } from '../../types/apiTypes';
 
 export type Props = {
   active: boolean;
@@ -29,9 +30,9 @@ export const EnterForm: FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ISignInform>();
-  const onSubmit: SubmitHandler<ISignInform> = (data) => {
-    store.dispatch(SiginInUser(data));
+  } = useForm<RegistrationForm>();
+  const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
+    store.dispatch(RegisterUser(data));
     reset();
   };
 
@@ -41,7 +42,6 @@ export const EnterForm: FC = () => {
 
   const handleModalClick = () => {
     setActive();
-    // console.log('==');
   };
 
   return (
@@ -68,7 +68,7 @@ export const EnterForm: FC = () => {
           <input
             type="password"
             className="password"
-            {...register('password', {
+            {...register('password1', {
               required: '* Поле обьязательно к заполнению',
               minLength: {
                 value: 8,
@@ -77,7 +77,7 @@ export const EnterForm: FC = () => {
             })}
           />
         </label>
-        <div>{errors?.password && <p>{errors?.password?.message || 'Error!'}</p>}</div>
+        <div>{errors?.password1 && <p>{errors?.password1?.message || 'Error!'}</p>}</div>
         <div className="auth-block">
           <label className="checkbox">
             <input type="checkbox" />

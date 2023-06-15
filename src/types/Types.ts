@@ -35,6 +35,15 @@ export interface ICatigories {
   title: string;
 }
 
+export interface InPharmacies {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  longitude: string;
+  latitude: string;
+}
+
 export interface IProduct {
   category?: {
     id: number;

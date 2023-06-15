@@ -11,7 +11,7 @@ export const Registration: FC = () => {
         <section className="registration">
           <h2>Регистрация</h2>
           {/* Почему здесь компонент LogIn если тут регистрация? */}
-          <LogIn /> 
+          <LogIn />
           <LoginWithGoogle />
         </section>
       </div>

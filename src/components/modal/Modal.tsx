@@ -2,7 +2,7 @@ import { FC, ReactNode, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
-import { GetUserMe, SiginInUser } from '../../store/authUserReducer';
+import { GetUserMe } from '../../store/authUserReducer';
 
 import './modal.scss';
 import ReactDOM from 'react-dom';
@@ -27,7 +27,7 @@ export const Modal: FC<Props> = (props: Props) => {
     formState: { errors },
   } = useForm<ISignInform>();
   const onSubmit: SubmitHandler<ISignInform> = (data) => {
-    store.dispatch(SiginInUser(data));
+    // store.dispatch(SiginInUser(data));
     reset();
   };
 

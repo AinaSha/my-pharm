@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { IProduct } from '../types/Types';
+import { IProduct, InPharmacies } from '../types/Types';
 
 interface IProductsState {
   products: IProduct[];
+  inPharmacies: InPharmacies[];
+  activeCoordinate: number[];
   searchName: string;
   catalog: string;
   catalogId: string;
@@ -52,6 +54,17 @@ const initialProductsState: IProductsState = {
       form_type: '',
     },
   ],
+  inPharmacies: [
+    {
+      id: '',
+      name: '',
+      address: '',
+      city: '',
+      longitude: '',
+      latitude: '',
+    },
+  ],
+  activeCoordinate: [],
   searchName: '',
   catalog: '',
   catalogId: '',
@@ -71,6 +84,14 @@ export const getProduct = createAsyncThunk('Products/getProduct', async () => {
   const data = await api.GetProducts();
   return data;
 });
+
+export const getProductsInPharmacies = createAsyncThunk(
+  'Products/getProductsInPharmacies',
+  async (id: string) => {
+    const data = await api.ProductsInPharmacies(id);
+    return data;
+  }
+);
 
 export const productsSlice = createSlice({
   name: 'Products',
@@ -101,6 +122,9 @@ export const productsSlice = createSlice({
     setSearchName: (state: IProductsState, action) => {
       state.searchName = action.payload;
     },
+    setActiveCoordinate: (state: IProductsState, action) => {
+      state.activeCoordinate = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProduct.pending, (state) => {
@@ -109,6 +133,14 @@ export const productsSlice = createSlice({
       builder.addCase(getProduct.fulfilled, (state, actions) => {
         if (actions.payload) {
           state.products = actions.payload;
+        }
+      });
+    builder.addCase(getProductsInPharmacies.pending, (state) => {
+      state.isLoading = true;
+    }),
+      builder.addCase(getProductsInPharmacies.fulfilled, (state, actions) => {
+        if (actions.payload) {
+          state.inPharmacies = actions.payload;
         }
       });
   },
@@ -124,6 +156,7 @@ export const {
   setCountry,
   setResetFilter,
   setSearchName,
+  setActiveCoordinate,
 } = actions;
 
 export default ProductsReducer;
