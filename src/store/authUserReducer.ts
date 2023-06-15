@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { DecodedToken, IToken, TAuthUser } from '../types/apiTypes';
+import { DecodedToken, IToken, LoginForm, RegistrationForm, TAuthUser } from '../types/apiTypes';
 import { IcreateUser, IInitialAuth, ILogInform } from '../types/Types';
 import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
 
@@ -27,18 +27,16 @@ const initialAuth = {
   registration: false,
 };
 
-export const CreateUser = createAsyncThunk('Auth/CreateUser', async (option: ILogInform) => {
-  const data = await api.CreateUser(option);
-  return data;
-});
+export const RegisterUser = createAsyncThunk(
+  'Auth/RegisterUser',
+  async (from: RegistrationForm) => {
+    const data = await api.registration(from);
+    return data;
+  }
+);
 
-export const UpdateUserMe = createAsyncThunk('Auth/UpdateUserMe', async (option: ILogInform) => {
-  const data = await api.UpdateUserMe(option);
-  return data;
-});
-
-export const SiginInUser = createAsyncThunk('Auth/SiginInUser', async (option: TAuthUser) => {
-  const data = await api.SiginInUser(option.email, option.password);
+export const LoginUser = createAsyncThunk('Auth/Login', async (form: LoginForm) => {
+  const data = await api.login(form);
   return data;
 });
 
@@ -64,54 +62,32 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(SiginInUser.pending, (state) => {
+    builder.addCase(LoginUser.pending, (state) => {
       state.isLoading = true;
     }),
-      builder.addCase(SiginInUser.fulfilled, (state, action) => {
+      builder.addCase(LoginUser.fulfilled, (state, action) => {
         if (action.payload === 403) {
           state.isAuth = false;
           setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
         } else {
           state.isAuth = true;
-          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
-          setLocalStorage('__token', (action.payload as IToken).access);
-          createCookiFile('refreshToken', (action.payload as IToken).refresh, 1);
-          const data = updateUserIdFromToken() as DecodedToken;
-          state.dataUser.id = String(data.user_id);
-          state.exp = data.exp;
+          state.registration = true;
+          console.log(action.payload);
+          console.log(action.type);
+          setLocalStorage('__token', action.payload);
+          // setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+          // setLocalStorage('__token', (action.payload as IToken).access);
+          // createCookiFile('refreshToken', (action.payload as IToken).refresh, 1);
+          // const data = updateUserIdFromToken() as DecodedToken;
+          // state.dataUser.id = String(data.user_id);
+          // state.exp = data.exp;
         }
         state.isLoading = true;
       });
-    builder.addCase(CreateUser.pending, (state) => {
+    builder.addCase(RegisterUser.pending, (state) => {
       state.isLoading = true;
     }),
-      builder.addCase(CreateUser.fulfilled, (state, action) => {
-        state.dataUser = {
-          id: String((action.payload as IcreateUser).id),
-          ...(action.payload as IcreateUser),
-          access: '',
-          refresh: '',
-        };
-        setLocalStorage('__token', action.payload.access);
-        createCookiFile('refreshToken', action.payload.refresh, 1);
-        setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
-        const data = updateUserIdFromToken() as DecodedToken;
-        state.exp = data.exp;
-        state.registration = true;
-        state.isAuth = true;
-      });
-    builder.addCase(UpdateUserMe.pending, (state) => {
-      state.isLoading = true;
-    }),
-      builder.addCase(UpdateUserMe.fulfilled, (state, action) => {
-        if (action.payload === 400) {
-        } else {
-          state.dataUser = {
-            id: state.dataUser.id,
-            ...(action.payload as IcreateUser),
-          };
-        }
-      });
+      builder.addCase(RegisterUser.fulfilled, (state, action) => {});
     builder.addCase(RefreshToken.pending, () => {}),
       builder.addCase(RefreshToken.fulfilled, (state, action) => {
         if (action.payload === 403) {

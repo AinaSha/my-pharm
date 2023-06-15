@@ -10,13 +10,6 @@ export interface CatalogItemProps {
 export interface ILogInform {
   email: string;
   first_name: string;
-  last_name: string;
-  sur_name: string;
-  gender: string;
-  phone: number;
-  address: string;
-  is_pensioner: boolean;
-  is_beneficiaries: boolean;
   password: string;
   password_confirm: string;
 }
@@ -40,6 +33,15 @@ export interface ICatigories {
   id: number;
   parent: number;
   title: string;
+}
+
+export interface InPharmacies {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  longitude: string;
+  latitude: string;
 }
 
 export interface IProduct {

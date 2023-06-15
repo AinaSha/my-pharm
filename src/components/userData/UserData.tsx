@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
 import { Modal } from '../modal/Modal';
 import { UserDataForm } from '../userDataForm/UserDataForm';

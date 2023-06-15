@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
-import { CreateUser, SiginInUser } from '../../store/authUserReducer';
+// import { CreateUser, SiginInUser } from '../../store/authUserReducer';
 import { ILogInform } from '../../types/Types';
 
 export const UserDataForm: FC = () => {
@@ -16,9 +16,9 @@ export const UserDataForm: FC = () => {
   } = useForm<ILogInform>();
   const onSubmit: SubmitHandler<ILogInform> = (data) => {
     console.log(data);
-    store.dispatch(CreateUser(data));
+    // store.dispatch(CreateUser(data));
     reset();
-    store.dispatch(SiginInUser({ email: data.email, password: data.password }));
+    // store.dispatch(SiginInUser({ email: data.email, password: data.password }));
   };
 
   return (
@@ -37,7 +37,7 @@ export const UserDataForm: FC = () => {
         />
         <div>{errors?.first_name && <p>{errors?.first_name?.message || 'Error!'}</p>}</div>
       </div>
-      <div className="form-item">
+      {/* <div className="form-item">
         <label>Фамилия:</label>
         <input
           type="text"
@@ -50,8 +50,8 @@ export const UserDataForm: FC = () => {
           })}
         />
         <div>{errors?.last_name && <p>{errors?.last_name?.message || 'Error!'}</p>}</div>
-      </div>
-      <div className="form-item">
+      </div> */}
+      {/* <div className="form-item">
         <label>Отчество:</label>
         <input
           type="text"
@@ -64,7 +64,7 @@ export const UserDataForm: FC = () => {
           })}
         />
         <div>{errors?.sur_name && <p>{errors?.sur_name?.message || 'Error!'}</p>}</div>
-      </div>
+      </div> */}
       <div className="form-item">
         <label>Адрес эл.почты</label>
         <input
@@ -80,7 +80,7 @@ export const UserDataForm: FC = () => {
         />
         <div>{errors?.email && <p>{errors?.email?.message || 'Error!'}</p>}</div>
       </div>
-      <div className="form-item">
+      {/* <div className="form-item">
         <label>Номер телефона:</label>
         <input
           type="tel"
@@ -98,8 +98,8 @@ export const UserDataForm: FC = () => {
           })}
         />
         <div>{errors?.phone && <p>{errors?.phone?.message || 'Error!'}</p>}</div>
-      </div>
-      <div className="form-item">
+      </div> */}
+      {/* <div className="form-item">
         <label>Адрес:</label>
         <input
           type="text"
@@ -111,16 +111,16 @@ export const UserDataForm: FC = () => {
           })}
         />
         <div>{errors?.address && <p>{errors?.address?.message || 'Error!'}</p>}</div>
-      </div>
-      <div className="form-item">
+      </div> */}
+      {/* <div className="form-item">
         <label>Выберите пол:</label>
         <select {...register('gender')}>
           <option value=""></option>
           <option value="women">women</option>
           <option value="men">men</option>
         </select>
-      </div>
-      <div className="form-item">
+      </div> */}
+      {/* <div className="form-item">
         <label>
           Вы пенсионер:
           <input type="checkbox" {...register('is_pensioner')} />
@@ -129,7 +129,7 @@ export const UserDataForm: FC = () => {
           Вы beneficiaries:
           <input type="checkbox" {...register('is_beneficiaries')} />
         </label>
-      </div>
+      </div> */}
       <button className="submit" type="submit">
         Cохранить
       </button>

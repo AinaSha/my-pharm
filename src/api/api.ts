@@ -1,22 +1,66 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
-import { IToken } from '../types/apiTypes';
+import { IToken, LoginForm, RegistrationForm } from '../types/apiTypes';
 import { getFromLocalStorage } from '../utils/utilsForm';
-import { ICatigories, IcreateUser, ILogInform, IProduct } from '../types/Types';
+import { ICatigories } from '../types/Types';
+
+const defaultHeaders = (headers: object) => {
+  return {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    ...headers,
+  };
+};
+
+async function fetchPost(body: object | string, endpoint: string, headers: object = {}) {
+  return await fetch(`${apiPath}${endpoint}`, {
+    method: 'POST',
+    headers: defaultHeaders(headers),
+    body: JSON.stringify(body),
+  });
+}
+
+async function fetchGetDell(endpoint: string, headers: object = {}, method: string) {
+  return await fetch(`${apiPath}${endpoint}`, {
+    method: method,
+    headers: defaultHeaders(headers),
+  });
+}
 
 export const api = {
-  async SiginInUser(email: string, password: string): Promise<IToken | number | null> {
+  async registration(form: RegistrationForm) {
+    const response = await fetchPost(form, apiEndpoints.registration);
+    console.log(response);
+  },
+  async login(form: LoginForm) {
+    const response = await fetchPost(form, apiEndpoints.login);
+    const data = await response.json();
+    console.log(data);
+    console.log(data.key);
+    return data.key;
+  },
+  async SignInUser(email: string, password: string) {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.post,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetchPost(
+        { email: email, password: password },
+        apiEndpoints.login,
+        {}
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        console.error(response);
+        // return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async RefreshToken(refresh: string) {
+    try {
+      const response = await fetchPost({ refresh }, apiEndpoints.login, {});
       if (response.status === 200) {
         const data = await response.json();
         return data;
@@ -26,75 +70,13 @@ export const api = {
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Authorization failed');
-    }
-  },
-  async CreateUser(options: ILogInform): Promise<IcreateUser> {
-    try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.post,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: options.email,
-          first_name: options.first_name,
-          last_name: options.last_name,
-          sur_name: options.sur_name,
-          gender: options.gender,
-          phone: options.phone,
-          address: options.address,
-          is_pensioner: options.is_pensioner,
-          is_beneficiaries: options.is_beneficiaries,
-          password: options.password,
-          password_confirm: options.password_confirm,
-        }),
-      });
-      if (response.status === 201) {
-        const data = await response.json();
-        console.log(data);
-        return data;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Registration failed');
-    }
-  },
-  async RefreshToken(refresh: string): Promise<IToken | number | null> {
-    try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.post,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          refresh,
-        }),
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Authorization failed');
+      console.error(error);
     }
   },
   async getUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${getFromLocalStorage('__token')}`,
-        },
+      const response = await fetchPost('', apiEndpoints.login, {
+        Authorization: `JWT ${getFromLocalStorage('__token')}`,
       });
       if (response.status === 200) {
         const data = await response.json();
@@ -102,75 +84,33 @@ export const api = {
       } else if (response.status === 403) {
         return response.status;
       } else {
+        console.log(response);
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Authorization failed');
+      console.error(error);
     }
   },
   async DeleteUserMe() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.delete,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${getFromLocalStorage('__token')}`,
-        },
-      });
+      const response = await fetchGetDell(
+        apiEndpoints.login,
+        { Authorization: `JWT ${getFromLocalStorage('__token')}` },
+        METHODS.delete
+      );
       if (response.status === 200) {
         const data = await response.json();
         return data;
       } else if (response.status === 401) {
-        throw new Error(`${response.status}`);
+        console.error(response);
       } else {
-        return await Promise.reject(new Error(response.statusText));
+        console.error(response);
       }
-    } catch (error) {
-      throw new Error('user deleted...');
-    }
+    } catch {}
   },
-  async UpdateUserMe(options: ILogInform): Promise<IcreateUser | number | null> {
+  async GetCatalogs() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
-        method: METHODS.patch,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${getFromLocalStorage('__token')}`,
-        },
-        body: JSON.stringify({
-          first_name: options.first_name,
-          last_name: options.last_name,
-          sur_name: options.sur_name,
-          gender: options.gender,
-          phone: options.phone,
-          address: options.address,
-          is_pensioner: options.is_pensioner,
-          is_beneficiaries: options.is_beneficiaries,
-        }),
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 400) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      throw new Error('Update user failed');
-    }
-  },
-  async GetCatalogs(): Promise<ICatigories | number | null> {
-    try {
-      const response = await fetch(`${apiPath}${apiEndpoints.catalogs}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetchGetDell(apiEndpoints.catalogs, {}, METHODS.get);
       if (response.status === 200) {
         const data = await response.json();
         return data;
@@ -180,18 +120,12 @@ export const api = {
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Get Catigories failed');
+      console.error(error);
     }
   },
-  async GetCompanies(): Promise<ICatigories | number | null> {
+  async GetCompanies() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.manufacturers}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetchGetDell(apiEndpoints.manufacturers, {}, METHODS.get);
       if (response.status === 200) {
         const data = await response.json();
         return data;
@@ -201,63 +135,12 @@ export const api = {
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Get Products failed');
+      console.error(error);
     }
   },
-  // async GetCompaniesPharmacies(): Promise<ICatigories | number | null> {
-  //   try {
-  //     const response = await fetch(
-  //       `${apiPath}${apiEndpoints.manufacturers}1${apiEndpoints.pharmacies}`,
-  //       {
-  //         method: METHODS.get,
-  //         headers: {
-  //           Accept: 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       const data = await response.json();
-  //       return data;
-  //     } else if (response.status === 403) {
-  //       return response.status;
-  //     } else {
-  //       return await Promise.reject(new Error(response.statusText));
-  //     }
-  //   } catch (error) {
-  //     throw new Error('Get Products failed');
-  //   }
-  // },
-  // async GetPharmacies(): Promise<ICatigories | number | null> {
-  //   try {
-  //     const response = await fetch(`${apiPath}${apiEndpoints.pharmacies}`, {
-  //       method: METHODS.get,
-  //       headers: {
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     if (response.status === 200) {
-  //       const data = await response.json();
-  //       return data;
-  //     } else if (response.status === 403) {
-  //       return response.status;
-  //     } else {
-  //       return await Promise.reject(new Error(response.statusText));
-  //     }
-  //   } catch (error) {
-  //     throw new Error('Get Products failed');
-  //   }
-  // },
-  async GetProducts(): Promise<IProduct[] | null> {
+  async GetProducts() {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.products}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetchGetDell(apiEndpoints.products, {}, METHODS.get);
       if (response.status === 200) {
         const data = await response.json();
         return data;
@@ -265,18 +148,16 @@ export const api = {
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Get Products failed');
+      console.error(error);
     }
   },
-  async GetProductsPart(ids: string): Promise<IProduct[] | null> {
+  async GetProductsPart(ids: string) {
     try {
-      const response = await fetch(`${apiPath}${apiEndpoints.products}list-by-ids/${ids}`, {
-        method: METHODS.get,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetchGetDell(
+        `${apiEndpoints.products}list-by-ids/${ids}`,
+        {},
+        METHODS.get
+      );
       if (response.status === 200) {
         const data = await response.json();
         return data;
@@ -284,7 +165,25 @@ export const api = {
         return await Promise.reject(new Error(response.statusText));
       }
     } catch (error) {
-      throw new Error('Get Products failed');
+      console.error(error);
+    }
+  },
+  async ProductsInPharmacies(id: string) {
+    try {
+      const response = await fetchGetDell(
+        `${apiEndpoints.products}${id}/${apiEndpoints.productsInPharmacies}`,
+        {},
+        METHODS.get
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        // console.error(data);
+        return data;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      console.error(error);
     }
   },
 };
