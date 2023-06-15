@@ -10,7 +10,7 @@ const MapYandex = () => {
 
   return (
     <YMaps>
-      <Map state={mapState} style={{ width: '50%', height: '300px' }}>
+      <Map state={mapState} style={{ height: '300px' }}>
         <Placemark
           geometry={activeCoordinate}
           properties={{
