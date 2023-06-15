@@ -32,7 +32,7 @@ const ListCoordinat = () => {
     <ul className="map-list" onClick={hendleMapList}>
       {inPharmacies.map((el: InPharmacies, id: number) => {
         return (
-          <li key={el.id + 'key'} id={`${id}`}>
+          <li key={el.id + id} id={`${id}`}>
             <p>{el.name}</p>
             <p>
               {el.city} {el.address}
