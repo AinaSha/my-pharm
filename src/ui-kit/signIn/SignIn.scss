@@ -9,8 +9,17 @@
     background-color: transparent;
     border-style: none;
     cursor: pointer;
+    position: relative;
 
     svg {
         margin-right: 3px;
+    }
+
+    .show-nav-list {
+        width: 200px;
+        position: absolute;
+        top: 130%;
+        right: 0;
+        background-color: $white;
     }
 }

@@ -1,29 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { DecodedToken, IToken, LoginForm, RegistrationForm, TAuthUser } from '../types/apiTypes';
-import { IcreateUser, IInitialAuth, ILogInform } from '../types/Types';
-import { createCookiFile, setLocalStorage, updateUserIdFromToken } from '../utils/utilsForm';
+import { LoginForm, RegistrationForm } from '../types/apiTypes';
+import { IInitialAuth } from '../types/Types';
 
 const initialAuth = {
   dataUser: {
-    id: '',
+    username: '',
     email: '',
-    first_name: '',
-    last_name: '',
-    sur_name: '',
-    gender: '',
-    phone: '',
-    address: '',
     is_pensioner: false,
-    is_beneficiaries: false,
-    refresh: '',
-    access: '',
+    is_privileged: false,
+    token: '',
   },
   successReg: false,
   isLoading: false,
   siginIn: false,
   isAuth: localStorage.getItem('__userIsAuth') ? true : false,
-  exp: 0,
   registration: false,
 };
 
@@ -45,20 +36,14 @@ export const GetUserMe = createAsyncThunk('Auth/GetUserMe', async () => {
   return data;
 });
 
-export const RefreshToken = createAsyncThunk('Auth/RefreshToken', async (option: string) => {
-  const data = await api.RefreshToken(option);
-  return data;
-});
-
 export const authSlice = createSlice({
   name: 'Auth',
   initialState: initialAuth,
   reducers: {
     exit: (state: IInitialAuth) => {
       state.isAuth = false;
-    },
-    siginin: (state: IInitialAuth) => {
-      state.siginIn = true;
+      localStorage.removeItem('__token');
+      localStorage.removeItem('__userIsAuth');
     },
   },
   extraReducers: (builder) => {
@@ -68,38 +53,25 @@ export const authSlice = createSlice({
       builder.addCase(LoginUser.fulfilled, (state, action) => {
         if (action.payload === 403) {
           state.isAuth = false;
-          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+          localStorage.setItem('__userIsAuth', JSON.stringify(state.isAuth));
         } else {
           state.isAuth = true;
-          state.registration = true;
-          console.log(action.payload);
-          console.log(action.type);
-          setLocalStorage('__token', action.payload);
-          // setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
-          // setLocalStorage('__token', (action.payload as IToken).access);
-          // createCookiFile('refreshToken', (action.payload as IToken).refresh, 1);
-          // const data = updateUserIdFromToken() as DecodedToken;
-          // state.dataUser.id = String(data.user_id);
-          // state.exp = data.exp;
+          state.dataUser = {
+            ...action.payload,
+          };
+          localStorage.setItem('__token', action.payload.token);
+          localStorage.setItem('__userIsAuth', JSON.stringify(true));
         }
         state.isLoading = true;
       });
     builder.addCase(RegisterUser.pending, (state) => {
       state.isLoading = true;
     }),
-      builder.addCase(RegisterUser.fulfilled, (state, action) => {});
-    builder.addCase(RefreshToken.pending, () => {}),
-      builder.addCase(RefreshToken.fulfilled, (state, action) => {
-        if (action.payload === 403) {
-          state.isAuth = false;
-          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
+      builder.addCase(RegisterUser.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.registration = true;
         } else {
-          state.isAuth = true;
-          setLocalStorage('__userIsAuth', JSON.stringify(state.isAuth));
-          setLocalStorage('__token', (action.payload as IToken).access);
-          const data = updateUserIdFromToken() as DecodedToken;
-          state.dataUser.id = String(data.user_id);
-          state.exp = data.exp;
+          state.registration = false;
         }
       });
     builder.addCase(GetUserMe.pending, (state) => {
@@ -107,16 +79,12 @@ export const authSlice = createSlice({
     }),
       builder.addCase(GetUserMe.fulfilled, (state, action) => {
         state.isLoading = true;
-        state.dataUser = {
-          id: state.dataUser.id,
-          ...(action.payload as IcreateUser),
-        };
       });
   },
 });
 
 const { actions: AuthActions, reducer: AuthReducer } = authSlice;
 
-export const { exit, siginin } = AuthActions;
+export const { exit } = AuthActions;
 
 export default AuthReducer;

@@ -5,6 +5,8 @@ import { UserDataForm } from '../userDataForm/UserDataForm';
 import './userData.scss';
 import userAvatar from '../../assets/images/Avatar-icon.png';
 import useModal from '../userHook/useModal';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export type Props = {
   active: boolean;
@@ -13,6 +15,7 @@ export type Props = {
 };
 
 export const UserData: FC = () => {
+  const { dataUser } = useSelector((state: RootState) => state.AuthReducer);
   const { modalActive, setActive } = useModal();
 
   const handleEditeForm = () => {
@@ -27,7 +30,7 @@ export const UserData: FC = () => {
       <div className="user-data container">
         <div className="user-name-block">
           <img className="user-name-img" src={userAvatar} alt="User avavtar icon" />
-          <h3>Асель Алымбаева</h3>
+          <h3>{dataUser.username}</h3>
         </div>
         <div className="user-data__inner">
           <UserNavList />
@@ -55,38 +58,34 @@ export const UserData: FC = () => {
               <div className="user-data__contact-block">
                 <div className="user-data__item">
                   <h5>Имя:</h5>
-                  <p>Асель</p>
+                  <p>{dataUser.username}</p>
                 </div>
                 <div className="user-data__item">
                   <h5>Фамилия:</h5>
-                  <p>Алымбаева</p>
+                  <p></p>
                 </div>
               </div>
               <div className="user-data__item">
-                <h5>Гендер:</h5>
-                <p>женщина</p>
-              </div>
-              <div className="user-data__item">
                 <h5>Пенсионер:</h5>
-                <p>нет</p>
+                <p>{dataUser.is_pensioner ? 'да' : 'нет'}</p>
               </div>
               <div className="user-data__item">
                 <h5>Льготник:</h5>
-                <p>нет</p>
+                <p>{dataUser.is_privileged ? 'да' : 'нет'}</p>
               </div>
               <div className="user-data__contact-block">
                 <div className="user-data__item">
                   <h5>Почта:</h5>
-                  <p>asel@mail.ru</p>
+                  <p>{dataUser.email}</p>
                 </div>
                 <div className="user-data__item">
                   <h5>Телефон:</h5>
-                  <p>0555 456890</p>
+                  <p></p>
                 </div>
               </div>
               <div className="user-data__item">
                 <h5>Адрес:</h5>
-                <p>Токтогула,24 кв №6</p>
+                <p></p>
               </div>
             </div>
           </div>

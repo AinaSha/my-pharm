@@ -16,11 +16,11 @@ export const Basket: FC = () => {
   );
   const dispatch = useDispatch();
 
-  const productsID = Object.keys(bascketLS).join();
+  const productsID = bascketLS ? Object.keys(bascketLS).join() : null;
   let countProductsSum = 0;
 
   useEffect(() => {
-    store.dispatch(GetProductsPart(productsID));
+    if (productsID) store.dispatch(GetProductsPart(productsID));
   }, [countBascket]);
 
   const renderCardItems = () => {
