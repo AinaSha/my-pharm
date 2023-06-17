@@ -86,7 +86,7 @@ export const EnterForm: FC<Props> = (props: Props) => {
             Забыли пароль?
           </Link>
         </div>
-        <button className="submit" type="submit" onClick={setActive}>
+        <button className="submit" type="submit" onClick={props.setActive}>
           Войти
         </button>
       </form>
