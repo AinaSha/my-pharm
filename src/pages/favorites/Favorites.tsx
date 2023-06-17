@@ -16,7 +16,7 @@ export const Favorites: FC = () => {
   );
 
   useEffect(() => {
-    store.dispatch(GetProductsPart(favoritesLS));
+    if (favoritesLS) store.dispatch(GetProductsPart(favoritesLS));
   }, [countFavorite, favoritesLS]);
 
   const renderCardItems = () => {

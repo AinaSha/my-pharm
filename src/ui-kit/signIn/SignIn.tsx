@@ -1,19 +1,19 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { exit } from '../../store/authUserReducer';
-import { deleteCookie, removeLocalStorage } from '../../utils/utilsForm';
-import './SignIn.scss';
 import { Modal } from '../../components/modal/Modal';
 import { EnterForm } from '../../components/enterForm/EnterForm';
 import useModal from '../../components/userHook/useModal';
 import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
+import { UserNavList } from '../userList/UserNavList';
+import './SignIn.scss';
 
 export const SignIn: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
   const { isAuth, siginIn, dataUser } = useSelector((state: RootState) => state.AuthReducer);
   const { modalActive, setActive } = useModal();
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     dispatch(setActiveModalSiginIn(false));
@@ -23,15 +23,14 @@ export const SignIn: FC = () => {
     dispatch(setActiveModalSiginIn(siginIn));
   }, [siginIn]);
 
-  const exitUser = () => {
-    removeLocalStorage('__token');
-    removeLocalStorage('__userIsAuth');
-    removeLocalStorage('__userId');
-    dispatch(exit());
-    deleteCookie('refreshToken');
+  const handleName = () => {
+    setShow(!show);
   };
 
-  // console.log(modalActive, 'SignIn');
+  const handleList = () => {
+    setShow(false);
+  };
+
   return (
     <>
       <Modal active={modalActive} setActive={setActive}>
@@ -55,7 +54,7 @@ export const SignIn: FC = () => {
         </svg>
         {translate.join}
       </button>
-      <button className={isAuth ? 'sign-btn' : 'sign-btn hiden'} onClick={exitUser}>
+      <button className={isAuth ? 'sign-btn' : 'sign-btn hiden'} onClick={handleName}>
         <svg
           width="32"
           height="32"
@@ -71,7 +70,10 @@ export const SignIn: FC = () => {
             strokeLinejoin="round"
           />
         </svg>
-        {dataUser.first_name}
+        {dataUser.username}
+        <section onClick={handleList} className={show ? 'show-nav-list' : 'hiden'}>
+          <UserNavList />
+        </section>
       </button>
     </>
   );

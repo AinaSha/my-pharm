@@ -13,7 +13,6 @@ import { Products } from './pages/products/Products';
 import { Basket } from './pages/basket/Basket';
 import { Favorites } from './pages/favorites/Favorites';
 import { MyOrdering } from './pages/myOrdering/MyOrdering';
-import { PersonalArea } from './pages/personalArea/PersonalArea';
 import { PaymentMethods } from './pages/paymentMethods/PaymentMethods';
 
 import './index.scss';
@@ -40,7 +39,6 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/myOrdering" element={<MyOrdering />} />
             <Route path="/payment" element={<PaymentMethods />} />
-            <Route path="/personalArea" element={<PersonalArea />} />
             <Route path="/userData" element={<UserData />} />
           </Routes>
         </main>

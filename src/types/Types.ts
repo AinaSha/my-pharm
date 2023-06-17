@@ -7,26 +7,19 @@ export interface CatalogItemProps {
   href: string;
 }
 
-export interface ILogInform {
-  email: string;
-  first_name: string;
-  password: string;
-  password_confirm: string;
-}
+// export interface ILogInform {
+//   email: string;
+//   first_name: string;
+//   password: string;
+//   password_confirm: string;
+// }
 
 export interface IcreateUser {
-  id?: string | undefined;
+  username: string;
   email: string;
-  first_name: string;
-  last_name: string;
-  sur_name: string;
-  gender: string;
-  phone: string;
-  address: string;
-  refresh: string;
-  access: string;
-  is_beneficiaries: boolean;
   is_pensioner: boolean;
+  is_privileged: boolean;
+  token?: string;
 }
 
 export interface ICatigories {
@@ -95,7 +88,6 @@ export interface IInitialAuth {
   siginIn: boolean;
   isAuth: boolean;
   registration: boolean;
-  exp: number;
 }
 
 export interface CatalogListProps {

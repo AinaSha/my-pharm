@@ -1,16 +1,20 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
-import { RegisterUser, LoginUser, GetUserMe } from '../../store/authUserReducer';
-import { ILogInform } from '../../types/Types';
+import { RegisterUser, LoginUser } from '../../store/authUserReducer';
 
 import './LogIn.scss';
 import { RegistrationForm } from '../../types/apiTypes';
 
 export const LogIn: FC = () => {
   const { registration } = useSelector((state: RootState) => state.AuthReducer);
+  const [userData, setUserData] = useState({
+    email: '',
+    username: '',
+    password: '',
+  });
   const {
     register,
     handleSubmit,
@@ -20,17 +24,24 @@ export const LogIn: FC = () => {
   } = useForm<RegistrationForm>();
 
   const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
+    setUserData({ email: data.email, username: data.username, password: data.password1 });
     console.log(data);
     store.dispatch(RegisterUser(data));
-    store.dispatch(
-      LoginUser({ email: data.email, username: data.username, password: data.password1 })
-    );
     reset();
   };
 
   useEffect(() => {
-    console.log('call GetUserMe');
-    store.dispatch(GetUserMe());
+    if (registration) {
+      console.log(userData);
+      store.dispatch(
+        LoginUser({
+          email: userData.email,
+          username: userData.username,
+          password: userData.password,
+        })
+      );
+      console.log('call GetUserMe', registration);
+    }
   }, [registration]);
 
   return (
@@ -132,16 +143,16 @@ export const LogIn: FC = () => {
           <option value="men">men</option>
         </select>
       </div> */}
-      {/* <div className="form-item">
+      <div className="form-item">
         <label>
           Вы пенсионер:
           <input type="checkbox" {...register('is_pensioner')} />
         </label>
         <label>
           Вы beneficiaries:
-          <input type="checkbox" {...register('is_beneficiaries')} />
+          <input type="checkbox" {...register('is_privileged')} />
         </label>
-      </div> */}
+      </div>
       <div className="form-item">
         <label>Пароль</label>
         <input
