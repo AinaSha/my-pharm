@@ -6,6 +6,7 @@ export const apiEndpoints = {
   manufacturers: '/manufacturers/',
   products: 'products/',
   productsInPharmacies: 'available_pharmacies/',
+  ordersCreate: 'orders/create/',
 };
 export const enum METHODS {
   get = 'GET',

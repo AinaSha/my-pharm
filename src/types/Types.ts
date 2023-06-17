@@ -7,13 +7,6 @@ export interface CatalogItemProps {
   href: string;
 }
 
-// export interface ILogInform {
-//   email: string;
-//   first_name: string;
-//   password: string;
-//   password_confirm: string;
-// }
-
 export interface IcreateUser {
   username: string;
   email: string;
@@ -113,4 +106,9 @@ export type BreadcrumbLink = {
 export type BreadcrumbsProps = {
   homeLabel: string;
   name: string;
+};
+
+export type TBuyProduct = {
+  product_id: number;
+  quantity: number;
 };
