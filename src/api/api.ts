@@ -11,9 +11,6 @@ const defaultHeaders = (headers: object) => {
 };
 
 async function fetchPost(body: object | string, endpoint: string, headers: object = {}) {
-  console.log(`${apiPath}${endpoint}`);
-  console.log(JSON.stringify(body));
-
   return await fetch(`${apiPath}${endpoint}`, {
     method: 'POST',
     headers: defaultHeaders(headers),
@@ -171,6 +168,18 @@ export const api = {
       } else {
         return await Promise.reject(new Error(response.statusText));
       }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async OrdersCreate(body: object) {
+    try {
+      const response = await fetchPost(body, apiEndpoints.ordersCreate, {
+        headers: {
+          Authorization: `Token ${localStorage.getItem('__token')}`,
+        },
+      });
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
