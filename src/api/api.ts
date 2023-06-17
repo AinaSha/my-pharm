@@ -1,7 +1,6 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
-import { IToken, LoginForm, RegistrationForm } from '../types/apiTypes';
+import { LoginForm, RegistrationForm } from '../types/apiTypes';
 import { getFromLocalStorage } from '../utils/utilsForm';
-import { ICatigories } from '../types/Types';
 
 const defaultHeaders = (headers: object) => {
   return {
@@ -12,6 +11,9 @@ const defaultHeaders = (headers: object) => {
 };
 
 async function fetchPost(body: object | string, endpoint: string, headers: object = {}) {
+  console.log(`${apiPath}${endpoint}`);
+  console.log(JSON.stringify(body));
+
   return await fetch(`${apiPath}${endpoint}`, {
     method: 'POST',
     headers: defaultHeaders(headers),
@@ -29,14 +31,16 @@ async function fetchGetDell(endpoint: string, headers: object = {}, method: stri
 export const api = {
   async registration(form: RegistrationForm) {
     const response = await fetchPost(form, apiEndpoints.registration);
-    console.log(response);
+    if (response.status === 204) {
+      return true;
+    } else {
+      console.error(response.status);
+    }
   },
-  async login(form: LoginForm) {
-    const response = await fetchPost(form, apiEndpoints.login);
+  async login(body: LoginForm) {
+    const response = await fetchPost(body, apiEndpoints.login, {});
     const data = await response.json();
-    console.log(data);
-    console.log(data.key);
-    return data.key;
+    return data;
   },
   async SignInUser(email: string, password: string) {
     try {
@@ -58,25 +62,10 @@ export const api = {
       console.error(error);
     }
   },
-  async RefreshToken(refresh: string) {
-    try {
-      const response = await fetchPost({ refresh }, apiEndpoints.login, {});
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  },
   async getUserMe() {
     try {
       const response = await fetchPost('', apiEndpoints.login, {
-        Authorization: `JWT ${getFromLocalStorage('__token')}`,
+        Authorization: `Token ${getFromLocalStorage('__token')}`,
       });
       if (response.status === 200) {
         const data = await response.json();

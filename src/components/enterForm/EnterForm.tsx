@@ -1,46 +1,28 @@
 /* eslint-disable react/no-unknown-property */
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, store } from '../../store';
-import { GetUserMe, RegisterUser } from '../../store/authUserReducer';
-import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
+import { store } from '../../store';
+import { LoginUser } from '../../store/authUserReducer';
 import useModal from '../userHook/useModal';
-import { RegistrationForm } from '../../types/apiTypes';
+import { LoginForm } from '../../types/apiTypes';
 
 export type Props = {
   active: boolean;
   setActive: () => void;
 };
 
-interface ISignInform {
-  email: string;
-  password: string;
-}
-
 export const EnterForm: FC<Props> = (props: Props) => {
-  // const { activeSiginIn } = useSelector((state: RootState) => state.BurgerReducer);
-  // const { exp } = useSelector((state: RootState) => state.AuthReducer);
-  const dispatch = useDispatch();
   const { modalActive, setActive } = useModal();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegistrationForm>();
-  const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
-    store.dispatch(RegisterUser(data));
+  } = useForm<LoginForm>();
+  const onSubmit: SubmitHandler<LoginForm> = (data) => {
+    store.dispatch(LoginUser(data));
     reset();
-  };
-
-  // useEffect(() => {
-  //   store.dispatch(GetUserMe());
-  // }, [exp]);
-
-  const handleModalClick = () => {
-    setActive();
   };
 
   return (
@@ -62,12 +44,24 @@ export const EnterForm: FC<Props> = (props: Props) => {
           />
         </label>
         <div>{errors?.email && <p>{errors?.email?.message || 'Error!'}</p>}</div>
+        <label>Имя:</label>
+        <input
+          type="text"
+          {...register('username', {
+            required: '* Поле обьязательно к заполнению',
+            minLength: {
+              value: 4,
+              message: 'Минимум 4 символов',
+            },
+          })}
+        />
+        <div>{errors?.username && <p>{errors?.username?.message || 'Error!'}</p>}</div>
         <label>
           Пароль
           <input
             type="password"
             className="password"
-            {...register('password1', {
+            {...register('password', {
               required: '* Поле обьязательно к заполнению',
               minLength: {
                 value: 8,
@@ -76,7 +70,7 @@ export const EnterForm: FC<Props> = (props: Props) => {
             })}
           />
         </label>
-        <div>{errors?.password1 && <p>{errors?.password1?.message || 'Error!'}</p>}</div>
+        <div>{errors?.password && <p>{errors?.password?.message || 'Error!'}</p>}</div>
         <div className="auth-block">
           <label className="checkbox">
             <input type="checkbox" />

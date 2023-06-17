@@ -3,18 +3,18 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
 // import { CreateUser, SiginInUser } from '../../store/authUserReducer';
-import { ILogInform } from '../../types/Types';
+import { IcreateUser } from '../../types/Types';
 
 export const UserDataForm: FC = () => {
-  const { registration } = useSelector((state: RootState) => state.AuthReducer);
+  const { dataUser } = useSelector((state: RootState) => state.AuthReducer);
   const {
     register,
     handleSubmit,
     reset,
     watch,
     formState: { errors },
-  } = useForm<ILogInform>();
-  const onSubmit: SubmitHandler<ILogInform> = (data) => {
+  } = useForm<IcreateUser>();
+  const onSubmit: SubmitHandler<IcreateUser> = (data) => {
     console.log(data);
     // store.dispatch(CreateUser(data));
     reset();
@@ -27,15 +27,16 @@ export const UserDataForm: FC = () => {
         <label>Имя:</label>
         <input
           type="text"
-          {...register('first_name', {
+          {...register('username', {
             required: '* Поле обьязательно к заполнению',
             minLength: {
               value: 4,
               message: 'Минимум 4 символов',
             },
+            value: dataUser.username,
           })}
         />
-        <div>{errors?.first_name && <p>{errors?.first_name?.message || 'Error!'}</p>}</div>
+        <div>{errors?.username && <p>{errors?.username?.message || 'Error!'}</p>}</div>
       </div>
       {/* <div className="form-item">
         <label>Фамилия:</label>
@@ -51,20 +52,6 @@ export const UserDataForm: FC = () => {
         />
         <div>{errors?.last_name && <p>{errors?.last_name?.message || 'Error!'}</p>}</div>
       </div> */}
-      {/* <div className="form-item">
-        <label>Отчество:</label>
-        <input
-          type="text"
-          {...register('sur_name', {
-            required: '* Поле обьязательно к заполнению',
-            minLength: {
-              value: 3,
-              message: 'Минимум 3 символов',
-            },
-          })}
-        />
-        <div>{errors?.sur_name && <p>{errors?.sur_name?.message || 'Error!'}</p>}</div>
-      </div> */}
       <div className="form-item">
         <label>Адрес эл.почты</label>
         <input
@@ -76,6 +63,7 @@ export const UserDataForm: FC = () => {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: 'Неверный адрес электронной почты',
             },
+            value: dataUser.email,
           })}
         />
         <div>{errors?.email && <p>{errors?.email?.message || 'Error!'}</p>}</div>
@@ -112,24 +100,16 @@ export const UserDataForm: FC = () => {
         />
         <div>{errors?.address && <p>{errors?.address?.message || 'Error!'}</p>}</div>
       </div> */}
-      {/* <div className="form-item">
-        <label>Выберите пол:</label>
-        <select {...register('gender')}>
-          <option value=""></option>
-          <option value="women">women</option>
-          <option value="men">men</option>
-        </select>
-      </div> */}
-      {/* <div className="form-item">
+      <div className="form-item">
         <label>
           Вы пенсионер:
-          <input type="checkbox" {...register('is_pensioner')} />
+          <input type="checkbox" {...register('is_pensioner')} checked={dataUser.is_pensioner} />
         </label>
         <label>
           Вы beneficiaries:
-          <input type="checkbox" {...register('is_beneficiaries')} />
+          <input type="checkbox" {...register('is_privileged')} checked={dataUser.is_privileged} />
         </label>
-      </div> */}
+      </div>
       <button className="submit" type="submit">
         Cохранить
       </button>
