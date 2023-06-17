@@ -44,17 +44,19 @@ export const EnterForm: FC<Props> = (props: Props) => {
           />
         </label>
         <div>{errors?.email && <p>{errors?.email?.message || 'Error!'}</p>}</div>
-        <label>Имя:</label>
-        <input
-          type="text"
-          {...register('username', {
-            required: '* Поле обьязательно к заполнению',
-            minLength: {
-              value: 4,
-              message: 'Минимум 4 символов',
-            },
-          })}
-        />
+        <label>
+          Имя:
+          <input
+            type="text"
+            {...register('username', {
+              required: '* Поле обьязательно к заполнению',
+              minLength: {
+                value: 4,
+                message: 'Минимум 4 символов',
+              },
+            })}
+          />
+        </label>
         <div>{errors?.username && <p>{errors?.username?.message || 'Error!'}</p>}</div>
         <label>
           Пароль
