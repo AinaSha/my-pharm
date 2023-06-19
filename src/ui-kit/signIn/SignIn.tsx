@@ -7,6 +7,7 @@ import useModal from '../../components/userHook/useModal';
 import { setActiveModalSiginIn } from '../../store/burgerStyleReducer';
 import { UserNavList } from '../userList/UserNavList';
 import './SignIn.scss';
+import { setUser } from '../../store/authUserReducer';
 
 export const SignIn: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -14,6 +15,13 @@ export const SignIn: FC = () => {
   const { modalActive, setActive } = useModal();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (!dataUser.username && localStorage.getItem('__userIsAuth')) {
+      const user = JSON.parse(localStorage.getItem('__userData') as string);
+      dispatch(setUser(user));
+    }
+  }, [dataUser]);
 
   useEffect(() => {
     dispatch(setActiveModalSiginIn(false));

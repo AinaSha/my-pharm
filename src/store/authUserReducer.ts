@@ -44,6 +44,12 @@ export const authSlice = createSlice({
       state.isAuth = false;
       localStorage.removeItem('__token');
       localStorage.removeItem('__userIsAuth');
+      localStorage.removeItem('__userData');
+    },
+    setUser: (state: IInitialAuth, action) => {
+      state.dataUser = {
+        ...action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -61,6 +67,7 @@ export const authSlice = createSlice({
           };
           localStorage.setItem('__token', action.payload.token);
           localStorage.setItem('__userIsAuth', JSON.stringify(true));
+          localStorage.setItem('__userData', JSON.stringify(state.dataUser));
         }
         state.isLoading = true;
       });
@@ -85,6 +92,6 @@ export const authSlice = createSlice({
 
 const { actions: AuthActions, reducer: AuthReducer } = authSlice;
 
-export const { exit } = AuthActions;
+export const { exit, setUser } = AuthActions;
 
 export default AuthReducer;
