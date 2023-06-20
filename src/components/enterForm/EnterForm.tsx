@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
@@ -13,6 +13,7 @@ export type Props = {
 };
 
 export const EnterForm: FC<Props> = (props: Props) => {
+  const [correct, setCorrect] = useState(false);
   const { modalActive, setActive } = useModal();
   const {
     register,
@@ -21,9 +22,22 @@ export const EnterForm: FC<Props> = (props: Props) => {
     formState: { errors },
   } = useForm<LoginForm>();
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
+    if (data.email && data.password && data.username) setCorrect(true);
     store.dispatch(LoginUser(data));
     reset();
   };
+
+  const handleEnterClick = () => {
+    if (correct) {
+      setCorrect(false);
+    }
+  };
+
+  useEffect(() => {
+    if (correct) {
+      props.setActive();
+    }
+  }, [correct]);
 
   return (
     <>
@@ -82,7 +96,7 @@ export const EnterForm: FC<Props> = (props: Props) => {
             Забыли пароль?
           </Link>
         </div>
-        <button className="submit" type="submit" onClick={props.setActive}>
+        <button className="submit" type="submit" onClick={handleEnterClick}>
           Войти
         </button>
       </form>
