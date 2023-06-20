@@ -5,13 +5,28 @@
     justify-content: flex-start;
 
     .image {
-        width: 300px;
+        width: 400px;
         height: 400px;
         margin-right: 5rem;
         @extend %display;
         justify-content: center;
         position: relative;        
         overflow: hidden;
+
+        img {
+            width: 100%;
+            object-fit: fill;
+        }
+
+        .favorite {
+            background-color: $white;
+            border: none;
+            fill: $grey;
+            position: absolute;
+            top: 5%;
+            right: 3%;
+        }
+        }
 
         .favorite {
             background-color: $white;
@@ -28,8 +43,6 @@
                 color: $delete;
             }
         }
-
-    }
 
     &__short {
         width: 70%;
