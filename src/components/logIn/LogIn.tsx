@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState, store } from '../../store';
 import { RegisterUser, LoginUser } from '../../store/authUserReducer';
-
-import './LogIn.scss';
 import { RegistrationForm } from '../../types/apiTypes';
+import './LogIn.scss';
 
 export const LogIn: FC = () => {
   const { registration } = useSelector((state: RootState) => state.AuthReducer);
@@ -25,14 +24,13 @@ export const LogIn: FC = () => {
 
   const onSubmit: SubmitHandler<RegistrationForm> = (data) => {
     setUserData({ email: data.email, username: data.username, password: data.password1 });
-    console.log(data);
+
     store.dispatch(RegisterUser(data));
     reset();
   };
 
   useEffect(() => {
     if (registration) {
-      console.log(userData);
       store.dispatch(
         LoginUser({
           email: userData.email,
@@ -40,7 +38,6 @@ export const LogIn: FC = () => {
           password: userData.password,
         })
       );
-      console.log('call GetUserMe', registration);
     }
   }, [registration]);
 
@@ -60,34 +57,6 @@ export const LogIn: FC = () => {
         />
         <div>{errors?.username && <p>{errors?.username?.message || 'Error!'}</p>}</div>
       </div>
-      {/* <div className="form-item">
-        <label>Фамилия:</label>
-        <input
-          type="text"
-          {...register('last_name', {
-            required: '* Поле обьязательно к заполнению',
-            minLength: {
-              value: 3,
-              message: 'Минимум 3 символов',
-            },
-          })}
-        />
-        <div>{errors?.last_name && <p>{errors?.last_name?.message || 'Error!'}</p>}</div>
-      </div> */}
-      {/* <div className="form-item">
-        <label>Отчество:</label>
-        <input
-          type="text"
-          {...register('sur_name', {
-            required: '* Поле обьязательно к заполнению',
-            minLength: {
-              value: 3,
-              message: 'Минимум 3 символов',
-            },
-          })}
-        />
-        <div>{errors?.sur_name && <p>{errors?.sur_name?.message || 'Error!'}</p>}</div>
-      </div> */}
       <div className="form-item">
         <label>Адрес эл.почты</label>
         <input
@@ -103,12 +72,12 @@ export const LogIn: FC = () => {
         />
         <div>{errors?.email && <p>{errors?.email?.message || 'Error!'}</p>}</div>
       </div>
-      {/* <div className="form-item">
+      <div className="form-item">
         <label>Номер телефона:</label>
         <input
           type="tel"
           placeholder="996"
-          {...register('phone', {
+          {...register('phone_number', {
             required: '* Поле обьязательно к заполнению',
             minLength: {
               value: 12,
@@ -120,9 +89,9 @@ export const LogIn: FC = () => {
             },
           })}
         />
-        <div>{errors?.phone && <p>{errors?.phone?.message || 'Error!'}</p>}</div>
-      </div> */}
-      {/* <div className="form-item">
+        <div>{errors?.phone_number && <p>{errors?.phone_number?.message || 'Error!'}</p>}</div>
+      </div>
+      <div className="form-item">
         <label>Адрес:</label>
         <input
           type="text"
@@ -134,15 +103,7 @@ export const LogIn: FC = () => {
           })}
         />
         <div>{errors?.address && <p>{errors?.address?.message || 'Error!'}</p>}</div>
-      </div> */}
-      {/* <div className="form-item">
-        <label>Выберите пол:</label>
-        <select {...register('gender')}>
-          <option value=""></option>
-          <option value="women">women</option>
-          <option value="men">men</option>
-        </select>
-      </div> */}
+      </div>
       <div className="form-item">
         <label>
           Вы пенсионер:

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
 import { Modal } from '../modal/Modal';
 import { UserDataForm } from '../userDataForm/UserDataForm';
@@ -80,12 +80,12 @@ export const UserData: FC = () => {
                 </div>
                 <div className="user-data__item">
                   <h5>Телефон:</h5>
-                  <p></p>
+                  <p>{dataUser.phone_number}</p>
                 </div>
               </div>
               <div className="user-data__item">
                 <h5>Адрес:</h5>
-                <p></p>
+                <p>{dataUser.address}</p>
               </div>
             </div>
           </div>

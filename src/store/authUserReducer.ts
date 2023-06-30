@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
 import { LoginForm, RegistrationForm } from '../types/apiTypes';
-import { IInitialAuth } from '../types/Types';
+import { IInitialAuth, IcreateUser } from '../types/Types';
 
 const initialAuth = {
   dataUser: {
@@ -9,6 +9,8 @@ const initialAuth = {
     email: '',
     is_pensioner: false,
     is_privileged: false,
+    phone_number: '',
+    address: '',
     token: '',
   },
   successReg: false,
@@ -31,8 +33,8 @@ export const LoginUser = createAsyncThunk('Auth/Login', async (form: LoginForm) 
   return data;
 });
 
-export const GetUserMe = createAsyncThunk('Auth/GetUserMe', async () => {
-  const data = await api.getUserMe();
+export const UserEdit = createAsyncThunk('Auth/UserEdit', async (form: IcreateUser) => {
+  const data = await api.userEdit(form);
   return data;
 });
 
@@ -81,11 +83,14 @@ export const authSlice = createSlice({
           state.registration = false;
         }
       });
-    builder.addCase(GetUserMe.pending, (state) => {
+    builder.addCase(UserEdit.pending, (state) => {
       state.isLoading = true;
     }),
-      builder.addCase(GetUserMe.fulfilled, (state, action) => {
-        state.isLoading = true;
+      builder.addCase(UserEdit.fulfilled, (state, action) => {
+        state.dataUser = {
+          ...action.payload,
+        };
+        localStorage.setItem('__userData', JSON.stringify(state.dataUser));
       });
   },
 });

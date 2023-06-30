@@ -12,6 +12,8 @@ export interface IcreateUser {
   email: string;
   is_pensioner: boolean;
   is_privileged: boolean;
+  phone_number: string;
+  address: string;
   token?: string;
 }
 
