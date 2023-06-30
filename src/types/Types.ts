@@ -12,6 +12,8 @@ export interface IcreateUser {
   email: string;
   is_pensioner: boolean;
   is_privileged: boolean;
+  phone_number: string;
+  address: string;
   token?: string;
 }
 
@@ -111,4 +113,9 @@ export type BreadcrumbsProps = {
 export type TBuyProduct = {
   product_id: number;
   quantity: number;
+};
+
+export type Props = {
+  active: boolean;
+  setActive: () => void;
 };

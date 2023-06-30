@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { setLocalStorage } from '../utils/utilsForm';
-import { IProduct } from '../types/Types';
+import { IProduct, TBuyProduct } from '../types/Types';
 import { api } from '../api/api';
 
 type Tobj = {
@@ -36,6 +36,14 @@ export const GetProductsPart = createAsyncThunk(
   }
 );
 
+export const OrdersCreate = createAsyncThunk(
+  'BascketFavorite/OrdersCreate',
+  async (arr: TBuyProduct[]) => {
+    const data = await api.OrdersCreate(arr);
+    return data;
+  }
+);
+
 export const bascketFavorite = createSlice({
   name: 'BascketFavorite',
   initialState: initialBascketFavorite,
@@ -57,6 +65,9 @@ export const bascketFavorite = createSlice({
   extraReducers: (builder) => {
     builder.addCase(GetProductsPart.fulfilled, (state: BascketFavorite, actions) => {
       if (actions.payload) state.bascketProducts = actions.payload;
+    });
+    builder.addCase(OrdersCreate.fulfilled, (state: BascketFavorite, actions) => {
+      console.log(actions);
     });
   },
 });

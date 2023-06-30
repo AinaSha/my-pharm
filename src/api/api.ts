@@ -1,6 +1,7 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
 import { LoginForm, RegistrationForm } from '../types/apiTypes';
 import { getFromLocalStorage } from '../utils/utilsForm';
+import { IcreateUser, TBuyProduct } from '../types/Types';
 
 const defaultHeaders = (headers: object) => {
   return {
@@ -13,6 +14,14 @@ const defaultHeaders = (headers: object) => {
 async function fetchPost(body: object | string, endpoint: string, headers: object = {}) {
   return await fetch(`${apiPath}${endpoint}`, {
     method: 'POST',
+    headers: defaultHeaders(headers),
+    body: JSON.stringify(body),
+  });
+}
+
+async function fetchPach(body: object | string, endpoint: string, headers: object = {}) {
+  return await fetch(`${apiPath}${endpoint}`, {
+    method: 'PATCH',
     headers: defaultHeaders(headers),
     body: JSON.stringify(body),
   });
@@ -39,60 +48,16 @@ export const api = {
     const data = await response.json();
     return data;
   },
-  async SignInUser(email: string, password: string) {
+  async userEdit(body: IcreateUser) {
     try {
-      const response = await fetchPost(
-        { email: email, password: password },
-        apiEndpoints.login,
-        {}
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        console.error(response);
-        // return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  async getUserMe() {
-    try {
-      const response = await fetchPost('', apiEndpoints.login, {
-        Authorization: `Token ${getFromLocalStorage('__token')}`,
+      const response = await fetchPach(body, apiEndpoints.userEdit, {
+        Authorization: `Token ${localStorage.getItem('__token')}`,
       });
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 403) {
-        return response.status;
-      } else {
-        console.log(response);
-        return await Promise.reject(new Error(response.statusText));
-      }
-    } catch (error) {
-      console.error(error);
+      const data = await response?.json();
+      return data;
+    } catch (err) {
+      console.log(err);
     }
-  },
-  async DeleteUserMe() {
-    try {
-      const response = await fetchGetDell(
-        apiEndpoints.login,
-        { Authorization: `JWT ${getFromLocalStorage('__token')}` },
-        METHODS.delete
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        return data;
-      } else if (response.status === 401) {
-        console.error(response);
-      } else {
-        console.error(response);
-      }
-    } catch {}
   },
   async GetCatalogs() {
     try {
@@ -172,14 +137,14 @@ export const api = {
       console.error(error);
     }
   },
-  async OrdersCreate(body: object) {
+  async OrdersCreate(body: TBuyProduct[]) {
     try {
       const response = await fetchPost(body, apiEndpoints.ordersCreate, {
-        headers: {
-          Authorization: `Token ${localStorage.getItem('__token')}`,
-        },
+        Authorization: `Token ${localStorage.getItem('__token')}`,
       });
       console.log(response);
+      const data = await response?.json();
+      return data;
     } catch (error) {
       console.error(error);
     }

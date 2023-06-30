@@ -8,12 +8,6 @@ import useModal from '../userHook/useModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-export type Props = {
-  active: boolean;
-  setActive: () => void;
-  children: React.ReactNode;
-};
-
 export const UserData: FC = () => {
   const { dataUser } = useSelector((state: RootState) => state.AuthReducer);
   const { modalActive, setActive } = useModal();
@@ -25,7 +19,7 @@ export const UserData: FC = () => {
   return (
     <>
       <Modal active={modalActive} setActive={setActive}>
-        <UserDataForm />
+        <UserDataForm active={modalActive} setActive={setActive} />
       </Modal>
       <div className="user-data container">
         <div className="user-name-block">
@@ -80,12 +74,12 @@ export const UserData: FC = () => {
                 </div>
                 <div className="user-data__item">
                   <h5>Телефон:</h5>
-                  <p></p>
+                  <p>{dataUser.phone_number}</p>
                 </div>
               </div>
               <div className="user-data__item">
                 <h5>Адрес:</h5>
-                <p></p>
+                <p>{dataUser.address}</p>
               </div>
             </div>
           </div>

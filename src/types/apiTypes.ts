@@ -21,6 +21,8 @@ export type RegistrationForm = {
   email: string;
   password1: string;
   password2: string;
+  phone_number: string;
+  address: string;
   is_privileged: false;
   is_pensioner: false;
 };

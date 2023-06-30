@@ -1,13 +1,19 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { RenderBascetCard } from '../../components/renderCard/basket/RenderBascetCard';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
-import { GetProductsPart, addBascket, setBascketLS } from '../../store/BascketFavoriteReducer';
+import {
+  GetProductsPart,
+  OrdersCreate,
+  addBascket,
+  setBascketLS,
+} from '../../store/BascketFavoriteReducer';
 import { RootState, store } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import './basket.scss';
-import { IProduct } from '../../types/Types';
+import { IProduct, TBuyProduct } from '../../types/Types';
 import { Empty } from '../../components/empty/Empty';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
+import { Link } from 'react-router-dom';
 
 export const Basket: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
@@ -16,11 +22,11 @@ export const Basket: FC = () => {
   );
   const dispatch = useDispatch();
 
-  const productsID = bascketLS ? Object.keys(bascketLS).join() : null;
+  const productsID = bascketLS ? Object.keys(bascketLS) : null;
   let countProductsSum = 0;
 
   useEffect(() => {
-    if (productsID) store.dispatch(GetProductsPart(productsID));
+    if (productsID?.length) store.dispatch(GetProductsPart(productsID.join()));
   }, [countBascket]);
 
   const renderCardItems = () => {
@@ -53,6 +59,18 @@ export const Basket: FC = () => {
     localStorage.removeItem('bascket');
     dispatch(addBascket(0));
     dispatch(setBascketLS({}));
+  };
+
+  const handleSendOrde = () => {
+    const arr: TBuyProduct[] = [];
+    productsID?.map((el) => {
+      arr.push({
+        product_id: +el,
+        quantity: bascketLS[el],
+      });
+    });
+
+    if (arr.length) store.dispatch(OrdersCreate(arr));
   };
 
   return (
@@ -100,8 +118,13 @@ export const Basket: FC = () => {
                     </div>
                   </div>
                   <div className="basket-pay__btn">
-                    <button className="basket-pay__btn-order">{translate.orderProducts}</button>
-                    <button className="basket-pay__btn-pay">{translate.paymentMethod}</button>
+                    {/* <Link to="/payment">
+                      <button className="basket-pay__btn-order">{translate.orderProducts}</button>
+                    </Link> */}
+                    <button className="basket-pay__btn-order" onClick={handleSendOrde}>
+                      {translate.orderProducts}
+                    </button>
+                    {/* <button className="basket-pay__btn-pay">{translate.paymentMethod}</button> */}
                   </div>
                 </div>
               </div>

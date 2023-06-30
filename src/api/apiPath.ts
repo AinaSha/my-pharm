@@ -2,6 +2,7 @@ export const apiPath = 'http://95.163.237.113/api/';
 export const apiEndpoints = {
   login: 'auth/login/',
   registration: 'auth/registration/',
+  userEdit: 'auth/user/edit/',
   catalogs: 'categories/',
   manufacturers: '/manufacturers/',
   products: 'products/',
