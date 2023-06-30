@@ -142,6 +142,9 @@ export const api = {
       const response = await fetchPost(body, apiEndpoints.ordersCreate, {
         Authorization: `Token ${localStorage.getItem('__token')}`,
       });
+      console.log(response);
+      const data = await response?.json();
+      return data;
     } catch (error) {
       console.error(error);
     }

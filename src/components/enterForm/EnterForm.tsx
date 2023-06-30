@@ -4,17 +4,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { store } from '../../store';
 import { LoginUser } from '../../store/authUserReducer';
-import useModal from '../userHook/useModal';
+// import useModal from '../userHook/useModal';
 import { LoginForm } from '../../types/apiTypes';
-
-export type Props = {
-  active: boolean;
-  setActive: () => void;
-};
+import { Props } from '../../types/Types';
 
 export const EnterForm: FC<Props> = (props: Props) => {
   const [correct, setCorrect] = useState(false);
-  const { modalActive, setActive } = useModal();
+  // const { modalActive, setActive } = useModal();
   const {
     register,
     handleSubmit,

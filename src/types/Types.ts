@@ -114,3 +114,8 @@ export type TBuyProduct = {
   product_id: number;
   quantity: number;
 };
+
+export type Props = {
+  active: boolean;
+  setActive: () => void;
+};

@@ -1,12 +1,13 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
-import { IcreateUser } from '../../types/Types';
+import { IcreateUser, Props } from '../../types/Types';
 import { UserEdit } from '../../store/authUserReducer';
 
-export const UserDataForm: FC = () => {
+export const UserDataForm: FC<Props> = (props: Props) => {
   const { dataUser } = useSelector((state: RootState) => state.AuthReducer);
+  const [correct, setCorrect] = useState(false);
   const {
     register,
     handleSubmit,
@@ -15,9 +16,16 @@ export const UserDataForm: FC = () => {
     formState: { errors },
   } = useForm<IcreateUser>();
   const onSubmit: SubmitHandler<IcreateUser> = (data) => {
+    if (data.email && data.address && data.username && data.phone_number) setCorrect(true);
     store.dispatch(UserEdit(data));
     reset();
   };
+
+  useEffect(() => {
+    if (correct) {
+      props.setActive();
+    }
+  }, [correct]);
 
   return (
     <form className="content-form" onSubmit={handleSubmit(onSubmit)}>
