@@ -1,10 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { RenderBascetCard } from '../../components/renderCard/basket/RenderBascetCard';
 import { UserNavList } from '../../ui-kit/userList/UserNavList';
 import {
   GetProductsPart,
   OrdersCreate,
   addBascket,
+  getMyOrders,
   setBascketLS,
 } from '../../store/BascketFavoriteReducer';
 import { RootState, store } from '../../store';
@@ -13,11 +14,10 @@ import './basket.scss';
 import { IProduct, TBuyProduct } from '../../types/Types';
 import { Empty } from '../../components/empty/Empty';
 import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
-import { Link } from 'react-router-dom';
 
 export const Basket: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const { bascketLS, bascketProducts, countBascket } = useSelector(
+  const { bascketLS, bascketProducts, countBascket, ordersCreate } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
   const dispatch = useDispatch();
@@ -72,6 +72,13 @@ export const Basket: FC = () => {
 
     if (arr.length) store.dispatch(OrdersCreate(arr));
   };
+
+  useEffect(() => {
+    if (ordersCreate) {
+      clear();
+      store.dispatch(getMyOrders());
+    }
+  }, [ordersCreate]);
 
   return (
     <>

@@ -12,6 +12,7 @@ export interface BascketFavorite {
   favoritesLS: string;
   bascketLS: Tobj;
   bascketProducts: IProduct[];
+  ordersCreate: boolean;
 }
 
 const initialBascketFavorite: BascketFavorite = {
@@ -26,6 +27,7 @@ const initialBascketFavorite: BascketFavorite = {
     ? JSON.parse(localStorage.getItem('bascket') as string)
     : {},
   bascketProducts: [],
+  ordersCreate: false,
 };
 
 export const GetProductsPart = createAsyncThunk(
@@ -43,6 +45,11 @@ export const OrdersCreate = createAsyncThunk(
     return data;
   }
 );
+
+export const getMyOrders = createAsyncThunk('BascketFavorite/getMyOrders', async () => {
+  const data = await api.getMyOrders();
+  return data;
+});
 
 export const bascketFavorite = createSlice({
   name: 'BascketFavorite',
@@ -67,7 +74,10 @@ export const bascketFavorite = createSlice({
       if (actions.payload) state.bascketProducts = actions.payload;
     });
     builder.addCase(OrdersCreate.fulfilled, (state: BascketFavorite, actions) => {
-      console.log(actions);
+      actions.payload ? (state.ordersCreate = true) : (state.ordersCreate = false);
+    });
+    builder.addCase(getMyOrders.fulfilled, (state: BascketFavorite, actions) => {
+      console.log('getMyOrders', actions);
     });
   },
 });
