@@ -5,8 +5,8 @@ import {
   GetProductsPart,
   OrdersCreate,
   addBascket,
-  getMyOrders,
   setBascketLS,
+  setMyOrderfulfilled,
 } from '../../store/BascketFavoriteReducer';
 import { RootState, store } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ import { Breadcrumbs } from '../../ui-kit/breadcrumbs/Breadcrumbs';
 
 export const Basket: FC = () => {
   const { translate } = useSelector((state: RootState) => state.languageReducer);
-  const { bascketLS, bascketProducts, countBascket, ordersCreate } = useSelector(
+  const { bascketLS, bascketProducts, countBascket, myOrderfulfilled } = useSelector(
     (state: RootState) => state.BascketFavoriteReducer
   );
   const dispatch = useDispatch();
@@ -74,11 +74,11 @@ export const Basket: FC = () => {
   };
 
   useEffect(() => {
-    if (ordersCreate) {
+    if (myOrderfulfilled) {
       clear();
-      store.dispatch(getMyOrders());
+      setTimeout(() => dispatch(setMyOrderfulfilled()), 300);
     }
-  }, [ordersCreate]);
+  }, [myOrderfulfilled]);
 
   return (
     <>

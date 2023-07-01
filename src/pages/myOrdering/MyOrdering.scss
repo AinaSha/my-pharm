@@ -20,6 +20,7 @@
     width: 20%;
     padding: 5px 20px;
     text-align: center;
+    border-bottom: 1px solid $black;
   }
 
   thead>tr th{
@@ -28,7 +29,20 @@
 
   th {
     @extend %text;
-    color: #8B8989;  
+    color: #8B8989; 
+  }
+
+  .order-list {
+    margin-bottom: .5rem;
+    border-bottom: 1px solid $black;
+    li {
+      padding: .3rem;
+      text-align: left;
+    }
+
+    &_price {
+      background-color: #ebc4c4;
+    }
   }
 }
 
