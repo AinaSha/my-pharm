@@ -119,3 +119,17 @@ export type Props = {
   active: boolean;
   setActive: () => void;
 };
+
+export type TOrderProdect = {
+  id: number;
+  name: string;
+  quantity: number;
+  discount_price: null | number;
+  price: number;
+};
+
+export type TOrderItem = {
+  created_at: string;
+  is_complete: boolean;
+  items: TOrderProdect[];
+};

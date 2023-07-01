@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { setLocalStorage } from '../utils/utilsForm';
-import { IProduct, TBuyProduct } from '../types/Types';
+import { IProduct, TBuyProduct, TOrderItem } from '../types/Types';
 import { api } from '../api/api';
 
 type Tobj = {
@@ -12,6 +12,9 @@ export interface BascketFavorite {
   favoritesLS: string;
   bascketLS: Tobj;
   bascketProducts: IProduct[];
+  ordersCreate: boolean;
+  myOrders: TOrderItem[];
+  myOrderfulfilled: boolean;
 }
 
 const initialBascketFavorite: BascketFavorite = {
@@ -26,6 +29,9 @@ const initialBascketFavorite: BascketFavorite = {
     ? JSON.parse(localStorage.getItem('bascket') as string)
     : {},
   bascketProducts: [],
+  ordersCreate: localStorage.getItem('ordersCreate') === 'true' ? true : false,
+  myOrders: [],
+  myOrderfulfilled: false,
 };
 
 export const GetProductsPart = createAsyncThunk(
@@ -44,6 +50,11 @@ export const OrdersCreate = createAsyncThunk(
   }
 );
 
+export const getMyOrders = createAsyncThunk('BascketFavorite/getMyOrders', async () => {
+  const data = await api.getMyOrders();
+  return data;
+});
+
 export const bascketFavorite = createSlice({
   name: 'BascketFavorite',
   initialState: initialBascketFavorite,
@@ -61,19 +72,60 @@ export const bascketFavorite = createSlice({
     setBascketLS: (state: BascketFavorite, action) => {
       state.bascketLS = action.payload;
     },
+    setMyOrderfulfilled: (state: BascketFavorite) => {
+      state.myOrderfulfilled = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(GetProductsPart.fulfilled, (state: BascketFavorite, actions) => {
       if (actions.payload) state.bascketProducts = actions.payload;
     });
     builder.addCase(OrdersCreate.fulfilled, (state: BascketFavorite, actions) => {
-      console.log(actions);
+      if (actions.payload) {
+        state.ordersCreate = true;
+        state.myOrderfulfilled = true;
+        localStorage.setItem('ordersCreate', 'true');
+      } else {
+        state.myOrderfulfilled = false;
+      }
+    });
+    builder.addCase(getMyOrders.fulfilled, (state: BascketFavorite, actions) => {
+      state.myOrders = [];
+      let elOrd: TOrderItem = {
+        created_at: '',
+        is_complete: false,
+        items: [],
+      };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      actions.payload.map((el: any) => {
+        elOrd = {
+          created_at: el.created_at,
+          is_complete: el.is_complete,
+          items: [],
+        };
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        el.items.map((item: any) => {
+          const elItem = {
+            id: item.product.id,
+            name: item.product.name,
+            quantity: item.quantity,
+            discount_price: item.product.discount_price,
+            price: item.product.price,
+          };
+
+          elOrd.items.push(elItem);
+        });
+
+        state.myOrders.push(elOrd);
+      });
     });
   },
 });
 
 const { actions, reducer: BascketFavoriteReducer } = bascketFavorite;
 
-export const { changeFavorite, addBascket, setBascketLS, setFavoritesLS } = actions;
+export const { changeFavorite, addBascket, setBascketLS, setFavoritesLS, setMyOrderfulfilled } =
+  actions;
 
 export default BascketFavoriteReducer;

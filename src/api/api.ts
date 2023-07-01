@@ -1,6 +1,5 @@
 import { apiPath, apiEndpoints, METHODS } from './apiPath';
 import { LoginForm, RegistrationForm } from '../types/apiTypes';
-import { getFromLocalStorage } from '../utils/utilsForm';
 import { IcreateUser, TBuyProduct } from '../types/Types';
 
 const defaultHeaders = (headers: object) => {
@@ -142,7 +141,22 @@ export const api = {
       const response = await fetchPost(body, apiEndpoints.ordersCreate, {
         Authorization: `Token ${localStorage.getItem('__token')}`,
       });
-      console.log(response);
+      if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async getMyOrders() {
+    try {
+      const response = await fetchGetDell(
+        `${apiEndpoints.myOrders}`,
+        { Authorization: `Token ${localStorage.getItem('__token')}` },
+        METHODS.get
+      );
       const data = await response?.json();
       return data;
     } catch (error) {
