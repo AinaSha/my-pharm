@@ -1,0 +1,41 @@
+@import '../../variables.scss';
+
+.favorite {
+
+    &__inner {
+        display: flex;
+        gap: 83px;
+    }
+}
+
+
+.cards-block-favorite {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+.link-buttons-favorit .link-block {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+.favorite {
+   flex-direction: column;
+   gap: 50px;
+   margin-top: 50px;
+}
+    .cards-block-favorite {
+        justify-content: space-around;
+    }  
+}
+@media (max-width: 425px) {
+    .link-buttons-favorit .link-block {
+        justify-content: space-around;
+    }
+}

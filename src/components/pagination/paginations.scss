@@ -1,0 +1,97 @@
+
+@import '../../variables.scss';
+
+.paginations {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-btn,
+.right-btn {
+    width: 35px;
+    height: 35px;
+    margin: 0 .7rem;
+    @extend %display;
+    justify-content: center;
+    background-color: $white;
+    border: 1px solid $green;
+    border-radius: 100%;
+    position: relative;
+
+    svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    span {
+        width: 35px;
+        height: 35px;
+        background-color: rgba(64, 63, 63, 0.458);
+        border: 1px solid rgba(64, 63, 63, 0.458);
+        border-radius: 100%;
+        position: absolute;
+        // left: 0;
+        // top: 0;
+    }
+}
+
+// .left-btn:hover,
+// .right-btn:hover {
+//     background-color: $green;
+//     color: $white;
+// }
+
+.pagination-btn {
+    width: 25px;
+    height: 25px;
+    margin: 0 7px;
+    background: $white;
+    border: 1px solid $green;
+    border-radius: 5px;
+}
+
+.pagination-btn-active {
+    background-color: $green;
+    color: $white;
+}
+
+.left-btn:hover,
+.right-btn:hover,
+.pagination-btn:hover {
+    background-color: $green;
+    color: $white;
+    transition: .5s;
+}
+
+@media (max-width: 425px) {
+    .left-btn,
+    .right-btn {
+        width: 25px;
+        height: 25px;
+        margin: 0 .7rem;
+        @extend %display;
+        justify-content: center;
+        background-color: $white;
+        border: 1px solid $green;
+        border-radius: 100%;
+        position: relative;
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        span {
+            width: 35px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.458);
+            border: 1px solid rgba(0, 0, 0, 0.458);
+            border-radius: 100%;
+            position: absolute;
+            // left: 0;
+            // top: 0;
+        }
+    }
+}

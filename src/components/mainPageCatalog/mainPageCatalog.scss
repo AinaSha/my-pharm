@@ -1,0 +1,98 @@
+@import '../../variables.scss';
+
+.catalog-block-main {
+    margin-top: 550px;
+
+    h2 {
+        margin-bottom: 2rem;
+        color: #003838;
+        font-size: 2.2rem;
+    }
+
+    &__btn {
+        width: 255px;
+        height: 56px;
+        display: block;
+        margin: 2.2rem auto;
+        background: #27AE60;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+
+        a {
+            @extend %title-text;
+            color: #FFFFFF;
+        }
+    }
+}
+
+.cards-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.catalog-list {
+    ul {
+        margin-bottom: 2.2rem;
+        @extend %display;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        li {
+            margin: 2px;
+            padding: .3rem;
+            border: 1px solid #27AE60;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        a {
+            @extend %title-text;
+            color: #27AE60;
+        }
+
+        :last-child {
+            border: none;
+
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .catalog-block-main {
+        margin-top: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalog-block-main {
+        margin-top: 400px;
+    }
+
+    .cards-block {
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 425px) {
+    .catalog-block-main {
+        margin-top: 470px;
+
+        h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    .catalog-list {
+        ul {       
+            a {
+                font-size: .8rem;
+            }
+        }
+    }
+}

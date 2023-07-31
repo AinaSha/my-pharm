@@ -1,0 +1,176 @@
+@import '../../variables.scss';
+
+.main-info {
+    @extend %display;
+    justify-content: flex-start;
+
+    .image {
+        width: 400px;
+        height: 400px;
+        margin-right: 5rem;
+        @extend %display;
+        justify-content: center;
+        position: relative;        
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            object-fit: fill;
+        }
+
+        .favorite {
+            background-color: $white;
+            border: none;
+            fill: $grey;
+            position: absolute;
+            top: 5%;
+            right: 3%;
+        }
+        }
+
+        .favorite {
+            background-color: $white;
+            border: none;
+            fill: $grey;
+            position: absolute;
+            top: 5%;
+            right: 3%;
+        }
+
+        .choose {
+            svg {
+                fill: $delete;
+                color: $delete;
+            }
+        }
+
+    &__short {
+        width: 70%;
+    }
+
+    &__choose {
+        width: 250px;
+        // padding: 1rem;
+        margin-bottom: 3rem;
+        // box-shadow: -10px 35px 15px rgba(0, 0, 0, 0.02), -5px 20px 12px rgba(0, 0, 0, 0.07), -2px 9px 9px rgba(0, 0, 0, 0.12), -1px 2px 5px rgba(0, 0, 0, 0.14), 0px 0px 0px rgba(0, 0, 0, 0.14);
+        // border-radius: 15px;
+        position: relative;
+
+        .white-btn {
+            background-color: $white;
+            color: $dark-green;
+            border: 1px solid $dark-green;
+        }
+
+        span {
+            @extend %title-text;
+            color: $dark-green;
+            font-weight: 900;
+        }
+
+        .card__btns__choose {
+            @extend %btn0choose-count;
+            width: 100px;
+            margin: 1.3rem 0;
+        }
+
+        .main-info__pay {
+            @extend %btn;
+            width: 100%;
+            padding: 8px;
+            margin-top: 1rem ;
+        }
+    }
+
+    p {
+        @extend %text;
+        color: $grey;
+
+        span {
+            font-weight: 700;
+            color: $dark-green;
+        }
+    }
+}
+
+.instruction {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid $grey;
+
+    p {
+        @extend %title-text;
+        text-align: center;
+        font-weight: 900;
+    }
+
+    ul {
+        margin-top: 2rem;
+        span {
+            @extend %text;
+            font-weight: 900;
+        }
+        p {
+            text-align: start;
+            @extend %text;
+        }
+    }
+}
+
+.map {
+    display: flex;
+    border-top: 1px solid $black;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.similar-products {
+    margin-top: 4rem;
+    @extend %title-text;
+    color: $dark-green;
+    font-weight: 900;
+}
+
+@media (max-width: 768px) {
+    .product-cards-title {
+        font-size: 1.5rem;
+    }
+    .map {
+        display: block;
+    }
+}
+
+@media (max-width: 425px) {
+    .main-info {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .image {
+            margin-right: 0;
+        }
+    
+    }
+
+    .main-info__short {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .instruction {
+        p {
+            font-size: 1rem;
+        }
+    
+        ul {
+            margin-top: 2rem;
+            span {
+                @extend %text;
+                font-weight: 900;
+            }
+            p {
+                text-align: start;
+                @extend %text;
+            }
+        }
+    }
+}

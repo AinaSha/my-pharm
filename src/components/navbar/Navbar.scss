@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.menu-list {
+    display: flex;
+    align-items: center;
+
+    li + li {
+        margin-left: 25px;
+    }
+
+    li a {
+        @extend %sub-title-text;
+        font-weight: 400;
+        color: $dark-green;
+        cursor: pointer;
+    }
+
+    .active {
+        color: $green;
+    }
+}

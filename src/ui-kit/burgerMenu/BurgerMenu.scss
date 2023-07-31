@@ -1,0 +1,155 @@
+@import '../../variables.scss';
+
+.burger,
+.burger-menu {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+   .burger {
+      display: block;
+      position: relative;
+      width: 30px;
+      height: 25px;
+   }
+
+   .burger span{
+        transition: all 0.3s ease 0s;
+
+        svg {
+         fill: $dark-green;
+         width: 35px;
+         height: 35px;
+        }
+   }
+
+   .burger::before {
+      top: 0;
+   }
+
+   .burger::after {
+      bottom: 0;
+   }
+
+   .burger.active span {
+      transform: scale(0);
+   }
+
+   .burger.active::before {
+      transform: rotate(45deg);
+      top: 12px;
+   }
+
+   .burger.active::after {
+      transform: rotate(-45deg);
+      bottom: 11px;
+   }
+
+   .burger-menu {
+      display: block;
+      position: absolute;
+      top: 100px;
+      left: 0;
+      width: 500px;
+      height: calc(100vh - 101.67px);
+      overflow-y: auto;
+      background-color: $white;
+      padding: 20px 30px;
+      transform: translateX(-100%);
+      transition: all .3s ease;
+      z-index: 1000;
+   }
+
+   .burger-menu.active {
+      transform: translateX(0%);
+   }
+
+   .location,
+   .phone-number,
+   .sign-btn {
+      margin-bottom: 15px;
+   }
+   
+   .language-container {
+      margin-bottom: 30px;
+
+      ul {
+         position: relative;
+      }
+   }
+
+   .catalog-block {
+      border: 1px solid #DADADA;
+      border-width: 1px 0px 1px 0px;
+      position: relative;
+   }
+
+   .catalog-btn {
+      color: $dark-green;
+      background-color: transparent;
+      text-align: left;
+      padding: 12px 0px;
+      font-size: 1.125rem;
+    
+
+      svg {
+         display: none;
+      }
+   }
+
+   .catalog-menu {
+      position: relative;
+      top: -15px;
+      width: 80%;
+      background-color: transparent;
+   }
+
+   .menu-list {
+      display: block;
+      margin: 0px 0px;
+
+      li + li {
+         margin-left: 0px;
+     }
+
+     li {
+      padding: 12px 0px;
+      border: 1px solid #DADADA;
+      border-width: 0px 0px 1px 0px;
+     }
+   }
+
+}
+
+
+@media (max-width: 744px) {
+   .burger-menu {
+      top: 84px;
+   }
+}
+
+@media (max-width: 600px) {
+
+   .burger-menu {
+      max-width: 300px;
+      top: 82px;
+   }
+    
+   .catalog-block,
+   .catalog-menu,
+   .menu-list {
+      width: 100%;
+   }
+
+   .catalog-btn {
+      font-size: 1rem;
+      padding: 6px 0px;
+   }
+
+}
+
+@media (max-width: 575px) {
+   .burger-menu {
+      top: 153px;
+   }
+}

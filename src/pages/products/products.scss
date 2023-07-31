@@ -1,0 +1,172 @@
+@import '../../variables.scss';
+
+.up {
+    transform: rotate(-180deg);
+    transition: .5s;
+}
+
+.filter-input {
+    input {
+        width: 350px;
+    }
+}
+
+.filter-input,
+.release-form {
+    margin-top: 2rem;
+    display: flex;
+    input {
+        height: 35px;
+        padding: 0 5px;
+        border: 1px solid $green;
+        border-radius: 5px;
+        position: relative;
+
+    }
+
+    label {
+        position: relative;
+        margin-right: 1rem;
+    }
+    button {
+        background-color: inherit;
+        border: none;
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+    }
+    input::placeholder {
+        font-size: 14px;
+        color: #8B8989;
+    }
+
+    .reset-btn input {
+        width: 100px;
+        background-color: inherit;
+        color: red;
+        cursor: pointer;
+    }
+    
+}
+
+.filter-block {
+    width: 10%
+}
+
+.filter-input-title {
+    @extend %sub-title-text;
+}
+
+.release-form {
+    flex-direction: column;
+    input {
+        width: 200px;
+        margin-bottom: 1rem;
+    }
+    button {
+        svg {
+            width: 20px;
+        }
+    }
+
+    ul {
+        @extend %text;
+        margin: 0 0 1rem .5rem;
+    }
+
+    li {
+        margin-bottom: .5rem;
+        cursor: pointer;
+    }
+}
+
+.release-search {
+    margin-right: 2rem;
+    input {
+        height: 20px;
+        padding: 3px;
+        border: 1px solid $green;
+        border-radius: 5px;
+    }
+    label {
+        position: relative;
+    }
+    button {
+        background-color: inherit;
+        border: none;
+        position: absolute;
+        right: 0;
+        top: -5px;
+        z-index: 1;
+        cursor: pointer;
+        svg {
+            width: 1rem;
+        }
+    }
+}
+
+.main-page {
+    margin-top: 2rem;
+    display: flex;
+}
+
+.catalog-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+@media (max-width: 1025px) {
+    .filter-input {
+        input {
+            width: 320px;
+    
+        }
+    }    
+}
+
+@media (max-width: 768px) {
+    .filter-input {
+        flex-wrap: wrap;
+        justify-content: start;
+
+        label {
+           margin: 0 1rem 1rem 0;    
+        }
+
+    }   
+    .main-page {
+        flex-direction: column;
+    }
+    .filter-select {
+        margin-bottom: 2rem;
+       display: flex;
+       justify-content: space-between;
+    } 
+    .release-form {
+        flex-direction:row;
+        label {
+            position: relative;
+        }
+
+        ul {
+            padding: .5rem;
+            position: absolute;
+            z-index: 1;
+            left: -10px;
+            background-color: $white;
+            width: 100%;
+            border-radius: 0 0 5px 5px;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .release-form {
+        margin-top: 0;
+        flex-direction: column;
+    }
+    .catalog-page {
+        justify-content: center;
+    }
+}

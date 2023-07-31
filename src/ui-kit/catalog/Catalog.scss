@@ -1,0 +1,76 @@
+@import '../../variables.scss';
+
+.catalog-block {
+  position: relative;
+}
+
+.catalog-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    @extend %sub-title-text;
+    color: $white;
+    padding: 12px 24px;
+    background-color: $green;
+    border-style: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    .arrow-icon {
+        display: none;
+    }
+
+}
+
+.catalog-menu {
+    position: absolute;
+    top: 32px;
+    width: 220%;
+    background-color: #fcfcfc;
+    padding: 20px 0px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 2;
+
+    li {
+      padding: 10px 0px;
+      transition: background-color ease .2s;
+    }
+
+
+    li a {
+        @extend %text;
+        font-size: 1rem;
+        color: $dark-green; 
+        transition: color ease .2s;
+        margin-left: 20px;
+        display: inline-block;
+    }
+
+    li:hover {
+        background-color: $green;
+    }
+
+    li a:hover {
+        color: $white;
+    }
+   
+}
+
+@media (max-width: 1000px) {
+    .catalog2 {
+        display: block;
+    }
+
+    .catalog-btn .arrow-icon {
+        display: block;
+        margin-left: 10px;
+    }
+
+    .catalog-btn .arrow-icon-up {
+       transform: rotate(-180deg);
+       transition: .5s;
+    }
+}
+
+

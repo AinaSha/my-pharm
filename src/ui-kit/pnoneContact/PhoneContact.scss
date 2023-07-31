@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+
+.phone-number {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  
+    a {
+        @extend %text;
+        color: $grey;
+    }
+}

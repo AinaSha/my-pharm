@@ -1,0 +1,89 @@
+@import '../../variables.scss';
+
+.contacts {
+  &__inner {
+    display: flex;
+    gap: 55px;
+  }
+
+  &__info {
+    width: 27%;
+  }
+
+  &__info p,
+  &__form p {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__info p span,
+  &__form p span {
+    font-weight: 400;
+  }
+
+  &__form {
+    background-color: #F9F9F9;
+    border-radius: 6px;
+  }
+
+  &__form-inner {
+    max-width: 560px;
+    padding: 52px;
+  }
+
+  .feedback-form {
+    &__item {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 5px;
+      }
+
+      input {
+        padding: 10px 5px;
+        border: 1px solid #8B8989;
+        border-radius: 6px;
+      }
+
+      textarea {
+        height: 100px;
+        resize: none;
+      }
+    }
+
+    .feedback-contact-forms {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    .mail-input,
+    .phone-input  {
+      width: 47%;
+    }
+
+    &__btn {
+      width: 100%;
+      display: block;
+      text-align: center;
+      padding: 11px 0;
+      @extend %btn;
+      margin-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contacts {
+    &__inner {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__info {
+      width: 50%;
+    }
+  }  
+}

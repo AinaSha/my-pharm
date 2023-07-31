@@ -1,0 +1,42 @@
+@import '../../variables.scss';
+
+.google-block {
+    p {
+        text-align: center;
+        margin: 40px 0;
+        position: relative;
+    }
+
+    p::before{
+        content: "";
+        display: block;
+        width: 40%;
+        height: 1px;
+        background: $grey;
+        left: 0;
+        top: 50%;
+        position: absolute;
+    }
+
+    p::after{
+        content: "";
+        display: block;
+        width: 40%;
+        height: 1px;
+        background: $grey;
+        right: 0;
+        top: 50%;
+        position: absolute;
+    }
+
+    #signUpDiv {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+// @media (max-width: 475px)  {
+//     #signUpDiv {
+//       width: 40%;
+//     }
+// }
